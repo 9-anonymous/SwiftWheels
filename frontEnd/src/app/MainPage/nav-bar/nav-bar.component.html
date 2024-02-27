@@ -1,0 +1,31 @@
+<div id="Navbar">
+    <div class="Centring">
+
+        <div class="links">
+                <a href=""><i class="bi bi-house-door"></i>&nbsp; HOME</a>
+                <a href=""><i class="bi bi-newspaper"></i>&nbsp; NEWS</a>
+                <a href=""><i class="bi bi-search"></i> &nbsp;Search</a>  
+                <a href=""><i class="bi bi-telephone"></i> &nbsp;CONTACT-US</a>    
+        </div>
+        
+        <div>
+             <a id="imgLink" href="">
+                <img width="auto" height="60px" [src]="'assets/imgs/sw-high-resolution-logo-transparent.png'" alt="E">
+             </a>
+        </div>
+        
+        <div class="links">
+            <a href=""><i class="bi bi-shop"></i> &nbsp;CARS-SHOP</a>
+            <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>    
+            <ng-container *ngIf="!authService.isAuthenticated(); else loggedInTemplate">
+              <a routerLink="/register"><i class="bi bi-person"></i>&nbsp;Sign Up</a>
+              <a routerLink="/login"><i class="bi bi-door-open"></i>&nbsp;Login</a>
+            </ng-container>
+            <ng-template #loggedInTemplate>
+              <a (click)="logout()"><i class="bi bi-box-arrow-right"></i>&nbsp;Logout</a>
+              <span>{{ authService.getUsername()}}</span>
+            </ng-template>
+ 
+        </div>
+    </div>
+</div>
