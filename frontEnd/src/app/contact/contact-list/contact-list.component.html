@@ -1,0 +1,7 @@
+<div *ngFor="let message of messages" class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ message.title }}</h3>
+    <p class="card-text">From: {{ message.sender.username }}</p>
+    <button class="btn btn-primary" (click)="viewMessage(message.id)">View Message</button>
+  </div>
+</div>
