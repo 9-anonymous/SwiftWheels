@@ -67,7 +67,6 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
-            'StellaMaris\\Clock\\' => 18,
         ),
         'P' => 
         array (
@@ -305,10 +304,6 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         'Symfony\\Bridge\\Doctrine\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
-        ),
-        'StellaMaris\\Clock\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/stella-maris/clock/src',
         ),
         'Psr\\Log\\' => 
         array (

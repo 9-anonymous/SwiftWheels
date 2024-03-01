@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Notification;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\User;
 
 class NotificationRepository extends ServiceEntityRepository
 {
@@ -13,28 +12,39 @@ class NotificationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Notification::class);
     }
-    public function findUnreadNotificationsForUser(User $user): array
+
+    public function findUnreadNotificationsForUser($user)
     {
         return $this->createQueryBuilder('n')
-            ->where('n.receiver = :user')
-            ->andWhere('n.readAt IS NULL')
+            ->andWhere('n.receiver = :user')
+            ->andWhere('n.isRead = :read')
             ->setParameter('user', $user)
+            ->setParameter('read', false)
             ->getQuery()
             ->getResult();
     }
-    
-    public function markNotificationsAsRead(User $user): void
+
+    public function markNotificationsAsRead($user)
     {
         $this->createQueryBuilder('n')
-            ->update()
-            ->set('n.readAt', ':now')
+            ->update(Notification::class, 'n')
+            ->set('n.isRead', ':read')
             ->where('n.receiver = :user')
-            ->andWhere('n.readAt IS NULL')
-            ->setParameter('now', new \DateTime())
             ->setParameter('user', $user)
+            ->setParameter('read', true)
             ->getQuery()
             ->execute();
     }
-    
-    // Add custom methods if needed
+    public function findUnreadNotificationsCountForUser($user)
+{
+    return $this->createQueryBuilder('n')
+        ->select('COUNT(n.id)')
+        ->where('n.receiver = :user')
+        ->andWhere('n.isRead = :read')
+        ->setParameter('user', $user)
+        ->setParameter('read', false)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
 }

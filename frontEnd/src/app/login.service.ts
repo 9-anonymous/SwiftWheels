@@ -6,6 +6,8 @@ import { catchError,map, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 interface LoginResponse {
   userId: string;
+  token: string;
+
   // other properties if applicable
 }
  @Injectable({
@@ -20,8 +22,12 @@ export class LoginService {
   login(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, user, { observe: 'response' }).pipe(
       tap(response => {
-        localStorage.setItem('token', response.headers.get('Authorization') ?? '');
-        localStorage.setItem('isAuthenticated', 'true');
+        const token = (response.body as LoginResponse)?.token;
+        if (token) {
+          localStorage.setItem('token', token);
+        } else {
+          console.error('Token not found in response body');
+        }        localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('username', user.username);
         console.log('username:', user.username);
         const userId = (response.body as LoginResponse)?.userId;        // Store the user ID in local storage

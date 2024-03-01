@@ -6,6 +6,9 @@ namespace Doctrine\ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\ParameterType;
+use Doctrine\ORM\Internal\CriteriaOrderings;
 use Doctrine\ORM\Internal\QueryType;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\Parameter;
@@ -38,6 +41,8 @@ use function substr;
  */
 class QueryBuilder implements Stringable
 {
+    use CriteriaOrderings;
+
     /**
      * The array of DQL parts collected.
      *
@@ -428,12 +433,12 @@ class QueryBuilder implements Stringable
      *         ->setParameter('user_id', 1);
      * </code>
      *
-     * @param string|int      $key  The parameter position or name.
-     * @param string|int|null $type ParameterType::* or \Doctrine\DBAL\Types\Type::* constant
+     * @param string|int                                       $key  The parameter position or name.
+     * @param ParameterType|ArrayParameterType|string|int|null $type ParameterType::*, ArrayParameterType::* or \Doctrine\DBAL\Types\Type::* constant
      *
      * @return $this
      */
-    public function setParameter(string|int $key, mixed $value, string|int|null $type = null): static
+    public function setParameter(string|int $key, mixed $value, ParameterType|ArrayParameterType|string|int|null $type = null): static
     {
         $existingParameter = $this->getParameter($key);
 
@@ -1162,22 +1167,20 @@ class QueryBuilder implements Stringable
             }
         }
 
-        if ($criteria->getOrderings()) {
-            foreach ($criteria->getOrderings() as $sort => $order) {
-                $hasValidAlias = false;
-                foreach ($allAliases as $alias) {
-                    if (str_starts_with($sort . '.', $alias . '.')) {
-                        $hasValidAlias = true;
-                        break;
-                    }
+        foreach (self::getCriteriaOrderings($criteria) as $sort => $order) {
+            $hasValidAlias = false;
+            foreach ($allAliases as $alias) {
+                if (str_starts_with($sort . '.', $alias . '.')) {
+                    $hasValidAlias = true;
+                    break;
                 }
-
-                if (! $hasValidAlias) {
-                    $sort = $allAliases[0] . '.' . $sort;
-                }
-
-                $this->addOrderBy($sort, $order);
             }
+
+            if (! $hasValidAlias) {
+                $sort = $allAliases[0] . '.' . $sort;
+            }
+
+            $this->addOrderBy($sort, $order);
         }
 
         // Overwrite limits only if they was set in criteria

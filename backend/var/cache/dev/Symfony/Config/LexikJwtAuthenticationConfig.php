@@ -6,6 +6,8 @@ require_once __DIR__.\DIRECTORY_SEPARATOR.'LexikJwtAuthentication'.\DIRECTORY_SE
 require_once __DIR__.\DIRECTORY_SEPARATOR.'LexikJwtAuthentication'.\DIRECTORY_SEPARATOR.'TokenExtractorsConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'LexikJwtAuthentication'.\DIRECTORY_SEPARATOR.'SetCookiesConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'LexikJwtAuthentication'.\DIRECTORY_SEPARATOR.'ApiPlatformConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'LexikJwtAuthentication'.\DIRECTORY_SEPARATOR.'AccessTokenIssuanceConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'LexikJwtAuthentication'.\DIRECTORY_SEPARATOR.'AccessTokenVerificationConfig.php';
 
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -31,6 +33,8 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     private $removeTokenFromBodyWhenCookiesUsed;
     private $setCookies;
     private $apiPlatform;
+    private $accessTokenIssuance;
+    private $accessTokenVerification;
     private $_usedProperties = [];
 
     /**
@@ -239,11 +243,23 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * API Platform compatibility: add check_path in OpenAPI documentation.
-    */
-    public function apiPlatform(array $value = []): \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig
+     * @default {"enabled":false,"check_path":null,"username_path":null,"password_path":null}
+     * @return \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig : static)
+     */
+    public function apiPlatform(array $value = []): \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig|static
     {
-        if (null === $this->apiPlatform) {
+        if (!\is_array($value)) {
+            $this->_usedProperties['apiPlatform'] = true;
+            $this->apiPlatform = $value;
+
+            return $this;
+        }
+
+        if (!$this->apiPlatform instanceof \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig) {
             $this->_usedProperties['apiPlatform'] = true;
             $this->apiPlatform = new \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -251,6 +267,58 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
         }
 
         return $this->apiPlatform;
+    }
+
+    /**
+     * @template TValue
+     * @param TValue $value
+     * @default {"enabled":false,"signature":[],"encryption":{"enabled":false}}
+     * @return \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig : static)
+     */
+    public function accessTokenIssuance(array $value = []): \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig|static
+    {
+        if (!\is_array($value)) {
+            $this->_usedProperties['accessTokenIssuance'] = true;
+            $this->accessTokenIssuance = $value;
+
+            return $this;
+        }
+
+        if (!$this->accessTokenIssuance instanceof \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig) {
+            $this->_usedProperties['accessTokenIssuance'] = true;
+            $this->accessTokenIssuance = new \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "accessTokenIssuance()" has already been initialized. You cannot pass values the second time you call accessTokenIssuance().');
+        }
+
+        return $this->accessTokenIssuance;
+    }
+
+    /**
+     * @template TValue
+     * @param TValue $value
+     * @default {"enabled":false,"signature":{"header_checkers":[],"claim_checkers":["exp_with_clock_skew","iat_with_clock_skew","nbf_with_clock_skew"],"mandatory_claims":[],"allowed_algorithms":[]},"encryption":{"enabled":false,"continue_on_decryption_failure":false,"header_checkers":["iat_with_clock_skew","nbf_with_clock_skew","exp_with_clock_skew"],"allowed_key_encryption_algorithms":[],"allowed_content_encryption_algorithms":[]}}
+     * @return \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig : static)
+     */
+    public function accessTokenVerification(array $value = []): \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig|static
+    {
+        if (!\is_array($value)) {
+            $this->_usedProperties['accessTokenVerification'] = true;
+            $this->accessTokenVerification = $value;
+
+            return $this;
+        }
+
+        if (!$this->accessTokenVerification instanceof \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig) {
+            $this->_usedProperties['accessTokenVerification'] = true;
+            $this->accessTokenVerification = new \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "accessTokenVerification()" has already been initialized. You cannot pass values the second time you call accessTokenVerification().');
+        }
+
+        return $this->accessTokenVerification;
     }
 
     public function getExtensionAlias(): string
@@ -352,8 +420,20 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
 
         if (array_key_exists('api_platform', $value)) {
             $this->_usedProperties['apiPlatform'] = true;
-            $this->apiPlatform = new \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig($value['api_platform']);
+            $this->apiPlatform = \is_array($value['api_platform']) ? new \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig($value['api_platform']) : $value['api_platform'];
             unset($value['api_platform']);
+        }
+
+        if (array_key_exists('access_token_issuance', $value)) {
+            $this->_usedProperties['accessTokenIssuance'] = true;
+            $this->accessTokenIssuance = \is_array($value['access_token_issuance']) ? new \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig($value['access_token_issuance']) : $value['access_token_issuance'];
+            unset($value['access_token_issuance']);
+        }
+
+        if (array_key_exists('access_token_verification', $value)) {
+            $this->_usedProperties['accessTokenVerification'] = true;
+            $this->accessTokenVerification = \is_array($value['access_token_verification']) ? new \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig($value['access_token_verification']) : $value['access_token_verification'];
+            unset($value['access_token_verification']);
         }
 
         if ([] !== $value) {
@@ -410,7 +490,13 @@ class LexikJwtAuthenticationConfig implements \Symfony\Component\Config\Builder\
             $output['set_cookies'] = array_map(fn ($v) => $v->toArray(), $this->setCookies);
         }
         if (isset($this->_usedProperties['apiPlatform'])) {
-            $output['api_platform'] = $this->apiPlatform->toArray();
+            $output['api_platform'] = $this->apiPlatform instanceof \Symfony\Config\LexikJwtAuthentication\ApiPlatformConfig ? $this->apiPlatform->toArray() : $this->apiPlatform;
+        }
+        if (isset($this->_usedProperties['accessTokenIssuance'])) {
+            $output['access_token_issuance'] = $this->accessTokenIssuance instanceof \Symfony\Config\LexikJwtAuthentication\AccessTokenIssuanceConfig ? $this->accessTokenIssuance->toArray() : $this->accessTokenIssuance;
+        }
+        if (isset($this->_usedProperties['accessTokenVerification'])) {
+            $output['access_token_verification'] = $this->accessTokenVerification instanceof \Symfony\Config\LexikJwtAuthentication\AccessTokenVerificationConfig ? $this->accessTokenVerification->toArray() : $this->accessTokenVerification;
         }
 
         return $output;

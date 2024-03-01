@@ -16,6 +16,7 @@ class SetCookiesConfig
     private $domain;
     private $secure;
     private $httpOnly;
+    private $partitioned;
     private $split;
     private $_usedProperties = [];
 
@@ -99,6 +100,19 @@ class SetCookiesConfig
     }
 
     /**
+     * @default false
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     */
+    public function partitioned($value): static
+    {
+        $this->_usedProperties['partitioned'] = true;
+        $this->partitioned = $value;
+
+        return $this;
+    }
+
+    /**
      * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
      * @return $this
@@ -149,6 +163,12 @@ class SetCookiesConfig
             unset($value['httpOnly']);
         }
 
+        if (array_key_exists('partitioned', $value)) {
+            $this->_usedProperties['partitioned'] = true;
+            $this->partitioned = $value['partitioned'];
+            unset($value['partitioned']);
+        }
+
         if (array_key_exists('split', $value)) {
             $this->_usedProperties['split'] = true;
             $this->split = $value['split'];
@@ -180,6 +200,9 @@ class SetCookiesConfig
         }
         if (isset($this->_usedProperties['httpOnly'])) {
             $output['httpOnly'] = $this->httpOnly;
+        }
+        if (isset($this->_usedProperties['partitioned'])) {
+            $output['partitioned'] = $this->partitioned;
         }
         if (isset($this->_usedProperties['split'])) {
             $output['split'] = $this->split;

@@ -106,10 +106,7 @@ class PropertyAccessor implements PropertyAccessorInterface
         return $propertyValues[\count($propertyValues) - 1][self::VALUE];
     }
 
-    /**
-     * @return void
-     */
-    public function setValue(object|array &$objectOrArray, string|PropertyPathInterface $propertyPath, mixed $value)
+    public function setValue(object|array &$objectOrArray, string|PropertyPathInterface $propertyPath, mixed $value): void
     {
         if (\is_object($objectOrArray) && false === strpbrk((string) $propertyPath, '.[')) {
             $zval = [
@@ -277,14 +274,7 @@ class PropertyAccessor implements PropertyAccessorInterface
         for ($i = 0; $i < $lastIndex; ++$i) {
             $property = $propertyPath->getElement($i);
             $isIndex = $propertyPath->isIndex($i);
-
-            $isNullSafe = false;
-            if (method_exists($propertyPath, 'isNullSafe')) {
-                // To be removed in symfony 7 once we are sure isNullSafe is always implemented.
-                $isNullSafe = $propertyPath->isNullSafe($i);
-            } else {
-                trigger_deprecation('symfony/property-access', '6.2', 'The "%s()" method in class "%s" needs to be implemented in version 7.0, not defining it is deprecated.', 'isNullSafe', PropertyPathInterface::class);
-            }
+            $isNullSafe = $propertyPath->isNullSafe($i);
 
             if ($isIndex) {
                 // Create missing nested arrays on demand
@@ -423,7 +413,7 @@ class PropertyAccessor implements PropertyAccessorInterface
                 }
             } catch (\Error $e) {
                 // handle uninitialized properties in PHP >= 7.4
-                if (preg_match('/^Typed property ([\w\\\\@]+)::\$(\w+) must not be accessed before initialization$/', $e->getMessage(), $matches)) {
+                if (preg_match('/^Typed property ([\w\\\\@]+)::\$(\w+) must not be accessed before initialization$/', $e->getMessage(), $matches) || preg_match('/^Cannot access uninitialized non-nullable property ([\w\\\\@]+)::\$(\w+) by reference$/', $e->getMessage(), $matches)) {
                     $r = new \ReflectionProperty(str_contains($matches[1], '@anonymous') ? $class : $matches[1], $matches[2]);
                     $type = ($type = $r->getType()) instanceof \ReflectionNamedType ? $type->getName() : (string) $type;
 

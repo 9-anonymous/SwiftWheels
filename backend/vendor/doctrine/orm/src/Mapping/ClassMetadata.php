@@ -41,6 +41,7 @@ use function is_subclass_of;
 use function ltrim;
 use function method_exists;
 use function spl_object_id;
+use function sprintf;
 use function str_contains;
 use function str_replace;
 use function strtolower;
@@ -2108,13 +2109,12 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * @param DiscriminatorColumnMapping|mixed[]|null $columnDef
      * @psalm-param DiscriminatorColumnMapping|array{
      *     name: string|null,
-     *     fieldName?: string,
-     *     type?: string,
-     *     length?: int,
+     *     fieldName?: string|null,
+     *     type?: string|null,
+     *     length?: int|null,
      *     columnDefinition?: string|null,
      *     enumType?: class-string<BackedEnum>|null,
-     *     options?:array<string,
-     *     mixed>|null
+     *     options?: array<string, mixed>|null
      * }|null $columnDef
      *
      * @throws MappingException
@@ -2136,13 +2136,9 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
                 throw MappingException::duplicateColumnName($this->name, $columnDef['name']);
             }
 
-            if (! isset($columnDef['fieldName'])) {
-                $columnDef['fieldName'] = $columnDef['name'];
-            }
-
-            if (! isset($columnDef['type'])) {
-                $columnDef['type'] = 'string';
-            }
+            $columnDef['fieldName'] ??= $columnDef['name'];
+            $columnDef['type']      ??= 'string';
+            $columnDef['options']   ??= [];
 
             if (in_array($columnDef['type'], ['boolean', 'array', 'object', 'datetime', 'time', 'date'], true)) {
                 throw MappingException::invalidDiscriminatorColumnType($this->name, $columnDef['type']);
@@ -2462,17 +2458,25 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
 
     public function getAssociationMappedByTargetField(string $assocName): string
     {
-        $assoc = $this->associationMappings[$assocName];
+        $assoc = $this->getAssociationMapping($assocName);
 
-        assert($assoc instanceof InverseSideMapping);
+        if (! $assoc instanceof InverseSideMapping) {
+            throw new LogicException(sprintf(
+                <<<'EXCEPTION'
+                Context: Calling %s() with "%s", which is the owning side of an association.
+                Problem: The owning side of an association has no "mappedBy" field.
+                Solution: Call %s::isAssociationInverseSide() to check first.
+                EXCEPTION,
+                __METHOD__,
+                $assocName,
+                self::class,
+            ));
+        }
 
         return $assoc->mappedBy;
     }
 
-    /**
-     * @return string|null null if the input value is null
-     * @psalm-return class-string|null
-     */
+    /** @return string|null null if the input value is null */
     public function fullyQualifiedClassName(string|null $className): string|null
     {
         if (empty($className)) {

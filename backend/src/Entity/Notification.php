@@ -20,8 +20,12 @@ class Notification
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private bool $isRead = false;
     // Additional fields like createdAt, read status, etc.
-
+    #[ORM\Column(nullable: true)]
+    private ?int $messageId = null;
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +54,36 @@ class Notification
 
         return $this;
     }
+    public function isRead(): bool
+    {
+        return $this->isRead;
+    }
+    
+    public function setRead(bool $isRead): self
+    {
+        $this->isRead = $isRead;
+    
+        return $this;
+    }
 
+
+    public function getMessageId(): ?int
+{
+    return $this->messageId;
+}
+
+public function setMessageId(?int $messageId): self
+{
+    $this->messageId = $messageId;
+
+    return $this;
+}
+
+// Add a constructor to set default values
+public function __construct()
+{
+    $this->isRead = false;
+}
+ 
     // Additional getters and setters for other fields
 }

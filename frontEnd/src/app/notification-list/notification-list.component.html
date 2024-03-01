@@ -1,11 +1,17 @@
-<div (click)="toggleList()" class="bell-icon">
- <i class="bi bi-bell"></i>
- <span *ngIf="notifications.length > 0">{{notifications.length}}</span>
-</div>
-<div *ngIf="showList">
- <ul>
-    <li *ngFor="let notification of notifications" (click)="goToMessage(notification.id)">
-      {{notification.message}}
+<div class="dropdown">
+  <a class="dropdown-toggle" (click)="toggleNotifications()" href="#" role="button" id="notificationDropdown"
+     data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-bell"></i>
+    <span class="badge bg-danger" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="notificationDropdown" *ngIf="showNotifications">
+    <li *ngFor="let notification of notifications">
+      <a class="dropdown-item" (click)="navigateToMessage(notification.messageId)">
+        {{ notification.message }}
+      </a>
     </li>
- </ul>
+    <li *ngIf="notifications.length === 0">
+      <p class="dropdown-item">No unread notifications</p>
+    </li>
+  </ul>
 </div>

@@ -10,10 +10,24 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  */
 class ApiPlatformConfig 
 {
+    private $enabled;
     private $checkPath;
     private $usernamePath;
     private $passwordPath;
     private $_usedProperties = [];
+
+    /**
+     * @default false
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function enabled($value): static
+    {
+        $this->_usedProperties['enabled'] = true;
+        $this->enabled = $value;
+
+        return $this;
+    }
 
     /**
      * The login check path to add in OpenAPI.
@@ -59,6 +73,12 @@ class ApiPlatformConfig
 
     public function __construct(array $value = [])
     {
+        if (array_key_exists('enabled', $value)) {
+            $this->_usedProperties['enabled'] = true;
+            $this->enabled = $value['enabled'];
+            unset($value['enabled']);
+        }
+
         if (array_key_exists('check_path', $value)) {
             $this->_usedProperties['checkPath'] = true;
             $this->checkPath = $value['check_path'];
@@ -85,6 +105,9 @@ class ApiPlatformConfig
     public function toArray(): array
     {
         $output = [];
+        if (isset($this->_usedProperties['enabled'])) {
+            $output['enabled'] = $this->enabled;
+        }
         if (isset($this->_usedProperties['checkPath'])) {
             $output['check_path'] = $this->checkPath;
         }

@@ -20,7 +20,6 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     private $sessionFixationStrategy;
     private $hideUserNotFound;
     private $eraseCredentials;
-    private $enableAuthenticatorManager;
     private $accessDecisionManager;
     private $passwordHashers;
     private $providers;
@@ -78,20 +77,6 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     {
         $this->_usedProperties['eraseCredentials'] = true;
         $this->eraseCredentials = $value;
-
-        return $this;
-    }
-
-    /**
-     * @default true
-     * @param ParamConfigurator|bool $value
-     * @deprecated The "enable_authenticator_manager" option at "security" is deprecated.
-     * @return $this
-     */
-    public function enableAuthenticatorManager($value): static
-    {
-        $this->_usedProperties['enableAuthenticatorManager'] = true;
-        $this->enableAuthenticatorManager = $value;
 
         return $this;
     }
@@ -215,12 +200,6 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
             unset($value['erase_credentials']);
         }
 
-        if (array_key_exists('enable_authenticator_manager', $value)) {
-            $this->_usedProperties['enableAuthenticatorManager'] = true;
-            $this->enableAuthenticatorManager = $value['enable_authenticator_manager'];
-            unset($value['enable_authenticator_manager']);
-        }
-
         if (array_key_exists('access_decision_manager', $value)) {
             $this->_usedProperties['accessDecisionManager'] = true;
             $this->accessDecisionManager = new \Symfony\Config\Security\AccessDecisionManagerConfig($value['access_decision_manager']);
@@ -276,9 +255,6 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
         }
         if (isset($this->_usedProperties['eraseCredentials'])) {
             $output['erase_credentials'] = $this->eraseCredentials;
-        }
-        if (isset($this->_usedProperties['enableAuthenticatorManager'])) {
-            $output['enable_authenticator_manager'] = $this->enableAuthenticatorManager;
         }
         if (isset($this->_usedProperties['accessDecisionManager'])) {
             $output['access_decision_manager'] = $this->accessDecisionManager->toArray();

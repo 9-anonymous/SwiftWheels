@@ -157,7 +157,7 @@ final class MakeAuthenticator extends AbstractMaker
                 $io->ask(
                     'Choose a name for the controller class (e.g. <fg=yellow>SecurityController</>)',
                     'SecurityController',
-                    [Validator::class, 'validateClassName']
+                    Validator::validateClassName(...)
                 )
             );
 
@@ -446,7 +446,7 @@ final class MakeAuthenticator extends AbstractMaker
         return $userNeedsEncoder;
     }
 
-    public function configureDependencies(DependencyBuilder $dependencies, InputInterface $input = null): void
+    public function configureDependencies(DependencyBuilder $dependencies, ?InputInterface $input = null): void
     {
         $dependencies->addClassDependency(
             SecurityBundle::class,

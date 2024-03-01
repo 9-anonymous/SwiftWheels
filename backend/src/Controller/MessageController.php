@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Message;
-use App\Entity\User;
+use App\Entity\Notification;
 use Psr\Log\LoggerInterface;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
@@ -158,7 +158,13 @@ $data = $contentArray; // Use the parsed form data
             $this->logger->error('Error saving message:', [$e->getMessage()]);
             return new JsonResponse(['error' => 'Error saving message'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
+        $notification = new Notification();
+        $notification->setReceiver($receiver);
+        $notification->setMessage($sender->getUsername() . " sent you a message");
+        $notification->setMessageId($message->getId()); // Set the related message ID
+        $entityManager->persist($notification);
+        $entityManager->flush();
+    
         return new JsonResponse(['message' => 'Message sent successfully']);
     }
     #[Route('/uploads/{filename}', name: 'app_upload_file', methods: ['GET'])]
