@@ -25,7 +25,8 @@ class Notification
     // Additional fields like createdAt, read status, etc.
     #[ORM\Column(nullable: true)]
     private ?int $messageId = null;
- 
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $messageTitle = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -85,5 +86,15 @@ public function __construct()
     $this->isRead = false;
 }
  
-    // Additional getters and setters for other fields
+public function getMessageTitle(): ?string
+{
+    return $this->messageTitle;
+}
+
+public function setMessageTitle(?string $messageTitle): self
+{
+    $this->messageTitle = $messageTitle;
+
+    return $this;
+}
 }

@@ -36,6 +36,7 @@ class NotificationController extends AbstractController
             $notificationArray[] = [
                 'id' => $notification->getId(),
                 'message' => $notification->getMessage(),
+                'messageTitle' => $notification->getMessageTitle(),
                 'messageId' => $notification->getMessageId(), // Add the messageId field
                 'isRead' => $notification->isRead(), // Add the isRead field
                  // Add other necessary fields

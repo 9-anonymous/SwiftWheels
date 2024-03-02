@@ -9,6 +9,8 @@
       <li *ngFor="let notification of notifications">
         <button class="dropdown-item"   (click)="navigateToMessage(notification.messageId)">
           {{ notification?.message }}
+          <p class="message-title">{{ notification?.messageTitle }}</p>
+
       </button>
       </li>
         </ng-container>

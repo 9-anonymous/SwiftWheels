@@ -162,6 +162,7 @@ $data = $contentArray; // Use the parsed form data
         $notification->setReceiver($receiver);
         $notification->setMessage($sender->getUsername() . " sent you a message");
         $notification->setMessageId($message->getId()); // Set the related message ID
+        $notification->setMessageTitle($message->getTitle()); // Include the message title
         $entityManager->persist($notification);
         $entityManager->flush();
     
