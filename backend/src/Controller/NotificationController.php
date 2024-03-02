@@ -9,8 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Persistence\ManagerRegistry;
 
+use Psr\Log\LoggerInterface;
+
 class NotificationController extends AbstractController
 {
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+    
     #[Route('/notifications/unread', name: 'app_notifications_unread', methods: ['GET'])]
     public function getUnreadNotifications(NotificationRepository $notificationRepository): JsonResponse
     {
@@ -20,12 +29,16 @@ class NotificationController extends AbstractController
         }
     
         $notifications = $notificationRepository->findUnreadNotificationsForUser($user);
+        $this->logger->info('Unread Notifications:', $notifications);
+
         $notificationArray = [];
         foreach ($notifications as $notification) {
             $notificationArray[] = [
                 'id' => $notification->getId(),
                 'message' => $notification->getMessage(),
-                // Add other necessary fields
+                'messageId' => $notification->getMessageId(), // Add the messageId field
+                'isRead' => $notification->isRead(), // Add the isRead field
+                 // Add other necessary fields
             ];
         }
     
@@ -58,8 +71,7 @@ public function markNotificationsAsRead(ManagerRegistry $doctrine,NotificationRe
         $notificationArray[] = [
             'id' => $notification->getId(),
             'message' => $notification->getMessage(),
-            'messageUrl' => $notification->getMessageUrl(),
-        ];
+         ];
     }
     $entityManager = $doctrine->getManager();
     $entityManager->flush();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notification.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-notification-list',
@@ -13,16 +14,17 @@ export class NotificationListComponent implements OnInit {
   notificationCount: number = 0;
   showNotifications: boolean = false;
 
-  constructor(private router: Router, private notificationService: NotificationService) {}
+  constructor(private router: Router, private notificationService: NotificationService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadNotifications();
-  }
-
-  loadNotifications(): void {
-    this.notificationService.getUnreadNotifications().subscribe(
-      notifications => {
-        this.notifications = notifications;
+   }
+  
+  
+   loadNotifications(): void {
+    this.notificationService.getUnreadNotifications().subscribe(response => {
+        this.notifications = (response as any).notifications;
+        
         this.notificationCount = this.notifications.length;
       },
       error => {
@@ -43,9 +45,9 @@ export class NotificationListComponent implements OnInit {
     );
   }
 
-  navigateToMessage(messageUrl: string): void {
-    // Navigate to the message URL or perform any other action
-    this.router.navigate([messageUrl]);
+  navigateToMessage(messageId: number): void {
+    this.router.navigate(['/contact-message', messageId]);
+ 
   }
 
   toggleNotifications(): void {

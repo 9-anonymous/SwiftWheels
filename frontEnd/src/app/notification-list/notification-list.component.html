@@ -1,17 +1,20 @@
 <div class="dropdown">
-  <a class="dropdown-toggle" (click)="toggleNotifications()" href="#" role="button" id="notificationDropdown"
-     data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="bi bi-bell"></i>
-    <span class="badge bg-danger" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+  <a class="me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
+      role="button" data-bs-toggle="dropdown" aria-expanded="false">
+       <i class="bi bi-bell"></i>
+       <span class="badge rounded-pill bg-danger">{{ notificationCount }}</span>
   </a>
-  <ul class="dropdown-menu" aria-labelledby="notificationDropdown" *ngIf="showNotifications">
-    <li *ngFor="let notification of notifications">
-      <a class="dropdown-item" (click)="navigateToMessage(notification.messageId)">
-        {{ notification.message }}
-      </a>
-    </li>
-    <li *ngIf="notifications.length === 0">
-      <p class="dropdown-item">No unread notifications</p>
-    </li>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <ng-container *ngIf="notifications.length > 0; else noNotifications">
+      <li *ngFor="let notification of notifications">
+        <button class="dropdown-item"   (click)="navigateToMessage(notification.messageId)">
+          {{ notification?.message }}
+      </button>
+      </li>
+        </ng-container>
+       <ng-template  #noNotifications>
+           <li class="dropdown-item">There are no notifications</li>
+       </ng-template>
   </ul>
-</div>
+ </div>
+ 
