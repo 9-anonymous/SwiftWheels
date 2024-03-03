@@ -163,6 +163,7 @@ $data = $contentArray; // Use the parsed form data
         $notification->setMessage($sender->getUsername() . " sent you a message");
         $notification->setMessageId($message->getId()); // Set the related message ID
         $notification->setMessageTitle($message->getTitle()); // Include the message title
+        $notification->setCreatedAt(new \DateTime()); // Set the createdAt field
         $entityManager->persist($notification);
         $entityManager->flush();
     

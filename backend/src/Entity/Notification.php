@@ -27,6 +27,10 @@ class Notification
     private ?int $messageId = null;
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $messageTitle = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,6 +88,8 @@ public function setMessageId(?int $messageId): self
 public function __construct()
 {
     $this->isRead = false;
+    $this->createdAt = new \DateTime(); // Set the createdAt field to the current date and time
+
 }
  
 public function getMessageTitle(): ?string
@@ -97,4 +103,21 @@ public function setMessageTitle(?string $messageTitle): self
 
     return $this;
 }
+
+public function getCreatedAt(): ?\DateTimeInterface
+{
+    return $this->createdAt;
+}
+
+public function setCreatedAt(?\DateTimeInterface $createdAt): self
+{
+    $this->createdAt = $createdAt;
+
+    return $this;
+}
+
+// ...
+
+// Update the constructor to set the createdAt field
+ 
 }

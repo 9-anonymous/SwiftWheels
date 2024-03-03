@@ -39,7 +39,7 @@ class NotificationController extends AbstractController
                 'messageTitle' => $notification->getMessageTitle(),
                 'messageId' => $notification->getMessageId(), // Add the messageId field
                 'isRead' => $notification->isRead(), // Add the isRead field
-                 // Add other necessary fields
+                'createdAt' => $notification->getCreatedAt()->format('Y-m-d H:i:s'), // Format the createdAt field
             ];
         }
     
