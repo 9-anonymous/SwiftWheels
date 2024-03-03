@@ -24,8 +24,9 @@
                 <a routerLink="/contactlist">List</a>
               </div>
             </div>
-                <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>   
-                <app-notification-list></app-notification-list>
+                <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>
+                   
+                <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
  
             <ng-container *ngIf="!authService.isAuthenticated(); else loggedInTemplate">
               <a routerLink="/register"><i class="bi bi-person"></i>&nbsp;Sign Up</a>

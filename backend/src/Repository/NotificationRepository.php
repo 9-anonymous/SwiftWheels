@@ -56,5 +56,12 @@ class NotificationRepository extends ServiceEntityRepository
         ->getQuery()
         ->getSingleScalarResult();
 }
-
+public function findAllNotificationsForUser($user)
+{
+    return $this->createQueryBuilder('n')
+        ->andWhere('n.receiver = :user')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
 }

@@ -22,7 +22,8 @@ import { EmailComponent } from './email/email.component';
 import { ContactListComponent } from './contact/contact-list/contact-list.component';
 import { ContactMessageComponent } from './contact/contact-message/contact-message.component';
 import { ContactInputComponent } from './contact/contact-input/contact-input.component';
-import { NotificationListComponent } from './notification-list/notification-list.component';
+import { NotificationBellComponent } from './notification/notification-bell/notification-bell.component';
+import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,9 @@ import { NotificationListComponent } from './notification-list/notification-list
     ContactListComponent,
     ContactMessageComponent,
     ContactInputComponent,
+    NotificationBellComponent,
     NotificationListComponent
+
   ],
   imports: [
     BrowserModule,

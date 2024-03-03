@@ -8,6 +8,8 @@ import { EmailComponent } from './email/email.component';
 import { ContactInputComponent } from './contact/contact-input/contact-input.component';
 import { ContactListComponent } from './contact/contact-list/contact-list.component';
 import { ContactMessageComponent } from './contact/contact-message/contact-message.component';
+import { NotificationListComponent } from './notification/notification-list/notification-list.component';
+
 const routes: Routes = [
   { path: '' , component : MainPageComponent},
   { path: 'register', component: SignupComponent },
@@ -16,7 +18,8 @@ const routes: Routes = [
   { path: 'email', component: EmailComponent },
   { path: 'contactinput', component: ContactInputComponent },
   { path: 'contactlist', component: ContactListComponent },
-  { path: 'contact-message/:id', component: ContactMessageComponent }
+  { path: 'contact-message/:id', component: ContactMessageComponent },
+  { path: 'notifications', component: NotificationListComponent } // New route for the notifications list
 
 
 ];

@@ -99,5 +99,18 @@ public function markAllNotificationsAsRead(ManagerRegistry $doctrine, Notificati
     $notificationRepository->markNotificationsAsRead($user);
     return new JsonResponse(['success' => true]);
 }
+
+#[Route('/notifications', name: 'app_notifications_all', methods: ['GET'])]
+public function getAllNotifications(NotificationRepository $notificationRepository): JsonResponse
+{
+    $user = $this->getUser();
+    if (!$user) {
+        return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
+    }
+
+    $notifications = $notificationRepository->findAllNotificationsForUser($user);
+    // Format the notifications as needed
+    return new JsonResponse(['notifications' => $notifications]);
+}
 }
 
