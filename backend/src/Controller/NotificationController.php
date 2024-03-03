@@ -87,5 +87,17 @@ public function getUnreadNotificationsCount(NotificationRepository $notification
     return new JsonResponse(['unreadCount' => $unreadCount]);
 }
 
+
+#[Route('/notifications/mark-all-as-read', name: 'app_notifications_mark_all_as_read', methods: ['POST'])]
+public function markAllNotificationsAsRead(ManagerRegistry $doctrine, NotificationRepository $notificationRepository): JsonResponse
+{
+    $user = $this->getUser();
+    if (!$user) {
+        return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
+    }
+
+    $notificationRepository->markNotificationsAsRead($user);
+    return new JsonResponse(['success' => true]);
+}
 }
 

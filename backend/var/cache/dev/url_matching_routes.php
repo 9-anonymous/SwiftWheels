@@ -16,6 +16,7 @@ return [
         '/notifications' => [[['_route' => 'app_notifications_unread', '_controller' => 'App\\Controller\\NotificationController::getUnreadNotifications'], null, ['GET' => 0], null, false, false, null]],
         '/notifications/mark-as-read' => [[['_route' => 'app_notifications_mark_as_read', '_controller' => 'App\\Controller\\NotificationController::markNotificationsAsRead'], null, ['POST' => 0], null, false, false, null]],
         '/notifications/unread-count' => [[['_route' => 'app_notifications_unread_count', '_controller' => 'App\\Controller\\NotificationController::getUnreadNotificationsCount'], null, ['GET' => 0], null, false, false, null]],
+        '/notifications/mark-all-as-read' => [[['_route' => 'app_notifications_mark_all_as_read', '_controller' => 'App\\Controller\\NotificationController::markAllNotificationsAsRead'], null, ['POST' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\SignupController::register'], null, ['POST' => 0], null, false, false, null]],
         '/users' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::listUsers'], null, ['GET' => 0], null, false, false, null]],
     ],

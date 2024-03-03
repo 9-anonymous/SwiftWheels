@@ -80,6 +80,20 @@ markAsRead(): void {
       this.notificationCount = 0; // Reset the counter when opening the bell
     }
  }
+
+
+ markAllAsRead(): void {
+  this.notificationService.markAllNotificationsAsRead().subscribe(
+     response => {
+       this.notifications.forEach(notification => notification.isRead = true);
+       this.notificationCount = 0;
+       this.cdr.detectChanges(); // Ensure the view updates
+     },
+     error => {
+       console.error('Error marking all notifications as read:', error);
+     }
+  );
+ }
 }
 
     

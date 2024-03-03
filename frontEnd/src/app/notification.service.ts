@@ -32,7 +32,10 @@ markNotificationAsRead(notificationId: number): Observable<any> {
 }
 
 
-
+markAllNotificationsAsRead(): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  return this.http.post(`${this.apiUrl}/mark-all-as-read`, {}, { headers });
+ }
  
 }
 
