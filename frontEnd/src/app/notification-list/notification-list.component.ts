@@ -13,20 +13,31 @@ export class NotificationListComponent implements OnInit {
   notifications: any[] = [];
   notificationCount: number = 0;
   showNotifications: boolean = false;
+  lastFetchedCount: number = 0; // Keep track of the last fetched count
 
   constructor(private router: Router, private notificationService: NotificationService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadNotifications();
+    this.loadUnreadCount(); // Load the unread count on component initialization
+
    }
-  
+   loadUnreadCount(): void {
+    this.notificationService.getUnreadNotificationsCount().subscribe(response => {
+      this.notificationCount = response.unreadCount;
+      this.cdr.detectChanges(); // Ensure the view updates
+    }, error => {
+      console.error('Error loading unread notifications count:', error);
+    });
+ }
+
   
    loadNotifications(): void {
     this.notificationService.getNotifications().subscribe(response => {
         // Fetch the latest 10 notifications
-        this.notifications = (response as any).notifications.slice(0, 10).reverse();
-        this.notificationCount += this.notifications.length; // Add to the counter
-    },
+        this.notifications = (response as any).notifications.slice(0, 10);
+        this.lastFetchedCount = this.notifications.length; // Update the last fetched count
+      },
     error => {
         console.error('Error loading notifications:', error);
     });
@@ -34,16 +45,16 @@ export class NotificationListComponent implements OnInit {
 
 markAsRead(): void {
   this.notificationService.markNotificationAsRead(this.notifications[0].id).subscribe(
-      response => {
-          // Reset the counter after clicking on the bell
-          this.notificationCount = 0;
-          this.showNotifications = false;
-      },
-      error => {
-          console.error('Error marking notification as read:', error);
-      }
+    response => {
+      this.notificationCount = 0;
+      this.showNotifications = false;
+    },
+    error => {
+      console.error('Error marking notification as read:', error);
+    }
   );
 }
+
 
 
   navigateToMessage(notification: any): void {
@@ -65,7 +76,10 @@ markAsRead(): void {
    toggleNotifications(): void {
     this.showNotifications = !this.showNotifications;
     if (this.showNotifications) {
-       this.notificationCount = 0; // Reset the counter when opening the bell
+      this.loadNotifications(); // Reload notifications when the bell is clicked
+      this.notificationCount = 0; // Reset the counter when opening the bell
     }
-   }
-    }
+ }
+}
+
+    

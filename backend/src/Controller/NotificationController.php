@@ -75,5 +75,17 @@ class NotificationController extends AbstractController
 
         return new JsonResponse(['success' => true]);
     }
+    #[Route('/notifications/unread-count', name: 'app_notifications_unread_count', methods: ['GET'])]
+public function getUnreadNotificationsCount(NotificationRepository $notificationRepository): JsonResponse
+{
+    $user = $this->getUser();
+    if (!$user) {
+        return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
+    }
+
+    $unreadCount = $notificationRepository->findUnreadNotificationsCountForUser($user);
+    return new JsonResponse(['unreadCount' => $unreadCount]);
+}
+
 }
 
