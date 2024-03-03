@@ -11,9 +11,9 @@ export class NotificationService {
 
  constructor(private http: HttpClient) {}
 
- getUnreadNotifications(): Observable<any[]> {
+ getNotifications(): Observable<any[]> {
   const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-  return this.http.get<any[]>(`${this.apiUrl}/unread`, { headers }).pipe(
+  return this.http.get<any[]>(`${this.apiUrl}`, { headers }).pipe(
     tap(data => console.log('Unread notifications data:', data)),
     catchError(error => {
       console.error('Error fetching unread notifications:', error);
@@ -21,11 +21,7 @@ export class NotificationService {
     })
   );
 }
-
- getUnreadNotificationsCount(): Observable<number> {
-   const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-   return this.http.get<number>(`${this.apiUrl}/unread/count`, { headers });
-  }
+ 
  markNotificationsAsRead(): Observable<any> {
    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
    return this.http.post(`${this.apiUrl}/mark-as-read`, {}, { headers });

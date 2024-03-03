@@ -22,7 +22,7 @@ export class NotificationListComponent implements OnInit {
   
   
    loadNotifications(): void {
-    this.notificationService.getUnreadNotifications().subscribe(response => {
+    this.notificationService.getNotifications().subscribe(response => {
         this.notifications = (response as any).notifications;
         
         this.notificationCount = this.notifications.length;

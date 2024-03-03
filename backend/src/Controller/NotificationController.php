@@ -20,7 +20,7 @@ class NotificationController extends AbstractController
         $this->logger = $logger;
     }
     
-    #[Route('/notifications/unread', name: 'app_notifications_unread', methods: ['GET'])]
+    #[Route('/notifications', name: 'app_notifications_unread', methods: ['GET'])]
     public function getUnreadNotifications(NotificationRepository $notificationRepository): JsonResponse
     {
         $user = $this->getUser();
@@ -45,18 +45,7 @@ class NotificationController extends AbstractController
     
         return new JsonResponse(['notifications' => $notificationArray]);
     }
-    #[Route('/notifications/unread/count', name: 'app_notifications_unread_count', methods: ['GET'])]
-public function getUnreadNotificationsCount(NotificationRepository $notificationRepository): JsonResponse
-{
-    $user = $this->getUser();
-    if (!$user) {
-        return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
-    }
-
-    $count = $notificationRepository->findUnreadNotificationsCountForUser($user);
-
-    return new JsonResponse(['count' => $count]);
-}
+  
 #[Route('/notifications/mark-as-read', name: 'app_notifications_mark_as_read', methods: ['POST'])]
 public function markNotificationsAsRead(ManagerRegistry $doctrine,NotificationRepository $notificationRepository): JsonResponse
 {
