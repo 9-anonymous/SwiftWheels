@@ -8,7 +8,7 @@ use App\Repository\NotificationRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Symfony\Component\HttpFoundation\Request;
 use Psr\Log\LoggerInterface;
 
 class NotificationController extends AbstractController
@@ -46,26 +46,34 @@ class NotificationController extends AbstractController
         return new JsonResponse(['notifications' => $notificationArray]);
     }
   
-#[Route('/notifications/mark-as-read', name: 'app_notifications_mark_as_read', methods: ['POST'])]
-public function markNotificationsAsRead(ManagerRegistry $doctrine,NotificationRepository $notificationRepository): JsonResponse
-{
-    $user = $this->getUser();
-    if (!$user) {
-        return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
-    }
+    #[Route('/notifications/mark-as-read', name: 'app_notifications_mark_as_read', methods: ['POST'])]
+    public function markNotificationsAsRead(ManagerRegistry $doctrine, NotificationRepository $notificationRepository, Request $request): JsonResponse
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
 
-    $notifications = $notificationRepository->findUnreadNotificationsForUser($user);
-    $notificationArray = [];
-    foreach ($notifications as $notification) {
+        // Ensure the request's Content-Type is set to application/json
+        
+        $data = json_decode($request->getContent(), true);
+        $notificationId = $data['id'] ?? null;
+
+        if ($notificationId === null) {
+            return new JsonResponse(['error' => 'Missing notification ID'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $notification = $notificationRepository->find($notificationId);
+        if (!$notification || $notification->getReceiver() !== $user) {
+            return new JsonResponse(['error' => 'Invalid notification'], Response::HTTP_BAD_REQUEST);
+        }
+
         $notification->setRead(true);
-        $notificationArray[] = [
-            'id' => $notification->getId(),
-            'message' => $notification->getMessage(),
-         ];
-    }
-    $entityManager = $doctrine->getManager();
-    $entityManager->flush();
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($notification);
+        $entityManager->flush();
 
- 
-    return new JsonResponse(['notifications' => $notificationArray]);
-}}
+        return new JsonResponse(['success' => true]);
+    }
+}
+

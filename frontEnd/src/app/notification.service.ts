@@ -22,9 +22,13 @@ export class NotificationService {
   );
 }
  
- markNotificationsAsRead(): Observable<any> {
-   const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-   return this.http.post(`${this.apiUrl}/mark-as-read`, {}, { headers });
- }
+markNotificationAsRead(notificationId: number): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  return this.http.post(`${this.apiUrl}/mark-as-read`, { id: notificationId }, { headers });
+}
+
+
+
+ 
 }
 

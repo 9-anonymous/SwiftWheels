@@ -23,37 +23,47 @@ export class NotificationListComponent implements OnInit {
   
    loadNotifications(): void {
     this.notificationService.getNotifications().subscribe(response => {
-        this.notifications = (response as any).notifications;
-        
-        this.notificationCount = this.notifications.length;
-      },
-      error => {
-        console.error('Error loading notifications:', error);
-      }
-    );
+      this.notifications = (response as any).notifications.slice(0, 10).reverse();
+      this.notificationCount = this.notifications.length;
+    },
+    error => {
+      console.error('Error loading notifications:', error);
+    });
   }
-
+  
   markAsRead(): void {
-    this.notificationService.markNotificationsAsRead().subscribe(
+    this.notificationService.markNotificationAsRead(this.notifications[0].id).subscribe(
       response => {
         this.notificationCount = 0;
         this.showNotifications = false;
       },
       error => {
-        console.error('Error marking notifications as read:', error);
+        console.error('Error marking notification as read:', error);
       }
     );
   }
 
-  navigateToMessage(messageId: number): void {
-    this.router.navigate(['/contact-message', messageId]);
- 
-  }
 
-  toggleNotifications(): void {
+  navigateToMessage(notification: any): void {
+    this.router.navigate(['/contact-message', notification.messageId]);
+   
+    // Ensure the notification id is correctly passed
+    this.notificationService.markNotificationAsRead(notification.id).subscribe(
+       response => {
+           // Optionally, update the notification status in the UI
+           notification.isRead = true;
+       },
+       error => {
+           console.error('Error marking notification as read:', error);
+       }
+    );
+   }
+   
+
+   toggleNotifications(): void {
     this.showNotifications = !this.showNotifications;
     if (this.showNotifications) {
-      this.markAsRead();
+       this.notificationCount = 0; // Reset the counter when opening the bell
     }
-  }
-}
+   }
+    }
