@@ -35,6 +35,16 @@ class NotificationRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+    public function findLatestNotificationsForUser($user, $limit)
+{
+    return $this->createQueryBuilder('n')
+        ->andWhere('n.receiver = :user')
+        ->orderBy('n.createdAt', 'DESC')
+        ->setMaxResults($limit)
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
     public function findUnreadNotificationsCountForUser($user)
 {
     return $this->createQueryBuilder('n')

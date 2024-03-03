@@ -28,7 +28,7 @@ class NotificationController extends AbstractController
             return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
     
-        $notifications = $notificationRepository->findUnreadNotificationsForUser($user);
+        $notifications = $notificationRepository->findLatestNotificationsForUser($user, 10);
         $this->logger->info('Unread Notifications:', $notifications);
 
         $notificationArray = [];

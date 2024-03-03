@@ -23,25 +23,27 @@ export class NotificationListComponent implements OnInit {
   
    loadNotifications(): void {
     this.notificationService.getNotifications().subscribe(response => {
-      this.notifications = (response as any).notifications.slice(0, 10).reverse();
-      this.notificationCount = this.notifications.length;
+        // Fetch the latest 10 notifications
+        this.notifications = (response as any).notifications.slice(0, 10).reverse();
+        this.notificationCount += this.notifications.length; // Add to the counter
     },
     error => {
-      console.error('Error loading notifications:', error);
+        console.error('Error loading notifications:', error);
     });
-  }
-  
-  markAsRead(): void {
-    this.notificationService.markNotificationAsRead(this.notifications[0].id).subscribe(
+}
+
+markAsRead(): void {
+  this.notificationService.markNotificationAsRead(this.notifications[0].id).subscribe(
       response => {
-        this.notificationCount = 0;
-        this.showNotifications = false;
+          // Reset the counter after clicking on the bell
+          this.notificationCount = 0;
+          this.showNotifications = false;
       },
       error => {
-        console.error('Error marking notification as read:', error);
+          console.error('Error marking notification as read:', error);
       }
-    );
-  }
+  );
+}
 
 
   navigateToMessage(notification: any): void {
