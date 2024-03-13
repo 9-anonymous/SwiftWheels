@@ -28,12 +28,22 @@ export class NewsComponent implements OnInit {
     this.fetchCompanyNews('volkswagen');
     this.fetchCompanyNews('bmw');
     this.fetchCompanyNews('ford');
+    this.fetchCompanyNews('Toyota');
+    this.fetchCompanyNews('Hyundai');
+    this.fetchCompanyNews('Toyota');
+    this.fetchCompanyNews('Audi');
+    this.fetchCompanyNews('Chevrolet');
+    this.fetchCompanyNews('Nissan');
+
+    
+
+
 
   }
 
   fetchCompanyNews(companyName: string): void {
     // Define the keywords that indicate the article is about a product or model
-    const productKeywords = ['model','demand', 'launch', 'product','mark','car','electric','vehicle'];
+    const productKeywords = ['model','demand', 'launch', 'product'];
   
     this.newsService.getCarCompanyNews(companyName).subscribe((data: any) => {
       // Store the original data

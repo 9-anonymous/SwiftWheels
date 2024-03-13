@@ -1,45 +1,49 @@
 <?php
+
 namespace App\Entity;
+
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id] #[ORM\GeneratedValue] #[ORM\Column] private ?int $id = null;
-    #[ORM\Column(length: 255)] private ?string $username = null;
-    #[ORM\Column(length: 255)] private ?string $email = null;
-    #[ORM\Column(length: 255)] private ?string $password = null;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
 
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender', orphanRemoval: true)]
-    private Collection $messages;
-    
-    public function __construct()
-    {
-        $this->messages = new ArrayCollection();
-    }
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private ?string $email;
+
+    #[ORM\Column(type: 'string')]
+    private string $password;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $bankAccount = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $jobTitle = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $speciality = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => 'ROLE_USER'])]
+    private string $roles = 'ROLE_USER';
+
+
+    #[ORM\Column(length: 255)] private ?string $username = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-        return $this;
-    }
     public function getUsername(): ?string
     {
-        return $this->username;
-    }
-    public function getUserIdentifier(): string
-    {
-        // Add your implementation here
-        // For example, you can return the username or email
         return $this->username;
     }
     public function setUsername(string $username): static
@@ -47,34 +51,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
         return $this;
     }
+
+
     public function getEmail(): ?string
     {
         return $this->email;
     }
-    public function setEmail(string $email): static
+
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
-    public function getPassword(): ?string
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        return explode(',', $this->roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = implode(',', $roles);
+
+        return $this;
+    }
+
+    public function getPassword(): string
     {
         return $this->password;
     }
-    public function setPassword(string $password): static
+
+    public function setPassword(string $password): self
     {
         $this->password = $password;
-        return $this;
-    }
-    public function getRoles(): array
-    {
-        // For simplicity, we return an empty array for roles
-        return [];
-    }
 
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-        return null;
+        return $this;
     }
 
     public function eraseCredentials(): void
@@ -83,32 +100,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Message>
-     */
-    public function getMessages(): Collection
+    public function getBankAccount(): ?string
     {
-        return $this->messages;
+        return $this->bankAccount;
     }
 
-    public function addMessage(Message $message): static
+    public function setBankAccount(?string $bankAccount): self
     {
-        if (!$this->messages->contains($message)) {
-            $this->messages->add($message);
-            $message->setSender($this);
-        }
+        $this->bankAccount = $bankAccount;
 
         return $this;
     }
 
-    public function removeMessage(Message $message): static
+    public function getJobTitle(): ?string
     {
-        if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getSender() === $this) {
-                $message->setSender(null);
-            }
-        }
+        return $this->jobTitle;
+    }
+
+    public function setJobTitle(?string $jobTitle): self
+    {
+        $this->jobTitle = $jobTitle;
+
+        return $this;
+    }
+
+    public function getSpeciality(): ?string
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?string $speciality): self
+    {
+        $this->speciality = $speciality;
 
         return $this;
     }

@@ -1,6 +1,7 @@
 // src/app/MainPage/nav-bar/nav-bar.component.ts
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { SharedService } from '../../shared.service'; // Adjust the path as necessary
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +9,10 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-  constructor(public authService: AuthService) {}   
+  userType: string = ''; // Add a property to store the user type
+
+  constructor(public authService: AuthService,private sharedService: SharedService) {}   
+ 
 
   isLoggedIn() {
     return this.authService.isAuthenticated();
@@ -23,4 +27,7 @@ export class NavBarComponent {
     // Call AuthService or a dedicated logout service method
     this.authService.logout();
   }
+  setUserType(type: string): void {
+    this.sharedService.changeUserType(type);
+ }
 }

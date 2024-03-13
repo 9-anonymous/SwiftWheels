@@ -1,4 +1,10 @@
-<h2>Register</h2>
+<!-- src/app/signup/signup.component.html -->
+<div *ngIf="userType === 'client'">
+<h2>Client Register</h2>
+</div>
+<div *ngIf="userType === 'expert'">
+    <h2>Expert Register</h2>
+    </div>
 <form (submit)="onSubmit()" #registrationForm="ngForm" class="d-flex flex-column">
  <label for="username" class="form-label">Username:</label>
  <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control" required>
@@ -8,5 +14,18 @@
  
  <label for="password" class="form-label">Password:</label>
  <input type="password" id="password" [(ngModel)]="user.password" name="password" class="form-control" required>
+ 
+ <!-- Additional fields for client and expert -->
+ <div *ngIf="userType === 'client'">
+   <label for="bankAccount" class="form-label">Bank Account:</label>
+   <input type="text" id="bankAccount" [(ngModel)]="user.bankAccount" name="bankAccount" class="form-control">
+ </div>
+ <div *ngIf="userType === 'expert'">
+   <label for="jobTitle" class="form-label">Job Title:</label>
+   <input type="text" id="jobTitle" [(ngModel)]="user.jobTitle" name="jobTitle" class="form-control">
+   <label for="speciality" class="form-label">Speciality:</label>
+   <input type="text" id="speciality" [(ngModel)]="user.speciality" name="speciality" class="form-control">
+ </div>
+ 
  <button type="submit" class="btn btn-primary">Register</button>
 </form>

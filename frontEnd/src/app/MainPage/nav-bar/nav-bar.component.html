@@ -28,10 +28,18 @@
                    
                 <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
  
-            <ng-container *ngIf="!authService.isAuthenticated(); else loggedInTemplate">
-              <a routerLink="/register"><i class="bi bi-person"></i>&nbsp;Sign Up</a>
-              <a routerLink="/login"><i class="bi bi-door-open"></i>&nbsp;Login</a>
-            </ng-container>
+                <ng-container *ngIf="!authService.isAuthenticated(); else loggedInTemplate">
+                  <div class="dropdown">
+                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Sign Up
+                     </button>
+                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                       <a class="dropdown-item" routerLink="/register" (click)="setUserType('client')">Client Sign Up</a>
+                       <a class="dropdown-item" routerLink="/register" (click)="setUserType('expert')">Expert Sign Up</a>
+                     </div>
+                  </div>
+                  <a routerLink="/login"><i class="bi bi-door-open"></i>&nbsp;Login</a>
+                 </ng-container>
             <ng-template #loggedInTemplate>
               <a href="" (click)="logout()"><i class="bi bi-box-arrow-right"></i>&nbsp;Logout</a>
               <a href="">{{ authService.getUsername() }}</a>
