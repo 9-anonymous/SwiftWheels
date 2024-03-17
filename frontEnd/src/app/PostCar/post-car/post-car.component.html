@@ -1,0 +1,85 @@
+<img src="../../../assets/imgs/bg.png" id="theBg">
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+      <h2>Best Place to sell your Car !</h2>
+
+      <div class="form-gorup">
+        <label for="Pictures">Car Pictures</label>
+        <input type="file" id="Pictures" class="form-control" name="Pictures" (change)="onFileSelected($event)" required>
+      </div>
+      <!--mark&Model-->
+      <div style=" display: flex; justify-content: flex-start;gap: 20px;">
+        <div class="MMC form-group">
+          <label for="mark">Mark</label>
+          <input type="text" class="form-control" id="mark" name="mark" [(ngModel)]="mark" required>
+        </div>
+        <div class="MMC  form-group">
+          <label for="model">Model</label>
+          <input type="text" class="form-control" id="model" name="model" [(ngModel)]="model" required>
+        </div>
+        <div class="MMC  form-group">
+          <label for="color">Color</label>
+          <input type="text" class="form-control" id="color" name="color" [(ngModel)]="color">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" name="price" [(ngModel)]="price" required>
+      </div>
+      <!--Options-->
+      <div style="display: flex; gap: 30px; justify-content: space-around;">
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="abs" name="abs" [(ngModel)]="abs">
+          <label class="form-check-label" for="abs">ABS</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="epc" name="epc" [(ngModel)]="epc">
+          <label class="form-check-label" for="epc">EPC</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="grayCard" name="grayCard" [(ngModel)]="grayCard">
+          <label class="form-check-label" for="grayCard">GrayCard</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="autoGearBox" name="autoGearBox" [(ngModel)]="autoGearBox">
+          <label class="form-check-label" for="autoGearBox">autoGearBox</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="taxes" name="taxes" [(ngModel)]="taxes">
+          <label class="form-check-label" for="taxes">Taxes</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="insurance" name="insurance" [(ngModel)]="insurance">
+          <label class="form-check-label" for="insurance">Insurance</label>
+        </div>
+      </div>
+            <!--Options ENDS-->
+
+      
+      <div style="display: flex;justify-content: space-evenly;">
+        <div>
+          <div class="form-group">
+            <label for="mileAge">Mileage</label>
+            <input type="number" class="form-control" id="mileAge" name="mileAge" [(ngModel)]="mileage">
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantité</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" [(ngModel)]="quantity">
+          </div>
+        </div>
+        
+      
+      <div class="TXTA form-group">
+        <label style="margin-left: 30px;" for="description">description</label>
+        <textarea type="text" class="form-control" id="description" name="description" [(ngModel)]="description"></textarea>
+      </div>
+
+      </div>
+      <div class="btnG">
+        <button class="btn btn-info">Home</button>
+        <button type="submit" class="btn btn-success">Add</button>
+        <button class="btn btn-danger">cancel</button>
+      </div>
+    </form>
+  </div>

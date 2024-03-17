@@ -3,7 +3,6 @@
 
         <div class="links">
                 <a href=""><i class="bi bi-house-door"></i>&nbsp; HOME</a>
-                <a href=""><i class="bi bi-shop"></i> &nbsp;CARS-SHOP</a>
 <a routerLink="/email"><i class="bi bi-envelope"></i> &nbsp;Email</a>                
                 <a routerLink="/news"><i class="bi bi-telephone"></i> &nbsp;News</a>    
    
@@ -16,8 +15,8 @@
         </div>
         
         <div class="links">
-            <input placeholder="Search" type="text">
-            <div class="dropdown">
+          <a routerLink="/searchs"><i class="bi bi-search"></i> &nbsp;Search</a>  
+          <div class="dropdown">
               <button class="dropbtn">Contact</button>
               <div class="dropdown-content">
                 <a routerLink="/contactinput">Create</a>
@@ -25,7 +24,8 @@
               </div>
             </div>
                 <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>
-                   
+                <a routerLink="/AddCar"><i class="bi bi-shop"></i> &nbsp;Add-Car</a>
+
                 <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
  
                 <ng-container *ngIf="!authService.isAuthenticated(); else loggedInTemplate">

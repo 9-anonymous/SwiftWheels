@@ -599,23 +599,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * Asset Mapper configuration
-     * @default {"enabled":false,"paths":[],"excluded_patterns":[],"exclude_dotfiles":true,"server":true,"public_prefix":"\/assets\/","missing_import_mode":"warn","extensions":[],"importmap_path":"%kernel.project_dir%\/importmap.php","importmap_polyfill":"es-module-shims","importmap_script_attributes":[],"vendor_dir":"%kernel.project_dir%\/assets\/vendor"}
-     * @return \Symfony\Config\Framework\AssetMapperConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\AssetMapperConfig : static)
-     */
-    public function assetMapper(array $value = []): \Symfony\Config\Framework\AssetMapperConfig|static
+     * @default {"enabled":true,"paths":[],"excluded_patterns":[],"exclude_dotfiles":true,"server":true,"public_prefix":"\/assets\/","missing_import_mode":"warn","extensions":[],"importmap_path":"%kernel.project_dir%\/importmap.php","importmap_polyfill":"es-module-shims","importmap_script_attributes":[],"vendor_dir":"%kernel.project_dir%\/assets\/vendor"}
+    */
+    public function assetMapper(array $value = []): \Symfony\Config\Framework\AssetMapperConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['assetMapper'] = true;
-            $this->assetMapper = $value;
-
-            return $this;
-        }
-
-        if (!$this->assetMapper instanceof \Symfony\Config\Framework\AssetMapperConfig) {
+        if (null === $this->assetMapper) {
             $this->_usedProperties['assetMapper'] = true;
             $this->assetMapper = new \Symfony\Config\Framework\AssetMapperConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -626,23 +615,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * translator configuration
-     * @default {"enabled":false,"fallbacks":[],"logging":false,"formatter":"translator.formatter.default","cache_dir":"%kernel.cache_dir%\/translations","default_path":"%kernel.project_dir%\/translations","paths":[],"pseudo_localization":{"enabled":false,"accents":true,"expansion_factor":1,"brackets":true,"parse_html":false,"localizable_html_attributes":[]},"providers":[]}
-     * @return \Symfony\Config\Framework\TranslatorConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\TranslatorConfig : static)
-     */
-    public function translator(array $value = []): \Symfony\Config\Framework\TranslatorConfig|static
+     * @default {"enabled":true,"fallbacks":[],"logging":false,"formatter":"translator.formatter.default","cache_dir":"%kernel.cache_dir%\/translations","default_path":"%kernel.project_dir%\/translations","paths":[],"pseudo_localization":{"enabled":false,"accents":true,"expansion_factor":1,"brackets":true,"parse_html":false,"localizable_html_attributes":[]},"providers":[]}
+    */
+    public function translator(array $value = []): \Symfony\Config\Framework\TranslatorConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['translator'] = true;
-            $this->translator = $value;
-
-            return $this;
-        }
-
-        if (!$this->translator instanceof \Symfony\Config\Framework\TranslatorConfig) {
+        if (null === $this->translator) {
             $this->_usedProperties['translator'] = true;
             $this->translator = new \Symfony\Config\Framework\TranslatorConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -653,23 +631,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * validation configuration
-     * @default {"enabled":false,"enable_attributes":true,"static_method":["loadValidatorMetadata"],"translation_domain":"validators","email_validation_mode":"html5","mapping":{"paths":[]},"not_compromised_password":{"enabled":true,"endpoint":null},"auto_mapping":[]}
-     * @return \Symfony\Config\Framework\ValidationConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\ValidationConfig : static)
-     */
-    public function validation(array $value = []): \Symfony\Config\Framework\ValidationConfig|static
+     * @default {"enabled":true,"enable_attributes":true,"static_method":["loadValidatorMetadata"],"translation_domain":"validators","email_validation_mode":"html5","mapping":{"paths":[]},"not_compromised_password":{"enabled":true,"endpoint":null},"auto_mapping":[]}
+    */
+    public function validation(array $value = []): \Symfony\Config\Framework\ValidationConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['validation'] = true;
-            $this->validation = $value;
-
-            return $this;
-        }
-
-        if (!$this->validation instanceof \Symfony\Config\Framework\ValidationConfig) {
+        if (null === $this->validation) {
             $this->_usedProperties['validation'] = true;
             $this->validation = new \Symfony\Config\Framework\ValidationConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -893,23 +860,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * Messenger configuration
-     * @default {"enabled":false,"routing":[],"serializer":{"default_serializer":"messenger.transport.native_php_serializer","symfony_serializer":{"format":"json","context":[]}},"transports":[],"failure_transport":null,"stop_worker_on_signals":[],"default_bus":null,"buses":{"messenger.bus.default":{"default_middleware":{"enabled":true,"allow_no_handlers":false,"allow_no_senders":true},"middleware":[]}}}
-     * @return \Symfony\Config\Framework\MessengerConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\MessengerConfig : static)
-     */
-    public function messenger(array $value = []): \Symfony\Config\Framework\MessengerConfig|static
+     * @default {"enabled":true,"routing":[],"serializer":{"default_serializer":"messenger.transport.native_php_serializer","symfony_serializer":{"format":"json","context":[]}},"transports":[],"failure_transport":null,"stop_worker_on_signals":[],"default_bus":null,"buses":{"messenger.bus.default":{"default_middleware":{"enabled":true,"allow_no_handlers":false,"allow_no_senders":true},"middleware":[]}}}
+    */
+    public function messenger(array $value = []): \Symfony\Config\Framework\MessengerConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['messenger'] = true;
-            $this->messenger = $value;
-
-            return $this;
-        }
-
-        if (!$this->messenger instanceof \Symfony\Config\Framework\MessengerConfig) {
+        if (null === $this->messenger) {
             $this->_usedProperties['messenger'] = true;
             $this->messenger = new \Symfony\Config\Framework\MessengerConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -964,7 +920,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
      * @template TValue
      * @param TValue $value
      * HTTP Client configuration
-     * @default {"enabled":false,"scoped_clients":[]}
+     * @default {"enabled":true,"scoped_clients":[]}
      * @return \Symfony\Config\Framework\HttpClientConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\HttpClientConfig : static)
      */
@@ -1019,23 +975,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * Notifier configuration
-     * @default {"enabled":false,"message_bus":null,"chatter_transports":[],"texter_transports":[],"notification_on_failed_messages":false,"channel_policy":[],"admin_recipients":[]}
-     * @return \Symfony\Config\Framework\NotifierConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\NotifierConfig : static)
-     */
-    public function notifier(array $value = []): \Symfony\Config\Framework\NotifierConfig|static
+     * @default {"enabled":true,"message_bus":null,"chatter_transports":[],"texter_transports":[],"notification_on_failed_messages":false,"channel_policy":[],"admin_recipients":[]}
+    */
+    public function notifier(array $value = []): \Symfony\Config\Framework\NotifierConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['notifier'] = true;
-            $this->notifier = $value;
-
-            return $this;
-        }
-
-        if (!$this->notifier instanceof \Symfony\Config\Framework\NotifierConfig) {
+        if (null === $this->notifier) {
             $this->_usedProperties['notifier'] = true;
             $this->notifier = new \Symfony\Config\Framework\NotifierConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -1345,19 +1290,19 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
         if (array_key_exists('asset_mapper', $value)) {
             $this->_usedProperties['assetMapper'] = true;
-            $this->assetMapper = \is_array($value['asset_mapper']) ? new \Symfony\Config\Framework\AssetMapperConfig($value['asset_mapper']) : $value['asset_mapper'];
+            $this->assetMapper = new \Symfony\Config\Framework\AssetMapperConfig($value['asset_mapper']);
             unset($value['asset_mapper']);
         }
 
         if (array_key_exists('translator', $value)) {
             $this->_usedProperties['translator'] = true;
-            $this->translator = \is_array($value['translator']) ? new \Symfony\Config\Framework\TranslatorConfig($value['translator']) : $value['translator'];
+            $this->translator = new \Symfony\Config\Framework\TranslatorConfig($value['translator']);
             unset($value['translator']);
         }
 
         if (array_key_exists('validation', $value)) {
             $this->_usedProperties['validation'] = true;
-            $this->validation = \is_array($value['validation']) ? new \Symfony\Config\Framework\ValidationConfig($value['validation']) : $value['validation'];
+            $this->validation = new \Symfony\Config\Framework\ValidationConfig($value['validation']);
             unset($value['validation']);
         }
 
@@ -1423,7 +1368,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
         if (array_key_exists('messenger', $value)) {
             $this->_usedProperties['messenger'] = true;
-            $this->messenger = \is_array($value['messenger']) ? new \Symfony\Config\Framework\MessengerConfig($value['messenger']) : $value['messenger'];
+            $this->messenger = new \Symfony\Config\Framework\MessengerConfig($value['messenger']);
             unset($value['messenger']);
         }
 
@@ -1459,7 +1404,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
         if (array_key_exists('notifier', $value)) {
             $this->_usedProperties['notifier'] = true;
-            $this->notifier = \is_array($value['notifier']) ? new \Symfony\Config\Framework\NotifierConfig($value['notifier']) : $value['notifier'];
+            $this->notifier = new \Symfony\Config\Framework\NotifierConfig($value['notifier']);
             unset($value['notifier']);
         }
 
@@ -1580,13 +1525,13 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
             $output['assets'] = $this->assets instanceof \Symfony\Config\Framework\AssetsConfig ? $this->assets->toArray() : $this->assets;
         }
         if (isset($this->_usedProperties['assetMapper'])) {
-            $output['asset_mapper'] = $this->assetMapper instanceof \Symfony\Config\Framework\AssetMapperConfig ? $this->assetMapper->toArray() : $this->assetMapper;
+            $output['asset_mapper'] = $this->assetMapper->toArray();
         }
         if (isset($this->_usedProperties['translator'])) {
-            $output['translator'] = $this->translator instanceof \Symfony\Config\Framework\TranslatorConfig ? $this->translator->toArray() : $this->translator;
+            $output['translator'] = $this->translator->toArray();
         }
         if (isset($this->_usedProperties['validation'])) {
-            $output['validation'] = $this->validation instanceof \Symfony\Config\Framework\ValidationConfig ? $this->validation->toArray() : $this->validation;
+            $output['validation'] = $this->validation->toArray();
         }
         if (isset($this->_usedProperties['annotations'])) {
             $output['annotations'] = $this->annotations instanceof \Symfony\Config\Framework\AnnotationsConfig ? $this->annotations->toArray() : $this->annotations;
@@ -1619,7 +1564,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
             $output['semaphore'] = $this->semaphore instanceof \Symfony\Config\Framework\SemaphoreConfig ? $this->semaphore->toArray() : $this->semaphore;
         }
         if (isset($this->_usedProperties['messenger'])) {
-            $output['messenger'] = $this->messenger instanceof \Symfony\Config\Framework\MessengerConfig ? $this->messenger->toArray() : $this->messenger;
+            $output['messenger'] = $this->messenger->toArray();
         }
         if (isset($this->_usedProperties['scheduler'])) {
             $output['scheduler'] = $this->scheduler instanceof \Symfony\Config\Framework\SchedulerConfig ? $this->scheduler->toArray() : $this->scheduler;
@@ -1637,7 +1582,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
             $output['secrets'] = $this->secrets->toArray();
         }
         if (isset($this->_usedProperties['notifier'])) {
-            $output['notifier'] = $this->notifier instanceof \Symfony\Config\Framework\NotifierConfig ? $this->notifier->toArray() : $this->notifier;
+            $output['notifier'] = $this->notifier->toArray();
         }
         if (isset($this->_usedProperties['rateLimiter'])) {
             $output['rate_limiter'] = $this->rateLimiter instanceof \Symfony\Config\Framework\RateLimiterConfig ? $this->rateLimiter->toArray() : $this->rateLimiter;

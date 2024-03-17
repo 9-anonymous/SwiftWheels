@@ -1,0 +1,65 @@
+h2{
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid white;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+form{
+    background-color: rgba(00, 00, 00, 0.6);
+    position: absolute;
+    top: 100px;
+    right: 45rem !important;
+    color: white;
+    display: grid;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    width: 40vw;
+}
+
+#theBg{
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+}
+
+button{
+    width: 80px;
+    margin-top: 20px;
+}
+label{
+    font-size: 16px;
+}
+
+.MMC{
+    width: 100%;
+}
+.form-group{
+    margin-top:10px;
+}
+input{
+    border: none;
+    margin-top: 5px;
+}
+.TXTA{
+    width: 100%;
+}
+textarea{
+    width: 100%;
+    margin-left: 30px;
+    margin-top: 5px;
+    resize: none;
+    height: 100px;
+}
+
+.btnG{
+    display: flex;
+    justify-content: space-around ;
+}

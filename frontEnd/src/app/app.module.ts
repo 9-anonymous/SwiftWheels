@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './MainPage/main-page/main-page.component';
@@ -24,6 +25,9 @@ import { ContactMessageComponent } from './contact/contact-message/contact-messa
 import { ContactInputComponent } from './contact/contact-input/contact-input.component';
 import { NotificationBellComponent } from './notification/notification-bell/notification-bell.component';
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
+import { MainSearchComponent } from './Searchs/mainSearch/main-search/main-search.component';
+import { SideNavComponent } from './Navigations/side-nav/side-nav.component';
+import { PostCarComponent } from './PostCar/post-car/post-car.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,10 @@ import { NotificationListComponent } from './notification/notification-list/noti
     ContactMessageComponent,
     ContactInputComponent,
     NotificationBellComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    MainSearchComponent,
+    SideNavComponent,
+    PostCarComponent
 
   ],
   imports: [
@@ -55,5 +62,9 @@ import { NotificationListComponent } from './notification/notification-list/noti
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],  bootstrap: [AppComponent]
+
+ 
+
+
 })
 export class AppModule { }
