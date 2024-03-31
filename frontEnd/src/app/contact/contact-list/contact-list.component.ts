@@ -18,9 +18,15 @@ messages: any[] = [];
   ngOnInit(): void {
     const receiverUsername = this.authService.getUsername();
     this.messageService.getMessagesForUser(receiverUsername).subscribe(response => {
-        this.messages = (response as any).messages; // Use type assertion
+       this.messages = (response as any).messages; // Use type assertion
+       // Log the entire messages array to inspect its structure
+       console.log(this.messages);
+       // Optionally, log each message's createdAt property
+       this.messages.forEach(message => {
+         console.log(message.createdAt);
+       });
     });
-}
+   }
   viewMessage(messageId: number): void {
   this.router.navigate(['/contact-message', messageId]);
 }

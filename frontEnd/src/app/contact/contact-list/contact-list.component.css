@@ -1,0 +1,27 @@
+.card {
+    background-color: black;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .card-body {
+    color: #fff;
+  }
+  
+  .card-title {
+    margin-top: 0;
+  }
+  
+  .btn {
+    background-color: #fff;
+    color: #070F2B;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #ccc;
+  }
+  

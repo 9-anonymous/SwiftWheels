@@ -83,6 +83,7 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
             'Symfony\\Bridge\\Twig\\' => 20,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Stof\\DoctrineExtensionsBundle\\' => 30,
         ),
         'P' => 
         array (
@@ -108,6 +109,10 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
             'Lcobucci\\JWT\\' => 13,
             'Lcobucci\\Clock\\' => 15,
         ),
+        'G' => 
+        array (
+            'Gedmo\\' => 6,
+        ),
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
@@ -125,6 +130,7 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
             'Doctrine\\Bundle\\MigrationsBundle\\' => 33,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
@@ -132,6 +138,10 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         'C' => 
         array (
             'Composer\\Semver\\' => 16,
+        ),
+        'B' => 
+        array (
+            'Behat\\Transliterator\\' => 21,
         ),
         'A' => 
         array (
@@ -373,6 +383,10 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
         ),
+        'Stof\\DoctrineExtensionsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
@@ -420,6 +434,10 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         'Lcobucci\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/clock/src',
+        ),
+        'Gedmo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gedmo/doctrine-extensions/src',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -469,9 +487,14 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         array (
             0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
         ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/event-manager/src',
+            1 => __DIR__ . '/..' . '/doctrine/common/src',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -484,6 +507,10 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
+        ),
+        'Behat\\Transliterator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator',
         ),
         'App\\Tests\\' => 
         array (

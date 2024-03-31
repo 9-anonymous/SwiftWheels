@@ -4,7 +4,6 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Message;
 use App\Entity\Notification;
 use Psr\Log\LoggerInterface;
@@ -15,8 +14,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use DateTime;
 
 class MessageController extends AbstractController
 {
@@ -51,6 +50,8 @@ class MessageController extends AbstractController
             'receiver' => [
                 'username' => $message->getReceiver()->getUsername(),
             ],
+            'createdAt' => $message->getCreatedAt()->format('Y-m-d H:i:s'), // Add createdAt field
+
         ];
 
         return new JsonResponse($messageArray);
@@ -81,6 +82,8 @@ class MessageController extends AbstractController
                 'sender' => [
                     'username' => $message->getSender()->getUsername(),
                 ],
+                'createdAt' => $message->getCreatedAt()->format('Y-m-d H:i:s'), // Add createdAt field
+
             ];
         }
 
@@ -148,6 +151,7 @@ $data = $contentArray; // Use the parsed form data
 
         $message->setSender($sender);  // Set the sender as the User entity
         $message->setReceiver($receiver);
+        $message->setCreatedAt(new DateTime());
 
         $entityManager = $doctrine->getManager();
 

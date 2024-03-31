@@ -31,6 +31,10 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?User $receiver = null;
     
+    #[ORM\Column(type: "datetime")]
+    private ?\DateTimeInterface $createdAt;
+    
+
 
     public function getId(): ?int
     {
@@ -91,4 +95,15 @@ class Message
 
         return $this;
     }
+    public function getCreatedAt(): ?\DateTimeInterface
+{
+    return $this->createdAt;
+}
+
+public function setCreatedAt(\DateTimeInterface $createdAt): self
+{
+    $this->createdAt = $createdAt;
+    return $this;
+}
+
 }

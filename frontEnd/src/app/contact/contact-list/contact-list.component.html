@@ -2,6 +2,8 @@
   <div class="card-body">
     <h3 class="card-title">{{ message.title }}</h3>
     <p class="card-text">From: {{ message.sender.username }}</p>
-    <button class="btn btn-primary" (click)="viewMessage(message.id)">View Message</button>
+    <p class="card-text">Date: {{ message.createdAt | date:'medium' }}</p> <!-- Format the date -->
+
+    <button class="btn" (click)="viewMessage(message.id)">View Message</button>
   </div>
 </div>
