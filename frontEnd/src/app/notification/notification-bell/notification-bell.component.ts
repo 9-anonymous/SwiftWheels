@@ -31,7 +31,28 @@ export class NotificationBellComponent implements OnInit {
     });
  }
 
-  
+ calculateTimeSince(timestamp: string): string {
+  const currentTime = new Date();
+  const createdAt = new Date(timestamp);
+  const differenceInSeconds = Math.floor((currentTime.getTime() - createdAt.getTime()) / 1000);
+
+  if (differenceInSeconds < 60) {
+    return `${differenceInSeconds} seconds ago`;
+  } else if (differenceInSeconds < 3600) {
+    return `${Math.floor(differenceInSeconds / 60)} minutes ago`;
+  } else if (differenceInSeconds < 86400) {
+    return `${Math.floor(differenceInSeconds / 3600)} hours ago`;
+  } else if (differenceInSeconds < 604800) {
+    return `${Math.floor(differenceInSeconds / 86400)} days ago`;
+  } else if (differenceInSeconds < 2419200) {
+    return `${Math.floor(differenceInSeconds / 604800)} weeks ago`;
+  } else if (differenceInSeconds < 29030400) {
+    return `${Math.floor(differenceInSeconds / 2419200)} months ago`;
+  } else {
+    return `${Math.floor(differenceInSeconds / 29030400)} years ago`;
+  }
+}
+
    loadNotifications(): void {
     this.notificationService.getNotifications().subscribe(response => {
         // Fetch the latest 10 notifications

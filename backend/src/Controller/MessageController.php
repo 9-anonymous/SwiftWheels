@@ -164,7 +164,7 @@ $data = $contentArray; // Use the parsed form data
         }
         $notification = new Notification();
         $notification->setReceiver($receiver);
-        $notification->setMessage($sender->getUsername() . " sent you a message");
+        $notification->setMessage($sender->getUsername());
         $notification->setMessageId($message->getId()); // Set the related message ID
         $notification->setMessageTitle($message->getTitle()); // Include the message title
         $notification->setCreatedAt(new \DateTime()); // Set the createdAt field

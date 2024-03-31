@@ -7,8 +7,8 @@
   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
      <div class="dropdown-header">
        <div class="d-flex justify-content-between align-items-center">
-         <h6 class="mb-0" style="color: black;"><strong>Notifications</strong></h6>
-         <button class="btn btn-sm btn-outline-primary" (click)="markAllAsRead()">Mark All as Read</button>
+         <h6 class="mb-0" style="color: white;"><p>Notifications</p></h6>
+         <button id="mark_button" class="btn btn-sm btn-outline-primary" (click)="markAllAsRead()">Mark All as Read</button>
        </div>
      </div>
      <ul class="list-group">
@@ -16,8 +16,8 @@
          <li *ngFor="let notification of notifications" class="list-group-item">
            <button class="btn btn-link" (click)="navigateToMessage(notification)"
                   [class.text-muted]="notification.isRead" style="color: rgb(0, 0, 0); text-decoration: none;">
-             <p>{{ notification?.message }}</p>
-             <strong>{{ notification?.messageTitle }}</strong>
+             <p>{{ notification?.message }} <span class="text-muted">sent you a message : </span>{{ notification?.messageTitle }}</p>
+             <p><span class="text-muted">{{ calculateTimeSince(notification?.createdAt) }}</span></p>
            </button>
          </li>
        </ng-container>
@@ -29,4 +29,4 @@
       <button class="btn btn-sm btn-primary w-100" (click)="navigateToNotificationsList()">See All</button>
    </div>
   </div>
- 
+</div>
