@@ -2,24 +2,69 @@
   width: 450px;
   background-color: #1e2022;
   border-radius: 15px;
+  padding-bottom: 0;
 }
 
+.list-group-item::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  background-color: transparent; /* Transparent background for read items */
+  border-radius: 50%;
+}
 .list-group-item {
   background-color: #0a0a0a;
   border-color: #1e2022;
+  display: flex;
+  align-items: center; /* This centers items vertically */
+
 }
 
 #mark_button {
-  color: rgb(140, 0, 255);
+  color: rgb(150, 38, 255);
   border: none;
   font-size: 15px;
+  font-weight:bolder;
 }
 
 p {
   color: white;
   text-align: left;
 }
+button p{
+margin: 4px;
+}
 
 .text-muted {
   color: rgba(128, 128, 128, 0.603) !important; /* Use the appropriate shade of gray */
+}
+.unread-notification::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(133, 2, 255);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.btn-link {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the start of the button */
+  justify-content: center; /* Center items vertically */
+  width: 100%; /* Ensures the button takes up the full width of the list item */
+}
+
+#see-all{
+  background-color: rgb(133, 2, 255) !important;
+  border-color: rgb(133, 2, 255);
+  font-size: 20px;
+}
+
+h6 p{
+  margin: 0;
+  font-size: 20px;
 }

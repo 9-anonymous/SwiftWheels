@@ -14,7 +14,9 @@
  
  <label for="password" class="form-label">Password:</label>
  <input type="password" id="password" [(ngModel)]="user.password" name="password" class="form-control" required>
- 
+ <label for="picture" class="form-label">Profile Picture (optional):</label>
+<input type="file" id="picture" (change)="onFileChange($event)" name="picture" class="form-control">
+
  <!-- Additional fields for client and expert -->
  <div *ngIf="userType === 'client'">
    <label for="bankAccount" class="form-label">Bank Account:</label>

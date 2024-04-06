@@ -10,8 +10,7 @@ export class SignupService {
 
   constructor(private http: HttpClient) {}
 
-  register(user: any): Observable<any> {
-    console.log('User data before sending:', user);
-    return this.http.post(`${this.apiUrl}/register`, user);
+  register(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, formData);
   }
 }

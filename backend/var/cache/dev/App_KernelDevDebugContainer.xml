@@ -456,6 +456,7 @@
     <service id="App\Controller\SignupController" class="App\Controller\SignupController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="monolog.logger"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\SignupController"/>
       </call>
