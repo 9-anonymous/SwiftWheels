@@ -96,37 +96,36 @@ class MessageController extends AbstractController
         // Log the request headers
         $headers = $request->headers->all();
         $this->logger->info('Request Headers:', $headers);
-
+    
         // Log the request body
-// Log the request body
-$contentArray = $request->request->all(); // Use request instead of getContent()
-$this->logger->info('Request Body:', $contentArray);
-$files = $request->files->all();
-$this->logger->info('Received Files:', $files);
-
-$data = $contentArray; // Use the parsed form data
-
+        $contentArray = $request->request->all(); // Use request instead of getContent()
+        $this->logger->info('Request Body:', $contentArray);
+        $files = $request->files->all();
+        $this->logger->info('Received Files:', $files);
+    
+        $data = $contentArray; // Use the parsed form data
+    
         // Ensure the sender ID is being received correctly
         $loggedInUserId = $request->request->get('sender_id') ?? null;
         if (!$loggedInUserId) {
             return new JsonResponse(['error' => 'Sender ID not provided'], Response::HTTP_BAD_REQUEST);
         }
-
+    
         // Assuming you have a User entity with proper implementation
         $sender = $userRepository->find($loggedInUserId);
         if (!$sender) {
             return new JsonResponse(['error' => 'Sender not found'], Response::HTTP_NOT_FOUND);
         }
-
+    
         $receiver = $userRepository->findOneBy(['username' => $data['receiver']]);
         if (!$receiver) {
             return new JsonResponse(['error' => 'Receiver not found'], Response::HTTP_NOT_FOUND);
         }
-
+    
         $message = new Message();
         $message->setTitle($data['title']);
         $message->setContent($data['content']);
-
+    
         // Handle file upload
         $photoUrl = null;
         if ($request->files->get('photoUrl')) {
@@ -146,15 +145,15 @@ $data = $contentArray; // Use the parsed form data
                 }
             }
         }
-
+    
         $message->setPhotoUrl($photoUrl);
-
+    
         $message->setSender($sender);  // Set the sender as the User entity
         $message->setReceiver($receiver);
         $message->setCreatedAt(new DateTime());
-
+    
         $entityManager = $doctrine->getManager();
-
+    
         try {
             $entityManager->persist($message);
             $entityManager->flush();
@@ -162,29 +161,19 @@ $data = $contentArray; // Use the parsed form data
             $this->logger->error('Error saving message:', [$e->getMessage()]);
             return new JsonResponse(['error' => 'Error saving message'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    
+        // Create a new Notification entity for the sender
         $notification = new Notification();
         $notification->setReceiver($receiver);
-        $notification->setMessage($sender->getUsername());
+        $notification->setSender($sender); // Set the sender
+        $notification->setMessage($data['content']); // Set the message content
         $notification->setMessageId($message->getId()); // Set the related message ID
-        $notification->setMessageTitle($message->getTitle()); // Include the message title
+        $notification->setMessageTitle($data['title']); // Include the message title
         $notification->setCreatedAt(new \DateTime()); // Set the createdAt field
         $entityManager->persist($notification);
         $entityManager->flush();
     
         return new JsonResponse(['message' => 'Message sent successfully']);
     }
-    #[Route('/uploads/{filename}', name: 'app_upload_file', methods: ['GET'])]
-    public function serveFile(string $filename): BinaryFileResponse
-    {
-        $filePath = $this->getParameter('upload_directory') . '/' . $filename;
-
-        if (!file_exists($filePath)) {
-            throw $this->createNotFoundException('The file does not exist');
-        }
-
-        $response = new BinaryFileResponse($filePath);
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
-
-        return $response;
-    }
+    
 }

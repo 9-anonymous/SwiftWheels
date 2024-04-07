@@ -17,6 +17,11 @@ class Notification
     #[ORM\JoinColumn(nullable: false)]
     private ?User $receiver = null;
 
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $sender = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
@@ -47,6 +52,18 @@ class Notification
 
         return $this;
     }
+    public function getSender(): ?User
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?User $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
 
     public function getMessage(): ?string
     {
