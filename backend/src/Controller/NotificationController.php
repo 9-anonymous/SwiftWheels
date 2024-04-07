@@ -37,11 +37,13 @@ class NotificationController extends AbstractController
                 'id' => $notification->getId(),
                 'message' => $notification->getMessage(),
                 'messageTitle' => $notification->getMessageTitle(),
-                'messageId' => $notification->getMessageId(), // Add the messageId field
-                'isRead' => $notification->isRead(), // Add the isRead field
+                'messageId' => $notification->getMessageId(),
+                'isRead' => $notification->isRead(),
                 'sender_id' => $notification->getSender()->getId(),
+                'sender_username' => $notification->getSender()->getUsername(),
+                'sender_picture' => $notification->getSender()->getPictureUrl(),
                 'receiver_id' => $notification->getReceiver()->getId(),    
-                'createdAt' => $notification->getCreatedAt()->format('Y-m-d H:i:s'), // Format the createdAt field
+                'createdAt' => $notification->getCreatedAt()->format('Y-m-d H:i:s'),
             ];
         }
     
@@ -113,5 +115,6 @@ public function getAllNotifications(NotificationRepository $notificationReposito
     $notifications = $notificationRepository->findAllNotificationsForUser($user);
     // Format the notifications as needed
     return new JsonResponse(['notifications' => $notifications]);
+    
 }
 }

@@ -175,5 +175,19 @@ class MessageController extends AbstractController
     
         return new JsonResponse(['message' => 'Message sent successfully']);
     }
-    
+    #[Route('/uploads/{filename}', name: 'app_upload_file', methods: ['GET'])]
+    public function serveFile(string $filename): BinaryFileResponse
+    {
+        $filePath = $this->getParameter('upload_directory') . '/' . $filename;
+
+        if (!file_exists($filePath)) {
+            throw $this->createNotFoundException('The file does not exist');
+        }
+
+        $response = new BinaryFileResponse($filePath);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
+
+        return $response;
+    }
 }
+
