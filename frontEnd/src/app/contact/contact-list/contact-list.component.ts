@@ -30,4 +30,9 @@ messages: any[] = [];
   viewMessage(messageId: number): void {
   this.router.navigate(['/contact-message', messageId]);
 }
+getPhotoUrl(notification: any): string {
+  const baseUrl = 'http://localhost:8000/uploads/';
+   
+  return notification && notification.sender_picture ? baseUrl + notification.sender_picture : '';
+ }
 }

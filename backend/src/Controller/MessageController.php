@@ -46,9 +46,12 @@ class MessageController extends AbstractController
             'photoUrl' => $message->getPhotoUrl(),
             'sender' => [
                 'username' => $message->getSender()->getUsername(),
+                'picture_url' => $message->getSender()->getPictureUrl(),
+
             ],
             'receiver' => [
                 'username' => $message->getReceiver()->getUsername(),
+                'picture_url' => $message->getReceiver()->getPictureUrl(),
             ],
             'createdAt' => $message->getCreatedAt()->format('Y-m-d H:i:s'), // Add createdAt field
 
@@ -79,8 +82,11 @@ class MessageController extends AbstractController
             $messageArray[] = [
                 'id' => $message->getId(),
                 'title' => $message->getTitle(),
+                'content' => $message->getContent(),
                 'sender' => [
                     'username' => $message->getSender()->getUsername(),
+                    'picture_url' => $message->getSender()->getPictureUrl(),
+
                 ],
                 'createdAt' => $message->getCreatedAt()->format('Y-m-d H:i:s'), // Add createdAt field
 

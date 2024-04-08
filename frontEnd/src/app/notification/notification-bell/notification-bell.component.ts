@@ -119,7 +119,12 @@ markAsRead(): void {
   this.router.navigate(['/notifications']);
  }
  
-
+ getPhotoUrl(notification: any): string {
+  const baseUrl = 'http://localhost:8000/uploads/';
+   
+  return notification && notification.sender_picture ? baseUrl + notification.sender_picture : '';
+ }
+ 
 }
 
     

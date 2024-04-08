@@ -1,18 +1,30 @@
 .card {
     background-color: black;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.438);
     padding: 10px;
     margin-bottom: 10px;
   }
   
   .card-body {
     color: #fff;
+    display: flex;
+    flex-direction: row;
   }
   
   .card-title {
     margin-top: 0;
+    font-weight: bolder;
   }
-  
+  .card-username{
+
+  }
+  .card-text{
+color: gray;
+  }
+  .card-body-middle-bottom{
+    display: flex;
+    flex-direction: row;
+  }
   .btn {
     background-color: #fff;
     color: #070F2B;
@@ -24,4 +36,9 @@
   .btn:hover {
     background-color: #ccc;
   }
-  
+
+  .photo-container img{
+    width:70px ;
+    height: 70px;
+    border-radius:50% ;
+  }
