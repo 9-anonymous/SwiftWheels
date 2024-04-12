@@ -56,7 +56,7 @@ export class NotificationBellComponent implements OnInit {
    loadNotifications(): void {
     this.notificationService.getNotifications().subscribe(response => {
         // Fetch the latest 10 notifications
-        this.notifications = (response as any).notifications.slice(0, 10);
+        this.notifications = (response as any).notifications.slice(0, 6);
         this.lastFetchedCount = this.notifications.length; // Update the last fetched count
       },
     error => {

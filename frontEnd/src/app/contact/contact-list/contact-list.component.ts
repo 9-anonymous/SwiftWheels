@@ -11,22 +11,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-messages: any[] = [];
-
+  allMessages: any[] = []; 
+  messages: any[] = [];
+  currentPage = 1;
+  totalPages = 0;
+  pageSize = 7;
   constructor(private messageService: MessageService, private authService: AuthService,private router: Router) { }
 
   ngOnInit(): void {
     const receiverUsername = this.authService.getUsername();
     this.messageService.getMessagesForUser(receiverUsername).subscribe(response => {
-       this.messages = (response as any).messages; // Use type assertion
-       // Log the entire messages array to inspect its structure
-       console.log(this.messages);
-       // Optionally, log each message's createdAt property
-       this.messages.forEach(message => {
-         console.log(message.createdAt);
-       });
+      this.allMessages = (response as any).messages;
+      this.totalPages = Math.ceil(this.allMessages.length / this.pageSize);
+      this.paginateMessages();
     });
-   }
+ }
+ paginateMessages() {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  this.messages = [...this.allMessages.slice(startIndex, endIndex)];
+}
   viewMessage(messageId: number): void {
   this.router.navigate(['/contact-message', messageId]);
 }
@@ -35,4 +39,17 @@ getPhotoUrl(notification: any): string {
    
   return notification && notification.sender_picture ? baseUrl + notification.sender_picture : '';
  }
+ nextPage() {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
+    this.paginateMessages();
+  }
+}
+
+prevPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+    this.paginateMessages();
+  }
+}
 }

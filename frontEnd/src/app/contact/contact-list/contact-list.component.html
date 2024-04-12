@@ -1,19 +1,25 @@
-<div *ngFor="let message of messages" class="card">
-  <div class="card-body">
-    <div *ngIf="message.sender.picture_url" class="photo-container">
-      <img [src]="'http://localhost:8000/uploads/' + message.sender.picture_url" alt="Message Photo">
-    </div>
-    <div class="card-body-middle">
-    <p class="card-username">{{ message.sender.username }}</p>
-    <div class="card-body-middle-bottom">
-    <p class="card-title">{{ message.title }}</p>
-    <p class="card-text">{{ message.content }}</p>
-  </div>
-  </div>
+
+<div class="card-container">
+  <div class="pagination">
+    <button class="btn btn-light" style="margin-right: 10px;" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <button class="btn btn-light" style="margin-right: 10px;" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    Page {{ currentPage }} of {{ totalPages }}
   
-
-    <p class="card-text">{{ message.createdAt | date:'medium' }}</p>
-
-    <button class="btn" (click)="viewMessage(message.id)">View Message</button>
   </div>
-</div>
+  <a *ngFor="let message of messages" [routerLink]="['/contact-message', message.id]" class="card">
+     <div class="card-body">
+       <div *ngIf="message.sender.picture_url" class="photo-container">
+         <img [src]="'http://localhost:8000/uploads/' + message.sender.picture_url" alt="Message Photo">
+       </div>
+       <div class="card-body-middle">
+         <p class="card-username">{{ message.sender.username }}</p>
+         <div class="card-body-middle-bottom">
+           <p class="card-title">{{ message.title }}</p>
+           <p class="card-text" id="content">{{ message.content }}</p>
+         </div>
+       </div>
+       <p class="card-text" id="date">{{ message.createdAt | date:'medium' }}</p>
+     </div>
+  </a>
+ </div>
+ 
