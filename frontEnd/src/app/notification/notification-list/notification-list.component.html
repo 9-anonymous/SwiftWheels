@@ -1,17 +1,23 @@
-<div class="container mt-3">
-    <h2 class="mb-4">Notifications</h2>
-    <div class="list-group">
-      <a *ngFor="let notification of notifications" class="list-group-item list-group-item-action" (click)="navigateToMessage(notification)">
-        <div class="d-flex w-100 justify-content-between align-items-center">
-          <div>
-            <p class="mb-1">{{ notification.message }}</p>
-            <h5 class="mb-1">{{ notification.messageTitle }}</h5>
-
-          </div>
-          <div class="text-end">
-            <small>{{ notification.createdAt | date:'short' }}</small>
-          </div>
-        </div>
-      </a>
-    </div>
+<div class="card-container">
+  <div class="pagination">
+     <button class="btn btn-light" style="margin-right: 10px;" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+     <button class="btn btn-light" style="margin-right: 10px;" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+     Page {{ currentPage }} of {{ totalPages }}
   </div>
+  <a *ngFor="let notification of notifications" [routerLink]="['/contact-message', notification.messageId]" class="card">
+     <div class="card-body">
+       <div *ngIf="notification.sender_picture" class="photo-container">
+         <img [src]="getPhotoUrl(notification)" alt="Notification Photo">
+       </div>
+       <div class="card-body-middle">
+
+        <p class="card-username">{{ notification?.sender_username }} sent you a message : {{ notification?.messageTitle }}</p>
+         <div class="card-body-middle-bottom">
+           <p class="card-text" id="content">{{ notification?.message }}</p>
+         </div>
+       </div>
+       <p class="card-text" id="date">{{ notification?.createdAt | date:'medium' }}</p>
+     </div>
+  </a>
+ </div>
+ 
