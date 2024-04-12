@@ -16,6 +16,7 @@
         "stof/doctrine-extensions-bundle": "^1.10",
         "symfony/asset-mapper": "*",
         "symfony/console": "*",
+        "symfony/doctrine-messenger": "*",
         "symfony/dotenv": "*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "*",

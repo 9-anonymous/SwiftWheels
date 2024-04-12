@@ -11,22 +11,17 @@
 
 namespace Symfony\Component\Messenger\Bridge\Doctrine\Transport;
 
-use Doctrine\DBAL\Abstraction\Result as AbstractionResult;
 use Doctrine\DBAL\Connection as DBALConnection;
 use Doctrine\DBAL\Driver\Exception as DriverException;
-use Doctrine\DBAL\Driver\ResultStatement;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\DBAL\LockMode;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\OraclePlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
-use Doctrine\DBAL\Schema\AbstractSchemaManager;
-use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Schema\SchemaDiff;
-use Doctrine\DBAL\Schema\Synchronizer\SchemaSynchronizer;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Messenger\Exception\InvalidArgumentException;
@@ -65,14 +60,12 @@ class Connection implements ResetInterface
     protected DBALConnection $driverConnection;
     protected ?float $queueEmptiedAt = null;
 
-    private ?SchemaSynchronizer $schemaSynchronizer;
     private bool $autoSetup;
 
-    public function __construct(array $configuration, DBALConnection $driverConnection, ?SchemaSynchronizer $schemaSynchronizer = null)
+    public function __construct(array $configuration, DBALConnection $driverConnection)
     {
         $this->configuration = array_replace_recursive(static::DEFAULT_OPTIONS, $configuration);
         $this->driverConnection = $driverConnection;
-        $this->schemaSynchronizer = $schemaSynchronizer;
         $this->autoSetup = $this->configuration['auto_setup'];
     }
 
@@ -139,7 +132,7 @@ class Connection implements ResetInterface
                 'available_at' => '?',
             ]);
 
-        $this->executeStatement($queryBuilder->getSQL(), [
+        return $this->executeInsert($queryBuilder->getSQL(), [
             $body,
             json_encode($headers),
             $this->configuration['queue_name'],
@@ -152,17 +145,19 @@ class Connection implements ResetInterface
             Types::DATETIME_IMMUTABLE,
             Types::DATETIME_IMMUTABLE,
         ]);
-
-        return $this->driverConnection->lastInsertId();
     }
 
     public function get(): ?array
     {
-        if ($this->driverConnection->getDatabasePlatform() instanceof MySQLPlatform) {
+        if ($this->driverConnection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
                 $this->driverConnection->delete($this->configuration['table_name'], ['delivered_at' => '9999-12-31 23:59:59']);
             } catch (DriverException $e) {
                 // Ignore the exception
+            } catch (TableNotFoundException $e) {
+                if ($this->autoSetup) {
+                    $this->setup();
+                }
             }
         }
 
@@ -211,12 +206,11 @@ class Connection implements ResetInterface
                 $sql .= ' '.$this->driverConnection->getDatabasePlatform()->getWriteLockSQL();
             }
 
-            $stmt = $this->executeQuery(
+            $doctrineEnvelope = $this->executeQuery(
                 $sql,
                 $query->getParameters(),
                 $query->getParameterTypes()
-            );
-            $doctrineEnvelope = $stmt instanceof Result ? $stmt->fetchAssociative() : $stmt->fetch();
+            )->fetchAssociative();
 
             if (false === $doctrineEnvelope) {
                 $this->driverConnection->commit();
@@ -260,7 +254,7 @@ class Connection implements ResetInterface
     public function ack(string $id): bool
     {
         try {
-            if ($this->driverConnection->getDatabasePlatform() instanceof MySQLPlatform) {
+            if ($this->driverConnection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
                 return $this->driverConnection->update($this->configuration['table_name'], ['delivered_at' => '9999-12-31 23:59:59'], ['id' => $id]) > 0;
             }
 
@@ -273,7 +267,7 @@ class Connection implements ResetInterface
     public function reject(string $id): bool
     {
         try {
-            if ($this->driverConnection->getDatabasePlatform() instanceof MySQLPlatform) {
+            if ($this->driverConnection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
                 return $this->driverConnection->update($this->configuration['table_name'], ['delivered_at' => '9999-12-31 23:59:59'], ['id' => $id]) > 0;
             }
 
@@ -299,9 +293,7 @@ class Connection implements ResetInterface
             ->select('COUNT(m.id) AS message_count')
             ->setMaxResults(1);
 
-        $stmt = $this->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
-
-        return $stmt instanceof Result ? $stmt->fetchOne() : $stmt->fetchColumn();
+        return $this->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes())->fetchOne();
     }
 
     public function findAll(?int $limit = null): array
@@ -312,10 +304,10 @@ class Connection implements ResetInterface
             $queryBuilder->setMaxResults($limit);
         }
 
-        $stmt = $this->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
-        $data = $stmt instanceof Result ? $stmt->fetchAllAssociative() : $stmt->fetchAll();
-
-        return array_map(fn ($doctrineEnvelope) => $this->decodeEnvelopeHeaders($doctrineEnvelope), $data);
+        return array_map(
+            $this->decodeEnvelopeHeaders(...),
+            $this->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes())->fetchAllAssociative()
+        );
     }
 
     public function find(mixed $id): ?array
@@ -323,8 +315,7 @@ class Connection implements ResetInterface
         $queryBuilder = $this->createQueryBuilder()
             ->where('m.id = ? and m.queue_name = ?');
 
-        $stmt = $this->executeQuery($queryBuilder->getSQL(), [$id, $this->configuration['queue_name']]);
-        $data = $stmt instanceof Result ? $stmt->fetchAssociative() : $stmt->fetch();
+        $data = $this->executeQuery($queryBuilder->getSQL(), [$id, $this->configuration['queue_name']])->fetchAssociative();
 
         return false === $data ? null : $this->decodeEnvelopeHeaders($data);
     }
@@ -394,47 +385,83 @@ class Connection implements ResetInterface
         ));
     }
 
-    private function executeQuery(string $sql, array $parameters = [], array $types = []): Result|AbstractionResult|ResultStatement
+    private function executeQuery(string $sql, array $parameters = [], array $types = []): Result
     {
         try {
-            $stmt = $this->driverConnection->executeQuery($sql, $parameters, $types);
+            return $this->driverConnection->executeQuery($sql, $parameters, $types);
         } catch (TableNotFoundException $e) {
-            if ($this->driverConnection->isTransactionActive()) {
+            if (!$this->autoSetup || $this->driverConnection->isTransactionActive()) {
                 throw $e;
             }
-
-            // create table
-            if ($this->autoSetup) {
-                $this->setup();
-            }
-            $stmt = $this->driverConnection->executeQuery($sql, $parameters, $types);
         }
 
-        return $stmt;
+        $this->setup();
+
+        return $this->driverConnection->executeQuery($sql, $parameters, $types);
     }
 
     protected function executeStatement(string $sql, array $parameters = [], array $types = []): int|string
     {
         try {
-            $stmt = $this->driverConnection->executeStatement($sql, $parameters, $types);
+            return $this->driverConnection->executeStatement($sql, $parameters, $types);
         } catch (TableNotFoundException $e) {
-            if ($this->driverConnection->isTransactionActive()) {
+            if (!$this->autoSetup || $this->driverConnection->isTransactionActive()) {
                 throw $e;
             }
-
-            // create table
-            if ($this->autoSetup) {
-                $this->setup();
-            }
-            $stmt = $this->driverConnection->executeStatement($sql, $parameters, $types);
         }
 
-        return $stmt;
+        $this->setup();
+
+        return $this->driverConnection->executeStatement($sql, $parameters, $types);
+    }
+
+    private function executeInsert(string $sql, array $parameters = [], array $types = []): string
+    {
+        // Use PostgreSQL RETURNING clause instead of lastInsertId() to get the
+        // inserted id in one operation instead of two.
+        if ($this->driverConnection->getDatabasePlatform() instanceof PostgreSQLPlatform) {
+            $sql .= ' RETURNING id';
+        }
+
+        insert:
+        $this->driverConnection->beginTransaction();
+
+        try {
+            if ($this->driverConnection->getDatabasePlatform() instanceof PostgreSQLPlatform) {
+                $first = $this->driverConnection->fetchFirstColumn($sql, $parameters, $types);
+
+                $id = $first[0] ?? null;
+
+                if (!$id) {
+                    throw new TransportException('no id was returned by PostgreSQL from RETURNING clause.');
+                }
+            } else {
+                $this->driverConnection->executeStatement($sql, $parameters, $types);
+
+                if (!$id = $this->driverConnection->lastInsertId()) {
+                    throw new TransportException('lastInsertId() returned false, no id was returned.');
+                }
+            }
+
+            $this->driverConnection->commit();
+        } catch (\Throwable $e) {
+            $this->driverConnection->rollBack();
+
+            // handle setup after transaction is no longer open
+            if ($this->autoSetup && $e instanceof TableNotFoundException) {
+                $this->setup();
+                goto insert;
+            }
+
+            throw $e;
+        }
+
+        return $id;
     }
 
     private function getSchema(): Schema
     {
-        $schema = new Schema([], [], $this->createSchemaManager()->createSchemaConfig());
+        $schema = new Schema([], [], $this->driverConnection->createSchemaManager()->createSchemaConfig());
         $this->addTableToSchema($schema);
 
         return $schema;
@@ -476,24 +503,10 @@ class Connection implements ResetInterface
 
     private function updateSchema(): void
     {
-        if (null !== $this->schemaSynchronizer) {
-            $this->schemaSynchronizer->updateSchema($this->getSchema(), true);
-
-            return;
-        }
-
-        $schemaManager = $this->createSchemaManager();
-        $comparator = $this->createComparator($schemaManager);
-        $schemaDiff = $this->compareSchemas($comparator, method_exists($schemaManager, 'introspectSchema') ? $schemaManager->introspectSchema() : $schemaManager->createSchema(), $this->getSchema());
+        $schemaManager = $this->driverConnection->createSchemaManager();
+        $schemaDiff = $schemaManager->createComparator()
+            ->compareSchemas($schemaManager->introspectSchema(), $this->getSchema());
         $platform = $this->driverConnection->getDatabasePlatform();
-
-        if (!method_exists(SchemaDiff::class, 'getCreatedSchemas')) {
-            foreach ($schemaDiff->toSaveSql($platform) as $sql) {
-                $this->driverConnection->executeStatement($sql);
-            }
-
-            return;
-        }
 
         if ($platform->supportsSchemas()) {
             foreach ($schemaDiff->getCreatedSchemas() as $schema) {
@@ -520,26 +533,5 @@ class Connection implements ResetInterface
                 $this->driverConnection->executeStatement($sql);
             }
         }
-    }
-
-    private function createSchemaManager(): AbstractSchemaManager
-    {
-        return method_exists($this->driverConnection, 'createSchemaManager')
-            ? $this->driverConnection->createSchemaManager()
-            : $this->driverConnection->getSchemaManager();
-    }
-
-    private function createComparator(AbstractSchemaManager $schemaManager): Comparator
-    {
-        return method_exists($schemaManager, 'createComparator')
-            ? $schemaManager->createComparator()
-            : new Comparator();
-    }
-
-    private function compareSchemas(Comparator $comparator, Schema $from, Schema $to): SchemaDiff
-    {
-        return method_exists($comparator, 'compareSchemas') || method_exists($comparator, 'doCompareSchemas')
-            ? $comparator->compareSchemas($from, $to)
-            : $comparator->compare($from, $to);
     }
 }
