@@ -1,23 +1,22 @@
-/* news.component.css */
-
-/* Add styles for news items */
+.container{
+   margin-top: 50px;
+}
 .news-item {
     display: flex;
-    background-color: #292929;
+    width:90%;
+    background-color: #070F2B;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
   }
   
-  /* Add styles for news image */
   .news-image {
-    width: 300px; /* Adjust the width as needed */
+    width: 300px; 
     height: auto;
     margin-right: 15px;
     border-radius: 4px;
   }
   
-  /* Article styles */
   .news-content {
     flex-grow: 1;
   }

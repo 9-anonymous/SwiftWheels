@@ -1,4 +1,25 @@
 .photo-container {
     min-height: 100px; /* Adjust the height as needed */
   }
+  .custom-jumbotron {
+    background-color: #070F2B;
+    padding: 2rem;
+    width: 80%;
+    display: flex ;
+    margin: auto;
+    margin-top:60px;
+    border-radius: 15px;
+  }
+  
+  .custom-title {
+    color: #007bff;
+  }
+  
+  .custom-hr {
+    border-color: #007bff;
+  }
+  
+  .custom-content {
+    font-size: 1.25rem;
+  }
   

@@ -1,6 +1,5 @@
-<!-- news.component.html -->
-
-<div *ngFor="let article of totalDisplayedNews">
+<div class="container">
+<div  *ngFor="let article of totalDisplayedNews">
     <div class="news-item">
       <img *ngIf="article.urlToImage" [src]="article.urlToImage" alt="News Image" class="news-image">
       <div class="news-content">
