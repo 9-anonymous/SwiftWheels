@@ -22,6 +22,7 @@ export class ContactListComponent implements OnInit {
     const receiverUsername = this.authService.getUsername();
     this.messageService.getMessagesForUser(receiverUsername).subscribe(response => {
       this.allMessages = (response as any).messages;
+      this.allMessages.reverse();
       this.totalPages = Math.ceil(this.allMessages.length / this.pageSize);
       this.paginateMessages();
     });

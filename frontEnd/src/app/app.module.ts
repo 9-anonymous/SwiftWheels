@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule from '@angular/forms'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { EllipsisPipe } from './ellipsis.pipe'; 
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { PostCarComponent } from './PostCar/post-car/post-car.component';
 @NgModule({
   declarations: [
     AppComponent,
+    EllipsisPipe,
     MainPageComponent,
     NavBarComponent,
     FooterComponent,

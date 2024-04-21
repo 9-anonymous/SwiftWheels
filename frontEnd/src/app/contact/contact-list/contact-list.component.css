@@ -13,7 +13,7 @@
   justify-content: end;
   margin-bottom: 30px;
  }
- .btn btn-light {
+ .pagination-previous, .pagination-next {
    margin-right: 5px;
  }
  .card-link {

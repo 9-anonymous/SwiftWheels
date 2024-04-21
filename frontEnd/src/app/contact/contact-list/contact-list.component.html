@@ -1,5 +1,6 @@
-
 <div class="card-container">
+  <h1>Messages</h1>
+
   <div class="pagination">
     <button class="btn btn-light" style="margin-right: 10px;" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
     <button class="btn btn-light" style="margin-right: 10px;" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
@@ -15,7 +16,7 @@
          <p class="card-username">{{ message.sender.username }}</p>
          <div class="card-body-middle-bottom">
            <p class="card-title">{{ message.title }}</p>
-           <p class="card-text" id="content">{{ message.content }}</p>
+           <p class="card-text" id="content">{{ message.content | ellipsis:80  }}</p>
          </div>
        </div>
        <p class="card-text" id="date">{{ message.createdAt | date:'medium' }}</p>

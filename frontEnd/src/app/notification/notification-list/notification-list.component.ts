@@ -9,6 +9,7 @@ import { NotificationService } from '../../notification.service';
 })
 export class NotificationListComponent implements OnInit {
  notifications: any[] = [];
+ allNotifications: any[] = []; // Store all fetched notifications
  currentPage = 1;
  totalPages = 0;
  pageSize = 7;
@@ -16,13 +17,13 @@ export class NotificationListComponent implements OnInit {
  constructor(private router: Router, private notificationService: NotificationService) {}
 
  ngOnInit(): void {
-    this.loadNotifications();
+    this.loadAllNotifications();
  }
 
- loadNotifications(): void {
+ loadAllNotifications(): void {
     this.notificationService.getNotifications().subscribe(response => {
-      this.notifications = (response as any).notifications;
-      this.totalPages = Math.ceil(this.notifications.length / this.pageSize);
+      this.allNotifications = (response as any).notifications;
+      this.totalPages = Math.ceil(this.allNotifications.length / this.pageSize);
       this.paginateNotifications();
     }, error => {
       console.error('Error loading notifications:', error);
@@ -32,7 +33,7 @@ export class NotificationListComponent implements OnInit {
  paginateNotifications() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.notifications = [...this.notifications.slice(startIndex, endIndex)];
+    this.notifications = [...this.allNotifications.slice(startIndex, endIndex)];
  }
 
  nextPage() {
