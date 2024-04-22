@@ -27,6 +27,8 @@ export class EmailComponent implements OnInit {
   sendEmail() {
     if (this.emailForm.valid) {
       const emailData = this.emailForm.value;
+      console.log('Sending email data:', emailData);
+
       this.emailService.sendEmail(emailData).subscribe(
         response => {
           // Redirect to the home page on success
