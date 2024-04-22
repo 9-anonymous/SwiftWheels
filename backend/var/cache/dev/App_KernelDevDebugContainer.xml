@@ -476,6 +476,10 @@
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
+    <service id="App\DataFixtures\MessageFixtures" class="App\DataFixtures\MessageFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_hasher"/>
+    </service>
     <service id="App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_hasher"/>
@@ -6749,6 +6753,10 @@
             <argument key="groups" type="collection"/>
           </argument>
           <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\MessageFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
             <argument key="fixture" type="service" id="App\DataFixtures\UserFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
@@ -6790,6 +6798,8 @@
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MessageFixtures" class="App\DataFixtures\MessageFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\MessageFixtures" class="App\DataFixtures\MessageFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CarRepository" class="App\Repository\CarRepository" autowire="true" abstract="true"/>
