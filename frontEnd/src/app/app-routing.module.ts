@@ -11,6 +11,8 @@ import { ContactMessageComponent } from './contact/contact-message/contact-messa
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 import { MainSearchComponent } from './Searchs/mainSearch/main-search/main-search.component';
 import { PostCarComponent } from './PostCar/post-car/post-car.component';
+import { EntCataComponent } from './ent-cata/ent-cata.component';
+
 
 const routes: Routes = [
   { path: '' , component : MainPageComponent},
@@ -23,7 +25,8 @@ const routes: Routes = [
   { path: 'contact-message/:id', component: ContactMessageComponent },
   { path: 'searchs' , component : MainSearchComponent },
   { path: 'AddCar' , component : PostCarComponent },
-  { path: 'notifications', component: NotificationListComponent } // New route for the notifications list
+  { path: 'notifications', component: NotificationListComponent },
+  { path: 'entCata' , component: EntCataComponent}
 
 
 ];

@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { EllipsisPipe } from './ellipsis.pipe'; 
+import { CommonModule } from '@angular/common';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +30,7 @@ import { NotificationListComponent } from './notification/notification-list/noti
 import { MainSearchComponent } from './Searchs/mainSearch/main-search/main-search.component';
 import { SideNavComponent } from './Navigations/side-nav/side-nav.component';
 import { PostCarComponent } from './PostCar/post-car/post-car.component';
+import { EntCataComponent } from './ent-cata/ent-cata.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +53,13 @@ import { PostCarComponent } from './PostCar/post-car/post-car.component';
     NotificationListComponent,
     MainSearchComponent,
     SideNavComponent,
-    PostCarComponent
+    PostCarComponent,
+    EntCataComponent
 
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule, // Add ReactiveFormsModule here
