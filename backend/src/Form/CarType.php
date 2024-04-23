@@ -23,10 +23,10 @@ class CarType extends AbstractType
             ->add('price', NumberType::class)
             ->add('description', TextareaType::class)
             ->add('color', TextType::class)
-            ->add('mileAge', IntegerType::class)
+            ->add('mileage', IntegerType::class) // Corrected field name
             ->add('quantity', IntegerType::class)
-            ->add('Pictures', FileType::class, [
-                'mapped' => false,
+            ->add('pictures', FileType::class, [ // Corrected field name, mapped to 'pictures' property
+                'mapped' => true,
                 'required' => false,
             ])
             ->add('abs', CheckboxType::class, [

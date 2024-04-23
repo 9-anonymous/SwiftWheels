@@ -16,13 +16,21 @@ export class MainSearchComponent implements OnInit {
   models: string[] = [];
   searchResults: any[] = []; // Array to store search results
 
+  selectedCar: any; // Define a property to hold the selected car
+
+  selectCar(car: any) {
+   this.selectedCar = car; // Set the selected car
+  }
+  
   ngOnInit(): void {
     this.fetchMarks();
-  }
+    this.fetchAllCars(); // Fetch all cars on component initialization
+ }
 
   fetchMarks() {
     this.searchService.getMarks().subscribe(
       (marks: string[]) => {
+        console.log('Marks fetched:', marks); // Add this line to log the fetched marks
         this.marks = marks;
       },
       (error: any) => {
@@ -30,6 +38,28 @@ export class MainSearchComponent implements OnInit {
       }
     );
   }
+  fetchAllCars() {
+    this.searchService.getAllCars().subscribe(
+      (cars: any[]) => {
+        this.searchResults = cars;
+      },
+      (error: any) => {
+        console.error('Error fetching all cars:', error);
+      }
+    );
+ }
+ getFirstPicture(pictures: string): string {
+  if (pictures) {
+     const pictureArray = pictures.split(',');
+     const firstPicture = pictureArray[0];
+     return `http://localhost:8000/uploads/${firstPicture}`;
+  } else {
+     return ''; // Return a default or empty string if pictures is null
+  }
+ }
+ 
+ 
+
 
   onMarkChange() {
     console.log('Selected Mark:', this.selectedMark);
@@ -40,6 +70,7 @@ export class MainSearchComponent implements OnInit {
           console.log('Models for Mark:', this.models);
         },
         (error: any) => {
+          this.models = [];
           console.error('Error fetching models for mark:', error);
         }
       );
@@ -58,20 +89,21 @@ export class MainSearchComponent implements OnInit {
     const searchCriteria = {
       selectedMark: this.selectedMark,
       selectedModel: this.selectedModel,
-      priceRangeMin: this.priceRangeValue2, // Potential typo: should be this.priceRangeValue2?
+      priceRangeMin: this.priceRangeValue2, // Ensure this is the correct value
       priceRangeMax: this.priceRangeValue
-    };
+     };
   
     // Call service to perform search
     this.searchService.searchCars(searchCriteria).subscribe(
       (results: any[]) => {
-        this.searchResults = results;
-        console.log('Search Results:', this.searchResults);
+         this.searchResults = results;
+         console.log('Search Results:', this.searchResults);
       },
       (error: any) => {
-        console.error('Error performing search:', error);
+         console.error('Error performing search:', error);
       }
-    );
+     );
+     
   }
   
   

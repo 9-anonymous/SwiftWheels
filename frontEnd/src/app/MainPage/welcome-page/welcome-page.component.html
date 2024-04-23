@@ -1,19 +1,23 @@
 
 <div style="height: 890px;">
-    <video width="100%" height="auto" muted loop autoplay muted>
+    <video width="100%" height="auto" [muted]="'muted'" loop autoplay>
         <source src="/assets/Videos/VideoIntro.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
     <div id="Deg">
         <div id="title">
-            <a href="#">
                 <img width="auto" height="200px" [src]="'assets/imgs/sw-high-resolution-logo-transparent.png'" alt="E">
-            </a>
+          
             <div id="Description">
                 <h1>Swift Wheel</h1>
                 <p>Welcome to your new friend in car commerce where your journey to find the perfect car begins!</p>
+                
             </div>
         </div>
+    </div>
+    <div style="display: flex;">
+        <a style="border-radius: 10px;border: 1px solid #98c1d9;padding:20px 30px; font-size: 18px;position:absolute;top:400px;left:800px;color:white" href="/searchs">Buy Your Car now !</a>
+        <a style="border-radius: 10px;border: 1px solid #98c1d9;padding:20px 30px; font-size: 18px;position:absolute;top:400px;left:1060px;color:white" href="/AddCar">Sell Your Car now !</a>
     </div>
 </div>

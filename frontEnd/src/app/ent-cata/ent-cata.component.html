@@ -1,0 +1,63 @@
+<div>
+    <div id="entProf">
+        <img id="bg" height="300px" width="auto" src="../../assets/imgs/bmw-i8-emblema-bumer-logotip-1024x684.webp" alt="">
+    </div>
+    <div id="pf">
+        <img src="../../assets/imgs/bmw-logo-2020.webp" alt="">
+    </div>    
+</div>
+
+
+ 
+  <div style="background-color: black;">
+    <ul>
+      <li *ngFor="let car of searchResults">
+        <div class="SoloCard card bg-light mb-3" *ngFor="let car of searchResults">
+            <div class="card-body" style="display: flex !important; max-width:100% ;">
+                <div class="card-body" style="display: flex !important; max-width:100% ;">
+                    <div style="margin: auto 0px; margin-right:10px">
+                      <img class="card-img-top" style="border: ridge; object-fit: cover; width: 500px !important; height: 300px !important;" [src]="car.selectedImage" alt="Card image cap">
+                  </div>
+                  <div style="margin: auto 0px;">
+                    <!-- Display two images per row -->
+                    <div class="row" style="width: 220px;">
+                      <div *ngFor="let picture of car.pictures.split(','); let i = index;" class="col-md-6">
+                        <img class="card-img-top" style="border: ridge; object-fit: cover; width: 100px !important; height: 150px !important; margin-right: 10px; cursor: pointer;" [src]="getPicture(car.pictures, i)" alt="Card image cap" (click)="selectImage(car, i)">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+              <div style="justify-content: center;display:flex;flex-direction: column; gap: 10px; padding:0px 10px 0px 10px">
+                <div style="display: flex;height: fit-content;"> 
+                  <div style="width: 150px; text-align: center;" class="card-header"><b>Mark:</b> {{ car.mark }}</div>
+                  <p style="width: 150px; text-align: center;" class="card-header"><b>Model:</b> {{ car.model }}</p>
+                  <p style="width: 150px; text-align: center;" class="card-header"><b>Price:</b> {{ car.price }}</p>
+                </div>
+                <div style="justify-content: center;display: flex;height: fit-content;"> 
+                    <div style="width: 150px; text-align: center;" class="card-header"><b>ABS:</b> {{ car.abs ? 'Yes' : 'No' }}</div>
+                    <p style="width: 150px; text-align: center;" class="card-header"><b>EPC:</b> {{ car.epc ? 'Yes' : 'No' }}</p>
+                    <p style="width: 150px; text-align: center;" class="card-header"><b>grayCard:</b> {{ car.grayCard ? 'Yes' : 'No' }}</p>
+               </div>
+                <div style="justify-content: center;display: flex;height: fit-content;"> 
+                    <div style="width: 150px; text-align: center;" class="card-header"><b>autoGearBox:</b> {{ car.autoGearBox ? 'Yes' : 'No' }}</div>
+                    <p style="width: 150px; text-align: center;" class="card-header"><b>Taxes:</b> {{ car.taxes ? 'Yes' : 'No' }}</p>
+                    <p style="width: 150px; text-align: center;" class="card-header"><b>Insurance:</b> {{ car.insurance ? 'Yes' : 'No' }}</p>
+                </div>
+                <div style="justify-content: center;display: flex;height: fit-content;"> 
+                    <div style="width: 150px; text-align: center;" class="card-header"><b>Color:</b> {{ car.color }}</div>
+                    <p style="width: 150px; text-align: center;" class="card-header"><b>Mileage:</b> {{ car.mileage }}</p>
+                    <p style="width: 150px; text-align: center;" class="card-header"><b>Quantity:</b> {{ car.quantity }}</p>
+                </div>
+            </div>
+              <p style="font-size:16px;display: flex;max-height: 100%;overflow-y: auto;flex-direction: column;width: 550px;"><b style="font-size: 20px;">Description :</b> {{ car.description }}</p>
+            </div>
+            <div class="BTNG">
+              <button style="margin-bottom: 20px;" type="button" class="btn btnC btn-success">Buy</button>
+              <button type="button" class="btn btnC btn-warning">Contact</button> 
+            </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

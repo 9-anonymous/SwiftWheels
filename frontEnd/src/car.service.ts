@@ -11,6 +11,15 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   addCar(formData: FormData): Observable<any> {
+    console.log(formData.getAll);
+    formData.forEach((value, key) => {
+      console.log("key %s: value %s", key, value);
+  });
+  console.log(formData.get("mark"));
+  console.log("Pictures:", formData.getAll("pictures[]"));
+
+
+      
     return this.http.post<any>(this.apiUrl, formData);
   }
 }

@@ -16,6 +16,7 @@ import { SignInComponent } from './Authentification/signIn/sign-in/sign-in.compo
 import { MainSearchComponent } from './Searchs/mainSearch/main-search/main-search.component';
 import { SideNavComponent } from './Navigations/side-nav/side-nav.component';
 import { PostCarComponent } from './PostCar/post-car/post-car.component';
+import { EntCataComponent } from './ent-cata/ent-cata.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PostCarComponent } from './PostCar/post-car/post-car.component';
     MainSearchComponent,
     SideNavComponent,
     PostCarComponent,
+    EntCataComponent,
   ],
   imports: [
     FormsModule,
