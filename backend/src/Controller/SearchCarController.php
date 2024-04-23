@@ -52,7 +52,7 @@ class SearchCarController extends AbstractController
     }
     
     #[Route('/search/cars', name: 'search_cars', methods: ['POST'])]
-    public function searchCars(Request $request): JsonResponse
+    public function searchCars(Request $request, SerializerInterface $serializer): JsonResponse
     {
         $requestData = json_decode($request->getContent(), true);
     
@@ -68,9 +68,14 @@ class SearchCarController extends AbstractController
         $priceRangeMin = $requestData['priceRangeMin'];
         $priceRangeMax = $requestData['priceRangeMax'];
     
-        // Perform the search and return the result
+        // Perform the search
         $searchResult = $this->carRepository->findBySearchCriteria($selectedMark, $selectedModel, $priceRangeMin, $priceRangeMax);
+    
+        // Serialize the search results with the appropriate groups or context
+        $data = $serializer->serialize($searchResult, 'json', ['groups' => 'car']);
+    
         // Removed logger usage
-        return new JsonResponse($searchResult);
+        return new JsonResponse($data, 200, [], true);
     }
+    
 }
