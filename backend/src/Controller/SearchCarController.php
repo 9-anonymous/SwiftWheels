@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-use Psr\Log\LoggerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -9,15 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CarRepository;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class SearchCarController extends AbstractController
 {
-    private $logger;
     private $carRepository;
 
-    public function __construct(LoggerInterface $logger, CarRepository $carRepository)
+    public function __construct(CarRepository $carRepository)
     {
-        $this->logger = $logger;
         $this->carRepository = $carRepository;
     }
 
@@ -41,10 +39,18 @@ class SearchCarController extends AbstractController
     public function getModelsForMark(string $mark, CarRepository $carRepository): JsonResponse
     {
         $models = $carRepository->findModelsByMark($mark);
-    
         return new JsonResponse($models);
     }
-
+    
+    #[Route('/cars', name: 'get_all_cars', methods: ['GET'])]
+    public function getAllCars(CarRepository $carRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $cars = $carRepository->findAllCars();
+        $data = $serializer->serialize($cars, 'json', ['groups' => 'car']);
+        
+        return new JsonResponse($data, 200, [], true);
+    }
+    
     #[Route('/search/cars', name: 'search_cars', methods: ['POST'])]
     public function searchCars(Request $request): JsonResponse
     {
@@ -52,7 +58,7 @@ class SearchCarController extends AbstractController
     
         // Check if the required keys are present in the request data
         if (!isset($requestData['selectedMark']) || !isset($requestData['selectedModel']) || !isset($requestData['priceRangeMin']) || !isset($requestData['priceRangeMax'])) {
-            $this->logger->error('Search request missing required parameters', ['request_data' => $requestData]);
+            // Removed logger usage
             return new JsonResponse(['error' => 'Missing required parameters'], Response::HTTP_BAD_REQUEST);
         }
     
@@ -64,12 +70,7 @@ class SearchCarController extends AbstractController
     
         // Perform the search and return the result
         $searchResult = $this->carRepository->findBySearchCriteria($selectedMark, $selectedModel, $priceRangeMin, $priceRangeMax);
-        $this->logger->info('Search executed successfully', ['search_result' => $searchResult]);
+        // Removed logger usage
         return new JsonResponse($searchResult);
     }
-
-    
-
 }
-
-

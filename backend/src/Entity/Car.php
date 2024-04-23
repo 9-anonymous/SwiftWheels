@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
@@ -12,51 +13,67 @@ class Car
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("car")]
     private ?int $id = null;
 
     #[ORM\Column(length:  255, nullable: true)]
+    #[Groups("car")]
     private ?string $mark = null;    
 
     #[ORM\Column(length:  255, nullable: true)]
+    #[Groups("car")]
     private ?string $model = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("car")]
     private ?int $price = null;
 
     #[ORM\Column(length:  255)]
+    #[Groups("car")]
     private ?string $description = null;
 
     #[ORM\Column(type: 'string', length:  255, nullable: true)]
+    #[Groups("car")]
     private ?string $pictures = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("car")]
     private ?bool $abs = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("car")]
     private ?bool $epc = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("car")]
     private ?bool $grayCard = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("car")]
     private ?bool $autoGearBox = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("car")]
     private ?bool $taxes = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("car")]
     private ?bool $insurance = null;
 
     #[ORM\Column(length:  255)]
+    #[Groups("car")]
     private ?string $color = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("car")]
     private ?int $mileage = null;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("car")]
     private ?int $quantity = null;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups("car")]
     private ?\DateTimeInterface $addDate = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -78,7 +95,6 @@ class Car
         $this->mark = $mark;
         return $this;
     }
-    
 
     public function getModel(): ?string
     {
@@ -113,12 +129,12 @@ class Car
         return $this;
     }
 
-    public function getPictures(): ?string
+    public function getpictures(): ?string
     {
         return $this->pictures;
     }
 
-    public function setPictures(?string $pictures): self
+    public function setpictures(?string $pictures): self
     {
         $this->pictures = $pictures;
         return $this;

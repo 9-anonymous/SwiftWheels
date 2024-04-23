@@ -20,41 +20,57 @@ class CarRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Car::class);
     }
+    public function findUniqueBrands(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('DISTINCT c.mark') // Corrected to lowercase 'mark'
+            ->orderBy('c.mark', 'ASC') // Corrected to lowercase 'mark'
+            ->getQuery()
+            ->getResult();
+    }
+    
 
-public function findUniqueBrands(): array
-{
-    return $this->createQueryBuilder('c')
-        ->select('DISTINCT c.Mark')
-        ->orderBy('c.Mark', 'ASC')
-        ->getQuery()
-        ->getResult();
-}
+    public function findAllCars(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.mark', 'ASC');
+    
+        // Debugging: Dump the SQL query
+        dump($queryBuilder->getQuery()->getSQL());
+    
+        return $queryBuilder->getQuery()->getResult();
+    }
+    
 
-public function findModelsByMark(string $mark): array
-{
-    return $this->createQueryBuilder('c')
-        ->select('DISTINCT c.Model')
-        ->where('c.Mark = :mark')
-        ->setParameter('mark', $mark)
-        ->orderBy('c.Model', 'ASC')
-        ->getQuery()
-        ->getResult();
-}
-
-public function findBySearchCriteria(string $selectedMark, string $selectedModel, int $priceRangeMin, int $priceRangeMax): array
-{
-    $qb = $this->createQueryBuilder('c')
-        ->andWhere('c.Mark = :mark')
-        ->andWhere('c.Model = :model')
-        ->andWhere('c.Price >= :minPrice')
-        ->andWhere('c.Price <= :maxPrice')
+    public function findModelsByMark(string $mark): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('DISTINCT c.model') // Corrected to lowercase 'model'
+            ->where('c.mark = :mark') // Corrected to lowercase 'mark'
+            ->setParameter('mark', $mark)
+            ->orderBy('c.model', 'ASC') // Corrected to lowercase 'model'
+            ->getQuery()
+            ->getResult();
+    }
+    
+    public function findBySearchCriteria(string $selectedMark, string $selectedModel, int $priceRangeMin, int $priceRangeMax): array
+    {
+            $qb = $this->createQueryBuilder('c')
+        ->andWhere('c.mark = :mark') 
+        ->andWhere('c.model = :model')
+        ->andWhere('c.price >= :minPrice')
+        ->andWhere('c.price <= :maxPrice')
         ->setParameter('mark', $selectedMark)
         ->setParameter('model', $selectedModel)
         ->setParameter('minPrice', $priceRangeMin)
         ->setParameter('maxPrice', $priceRangeMax)
         ->getQuery();
 
-    return $qb->getResult();
-}
+        // Debugging: Dump the SQL query
+        dump($qb->getSQL());
 
+        return $qb->getResult();
+
+    }
 }

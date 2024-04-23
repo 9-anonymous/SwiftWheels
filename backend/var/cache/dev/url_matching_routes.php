@@ -29,6 +29,7 @@ return [
         '/notifications/mark-all-as-read' => [[['_route' => 'app_notifications_mark_all_as_read', '_controller' => 'App\\Controller\\NotificationController::markAllNotificationsAsRead'], null, ['POST' => 0], null, false, false, null]],
         '/search/car' => [[['_route' => 'app_search_car', '_controller' => 'App\\Controller\\SearchCarController::index'], null, null, null, false, false, null]],
         '/marks' => [[['_route' => 'get_all_marks', '_controller' => 'App\\Controller\\SearchCarController::getCarBrands'], null, ['GET' => 0], null, false, false, null]],
+        '/cars' => [[['_route' => 'get_all_cars', '_controller' => 'App\\Controller\\SearchCarController::getAllCars'], null, ['GET' => 0], null, false, false, null]],
         '/search/cars' => [[['_route' => 'search_cars', '_controller' => 'App\\Controller\\SearchCarController::searchCars'], null, ['POST' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\SignupController::register'], null, ['POST' => 0], null, false, false, null]],
         '/users' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::listUsers'], null, ['GET' => 0], null, false, false, null]],

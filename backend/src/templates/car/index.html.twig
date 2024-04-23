@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Car index{% endblock %}
+
+{% block body %}
+    <h1>Car index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mark</th>
+                <th>Model</th>
+                <th>Vendor</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Pictures</th>
+                <th>Abs</th>
+                <th>Epc</th>
+                <th>GrayCard</th>
+                <th>AutoGearBox</th>
+                <th>Taxes</th>
+                <th>Insurance</th>
+                <th>Color</th>
+                <th>MileAge</th>
+                <th>Quantity</th>
+                <th>AddDate</th>
+                <th>SellDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for car in cars %}
+            <tr>
+                <td>{{ car.id }}</td>
+                <td>{{ car.CarName }}</td>
+                <td>{{ car.Mark }}</td>
+                <td>{{ car.Model }}</td>
+                <td>{{ car.Vendor }}</td>
+                <td>{{ car.Price }}</td>
+                <td>{{ car.Description }}</td>
+                <td>{{ car.pictures }}</td>
+                <td>{{ car.Abs ? 'Yes' : 'No' }}</td>
+                <td>{{ car.Epc ? 'Yes' : 'No' }}</td>
+                <td>{{ car.GrayCard ? 'Yes' : 'No' }}</td>
+                <td>{{ car.AutoGearBox ? 'Yes' : 'No' }}</td>
+                <td>{{ car.Taxes ? 'Yes' : 'No' }}</td>
+                <td>{{ car.Insurance ? 'Yes' : 'No' }}</td>
+                <td>{{ car.Color }}</td>
+                <td>{{ car.MileAge }}</td>
+                <td>{{ car.Quantity }}</td>
+                <td>{{ car.AddDate ? car.AddDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car.SellDate ? car.SellDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_car_show', {'id': car.id}) }}">show</a>
+                    <a href="{{ path('app_car_edit', {'id': car.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="20">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_car_new') }}">Create new</a>
+{% endblock %}

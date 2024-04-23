@@ -1,17 +1,20 @@
 /*TheShow*/
 #theShow{
-    display: Grid;
+    width: 100%;
+    display: grid;
     margin: 20px;
 }
-h4{
-    margin: 40px auto 30px auto;
-    text-align: left;
-}
 .SoloCard{
+    flex: 0 0 calc(50% - 10px); 
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    flex-direction: row;
     box-shadow: 1px 4px 20px rgba(152, 193, 217, 1); /* Shadow effect */
-    margin: 0px 20px 0px 30px;
-    max-width: 15rem; min-width: 15rem;
-    max-height: 28rem; min-height: 25rem;
+    margin: 0px ;
+    width: 99%; 
+    padding: 0px 0px;
+    min-height: 20rem;
 }
 
 .col-1{ margin: 100px 0px 40px 0px !important;
@@ -20,18 +23,21 @@ h4{
         border: 0px !important;
         box-shadow: none !important;
         }
-
-
 .BTNG{
-    display: flex;
-    justify-content: space-around;
-    margin: 10px 10px 10px 10px;
+    display: grid;
+    margin: auto 20px;
+    gap: 10px;
+}
+.btnC{
+    width: auto;
+    height: 50px;
 }
 /**/
 #SearchPage{
     background-color: black;
-    width: 100vw;
+    max-width: 100vw;
     margin: auto; 
+    max-height: 100vh;
     height: 100vh;
     font-size: 14px;
 }
@@ -39,7 +45,7 @@ h4{
 .Parts{
     color: azure;
     border-radius: 10px;
-    box-shadow: 3px 3px 10px rgba(152, 193, 217, 0.8); /* Shadow effect */
+    box-shadow: -1px 1px 20px rgba(152, 193, 217, 0.8); /* Shadow effect */
     border: 3px solid transparent;
 }
 
@@ -62,32 +68,39 @@ h5{
     align-items: center;
     margin-bottom: 0px;
 } 
+
+#ShowList{
+    padding: inherit;
+    overflow-y: auto;
+    max-height: 85vh;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 .searchsA{
     margin: 10px 0px 10px 0px;
     display: grid;
 }
+
+.left{
+    max-height: 400px;
+    margin: auto 0px auto 0px !important;
+}
 #SearchsContainer{
-    height: 100%;
+    height: auto;
     background-color: black;       
     display: grid;
     padding: 20px 10px 20px 10px;   
-    margin: auto;
     color: white;
+    gap: 10px;
     align-items: center;
     justify-items: center;
 }
 
-.inputMileage{
-    width: 7vw;
-    height: 5vh ;
-    background-color: black;
-    color: white;
-    border: none;
-    box-shadow: 1px 1px 10px rgba(152, 193, 217, 0.8); /* Shadow effect */
-    border-radius: 20px ;
-    padding: 0px 20px 0px 10px;
+#SearchArea{
+    margin: 90px 0px 0px 0px !important;
 }
-
 #SearchButton{
     background-color: transparent;
     border-radius: 20px;
@@ -112,14 +125,10 @@ h5{
     padding: 0px;
     height: 700px;
 }
-.modal-content{
-    width: 150% !important;
-}
 .row.inner-scroll {
     height: 730px;
     overflow: auto;
 }
-
 .mycard-footer {
     height: 25px;
     background: #333333;
@@ -146,11 +155,6 @@ h5{
     opacity: 0;
     cursor: pointer;
 }
- 
-
-
-
-
  
 /*The Car show controll*/
 .container {
@@ -251,7 +255,24 @@ h5{
     border: none;
     font-weight: 600;
 }
-
+.btn-success {
+    width: 90%;
+    height: 55px;
+    border-radius: 0;
+    padding: 13px 0;
+    background-color: rgb(74, 155, 42);
+    border: none;
+    font-weight: 600;
+}
+.btn-danger {
+    width: 100%;
+    height: 55px;
+    border-radius: 0;
+    padding: 13px 0;
+    background-color: rgb(184, 10, 10);
+    border: none;
+    font-weight: 600;
+}
 .btn.btn-primary:hover .fas {
     transform: translateX(10px);
     transition: transform 0.5s ease

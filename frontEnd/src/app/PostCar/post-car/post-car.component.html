@@ -1,31 +1,58 @@
 <img src="../../../assets/imgs/bg.png" id="theBg">
 <div class="container">
-    <form (ngSubmit)="onSubmit()">
+    <form #myForm="ngForm" (ngSubmit)="submitted = true; myForm.valid && onSubmit()">
       <h2>Best Place to sell your Car !</h2>
 
       <div class="form-gorup">
-        <label for="Pictures">Car Pictures</label>
-        <input type="file" id="Pictures" class="form-control" name="Pictures" (change)="onFileSelected($event)" required>
+        <label for="pictures">Car pictures</label>
+        <input type="file" id="pictures" class="form-control" name="pictures[]" (change)="onFileSelected($event)" multiple required>
       </div>
       <!--mark&Model-->
       <div style=" display: flex; justify-content: flex-start;gap: 20px;">
         <div class="MMC form-group">
           <label for="mark">Mark</label>
-          <input type="text" class="form-control" id="mark" name="mark" [(ngModel)]="mark" required>
+          <input type="text" class="form-control" id="mark" name="mark" [(ngModel)]="mark" required #modelControl1="ngModel">
+          <!-- Success Alert -->
+          <div *ngIf="modelControl1.valid && modelControl1.touched" style="z-index: 3 !important; position: absolute !important;"  class="alert alert-success" role="alert">
+              Mark is valid.
+          </div>
+          <!-- Error Alert for Required Field -->
+          <div *ngIf="submitted && modelControl1.invalid && modelControl1.touched" style="z-index: 3 !important; position: absolute !important;" class="alert alert-danger" role="alert">
+              Mark is required.
+          </div>
         </div>
-        <div class="MMC  form-group">
+  
+        <div class="MMC form-group">
           <label for="model">Model</label>
-          <input type="text" class="form-control" id="model" name="model" [(ngModel)]="model" required>
+          <input type="text" class="form-control" id="model" name="model" [(ngModel)]="model" required #modelControl2="ngModel">
+          <!-- Success Alert -->
+          <div *ngIf="modelControl2.valid && modelControl2.touched" style="z-index: 3 !important; position: absolute !important;" class="alert alert-success" role="alert">
+              Model is valid.
+          </div>
+          <!-- Error Alert for Required Field -->
+          <div *ngIf="submitted && modelControl2.invalid && modelControl2.touched" style="z-index: 3 !important; position: absolute !important;" class="alert alert-danger" role="alert">
+              Model is required.
+          </div>
         </div>
+
+      
         <div class="MMC  form-group">
           <label for="color">Color</label>
           <input type="text" class="form-control" id="color" name="color" [(ngModel)]="color">
         </div>
       </div>
       
-      <div class="form-group">
+      <div class="form-group" style="margin-bottom: 30px;">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" name="price" [(ngModel)]="price" required>
+        <input type="number" class="form-control" id="price" name="price" min="3000" [(ngModel)]="price" required #modelControl3="ngModel">
+        <!-- Success Alert -->
+        <div *ngIf="modelControl3.valid && modelControl3.touched && price > 3000" style="z-index: 3 !important; position: absolute !important;" class="alert alert-success" role="alert">
+          Price is valid and above 3000.
+        </div>
+        <!-- Error Alert for Required Field -->
+        <div *ngIf="submitted && modelControl3.invalid && modelControl3.touched" style="z-index: 3 !important; position: absolute !important;" class="alert alert-danger" role="alert">
+          Price is required and must be above 3000.
+        </div>
       </div>
       <!--Options-->
       <div style="display: flex; gap: 30px; justify-content: space-around;">
@@ -61,11 +88,11 @@
         <div>
           <div class="form-group">
             <label for="mileAge">Mileage</label>
-            <input type="number" class="form-control" id="mileAge" name="mileAge" [(ngModel)]="mileage">
+            <input type="number" class="form-control" id="mileAge" name="mileAge" [(ngModel)]="mileage" required #modelControl4="ngModel">  
           </div>
           <div class="form-group">
-            <label for="quantity">Quantité</label>
-            <input type="number" class="form-control" id="quantity" name="quantity" [(ngModel)]="quantity">
+            <label for="quantity">Quantity</label>
+            <input type="number" placeholder="1" class="form-control" id="quantity" name="quantity" [(ngModel)]="quantity">
           </div>
         </div>
         
@@ -74,11 +101,16 @@
         <label style="margin-left: 30px;" for="description">description</label>
         <textarea type="text" class="form-control" id="description" name="description" [(ngModel)]="description"></textarea>
       </div>
-
       </div>
+
+
+      <div *ngIf="submitted && myForm.invalid" class="alert alert-danger" style="text-align: center;" role="alert">
+        Please fill in all required fields.<b>( Mark - Model - Price )</b>
+    </div>
+    
       <div class="btnG">
         <button class="btn btn-info">Home</button>
-        <button type="submit" class="btn btn-success">Add</button>
+        <button type="submit" [disabled]="!myForm.valid" class="btn btn-success">Add</button>
         <button class="btn btn-danger">cancel</button>
       </div>
     </form>

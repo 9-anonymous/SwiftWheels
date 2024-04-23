@@ -6,7 +6,7 @@ import { CarService } from 'src/car.service';
   styleUrls: ['./post-car.component.css']
 })
 export class PostCarComponent {
-  Pictures: File | null = null;
+  pictures: File[] = [];
   mark: string = '';
   model: string = '';
   price: number =  0;
@@ -21,21 +21,29 @@ export class PostCarComponent {
   quantity: number =  0;
   description: string = '';
 
+  submitted = false;
+
   constructor(private carService: CarService) { }
 
   onFileSelected(event: any): void {
-    if (event.target.files.length >  0) {
-      this.Pictures = event.target.files[0];
+    if (event.target.files && event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.pictures.push(event.target.files[i]);
+      }
     }
   }
-
+  showAlert() {
+    alert('Please fill out all required fields.');
+}
   onSubmit(): void {
     const formData = new FormData();
 
-    if (this.Pictures) {
-      formData.append('Pictures', this.Pictures, this.Pictures.name);
+    if (this.pictures && this.pictures.length > 0) {
+      for (let i = 0; i < this.pictures.length; i++) {
+        formData.append('pictures[]', this.pictures[i], this.pictures[i].name);
+      }
     }
-
+    
     formData.append('mark', this.mark);
     formData.append('model', this.model);
     formData.append('price', this.price.toString());
@@ -62,7 +70,8 @@ export class PostCarComponent {
   }
 
   resetForm(): void {
-    this.Pictures = null;
+    this.submitted = false;
+    this.pictures=[];
     this.mark = '';
     this.model = '';
     this.price =  0;
