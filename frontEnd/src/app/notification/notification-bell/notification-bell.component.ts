@@ -78,20 +78,31 @@ markAsRead(): void {
 
 
 
-  navigateToMessage(notification: any): void {
-    this.router.navigate(['/contact-message', notification.messageId]);
-   
-    // Ensure the notification id is correctly passed
-    this.notificationService.markNotificationAsRead(notification.id).subscribe(
-       response => {
+navigateToMessage(notification: any): void {
+  console.log('Notification:', notification); // Debugging line
+  console.log('Message ID:', notification.messageId); // Debugging line
+
+  // Check if notification and messageId are not null or undefined
+  if (notification && notification.messageId) {
+     this.router.navigate(['/contact-message', notification.messageId]);
+ 
+     // Ensure the notification id is correctly passed
+     if (notification.id) {
+       this.notificationService.markNotificationAsRead(notification.id).subscribe(
+         response => {
            // Optionally, update the notification status in the UI
            notification.isRead = true;
-       },
-       error => {
+         },
+         error => {
            console.error('Error marking notification as read:', error);
-       }
-    );
-   }
+         }
+       );
+     }
+  } else {
+     console.error('Notification or messageId is null or undefined');
+  }
+ }
+ 
    
 
    toggleNotifications(): void {
