@@ -1,0 +1,80 @@
+<div class="main-content " style="margin-left: 0px;">
+
+  <div class="page-content" style="padding-top:30px;">
+      <div class="container-fluid">
+
+<div class="row">
+  <div class="col-12">
+      <h5 class="text-decoration-underline mb-3 pb-1">Voitures</h5>
+  </div>
+
+</div>
+  
+  <div class="input-group mb-3">
+    <input type="text" [(ngModel)]="searchTerm" style="margin: auto 80% auto auto;" (ngModelChange)="search()" class="form-control" placeholder="Search..." aria-label="Search Term" aria-describedby="button-addon2">
+  </div>
+  
+  <div *ngIf="cars" style="margin-top:0%">
+    <h2>Liste des voitures</h2>
+    <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th>CarName</th>
+          <th>Mark</th>
+          <th>Model</th>
+          <th>Price</th>
+          <th>Owner</th>
+          <th>Description</th>
+          <th>Pictures</th>
+          <th>ABS</th>
+          <th>EPC</th>
+          <th>GrayCard</th>
+          <th>AutoGearBox</th>
+          <th>Taxes</th>
+          <th>Insurrance</th>
+          <th>Color</th>
+          <th>MileAge</th>
+          <th>Available</th>
+          <th>Quantity</th>
+          <th>Date_achat</th>
+          <th>Date_vente</th>
+          <th>Delete</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of filteredCars">
+          <td>{{ car.CarName }}</td>
+          <td>{{ car.Mark }}</td>
+          <td>{{ car.Model }}</td>
+          <td>{{ car.Price }}</td>
+          <td>{{ car.Owner }}</td>
+          <td>{{ car.Description }}</td>
+          <td>{{ car.Pictures }}</td>
+          <td>{{ car.ABS }}</td>
+          <td>{{ car.EPC }}</td>
+          <td>{{ car.GrayCard }}</td>
+          <td>{{ car.AutoGearBox }}</td>
+          <td>{{ car.Taxes }}</td>
+          <td>{{ car.Insurrance }}</td>
+          <td>{{ car.Color }}</td>
+          <td>{{ car.MileAge }}</td>
+          <td>{{ car.Available }}</td>
+          <td>{{ car.Quantity }}</td>
+          <td>{{ car.Date_achat }}</td>
+          <td>{{ car.date_vente }}</td>
+          <td>
+    
+            <button type="button" class="btn btn-danger" (click)="deletetCars(car.id)" title="btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+              </svg>
+            </button> 
+            </td>  
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+  </div>

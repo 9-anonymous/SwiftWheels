@@ -1,0 +1,289 @@
+<header id="page-topbar" style="background-color:black">
+    <div class="layout-width">
+        <div class="navbar-header">
+            <h1>Dashboard</h1>
+            <div class="d-flex align-items-center">  
+                
+                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" color="white" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>
+                </button>
+
+
+
+
+                <!-- Notification Icon -->
+                <button type="button" class="btn" id="notificationButton" >
+                    <svg xmlns="http://www.w3.org/2000/svg" color="white" width="35" height="35" fill="currentColor" class="bi bi-bell" viewBox="0  0  16  16">
+                      <path d="M8  16a2  2  0  0  0  2-2H6a2  2  0  0  0  2  2M8  1.918l-.797.161A4  4  0  0  0  4  6c0 .628-.134  2.197-.459  3.742-.16.767-.376  1.566-.663  2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134  8.197  12  6.628  12  6a4  4  0  0  0-3.203-3.92zM14.22  12c.223.447.481.801.78  1H1c.299-.199.557-.553.78-1C2.68  10.2  3  6.88  3  6c0-2.42  1.72-4.44  4.005-4.901a1  1  0  1  1  1.99  0A5  5  0  0  1  13  6c0 .88.32  4.2  1.22  6"/>
+                    </svg>
+                    
+                </button>
+
+                <!-- Message Icon -->
+                <button type="button" class="btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" color="white" width="35" height="35" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0  0  16  16">
+                      <path d="M0  2a2  2  0  0  1  2-2h12a2  2  0  0  1  2  2v8a2  2  0  0  1-2  2H4.414a1  1  0  0  0-.707.293L.854  15.146A.5.5  0  0  1  0  14.793zm3.5  1a.5.5  0  0  0  0  1h9a.5.5  0  0  0  0-1zm0  2.5a.5.5  0  0  0  0  1h9a.5.5  0  0  0  0-1zm0  2.5a.5.5  0  0  0  0  1h5a.5.5  0  0  0  0-1z"/>
+                    </svg>
+                    
+                </button>
+
+                <!-- Admin Profile Dropdown Button -->
+                <div class="dropdown" >
+                    <button class="btn dropdown-toggle"  type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="assets/imgs/users/kais1.jpg" alt="Admin Profile" class="profile-picture">
+                        Kais Barhoumi
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                        <!-- Profile Option -->
+                        <li>
+                            <a href="/profile">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                                  </svg> Profile</a></li>
+                        <!-- Settings Option -->
+                        <li>
+                            <a href="/settings">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                                  </svg> Settings</a></li>
+
+                                  <!--inline progress-->
+                                  <div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 3px">
+                                    <div class="progress-bar" style="width:100%" ></div>
+                                  </div>
+
+                        <!-- Logout Option -->
+                        <li><a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                              </svg> Logout</a></li>
+                    </ul>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-body" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col" class="text-center">Description</th>
+                                    <th scope="col" class="text-center">Owner</th>
+                                    <th scope="col" class="text-center">Model</th>
+                                    <th scope="col" class="text-center">Prix</th>
+                                    <th scope="col" class="text-center">Delete</th>
+                                    <th scope="col" class="text-center">Pay</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td>
+                                        <h4>Bugatti</h4>
+                                            <img src="https://www.pngmart.com/files/4/Car-Transparent-PNG.png"
+                                                class="img-fluid rounded-3" alt="Produit 1">
+                                        
+                                    </td>
+                                    <td>
+                                        <p >Description du voiture 1</p>
+                                    </td>
+                                    <td>
+                                        <p>owner1</p>
+                                    </td>
+                                    <td>
+                                        <p>Model 2020</p>
+                                    </td>
+                                    <td><p>
+                                        € 44.00
+                                    </p></td>
+                                    <td>
+                                        <button class="btn btn-danger" title="btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                                <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                            </svg>
+                                        </button> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <h4>BMW</h4>
+                                            <img src="https://img.freepik.com/psd-premium/voiture-sport-blanche-fond-transparent-illustration-rendu-3d_494250-66507.jpg"
+                                                class="img-fluid rounded-3" alt="Produit 2">
+                                    </td>
+                
+                                    <td>
+                                        <p >Description du voiture 2</p>
+                                    </td>
+                                    <td>
+                                        <p>owner2</p>
+                                    </td>
+                                    <td>
+                                        <p>Model 2020</p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            € 44.00
+                                        </p>
+                                        </td>
+                                    <td>
+                                        <button class="btn btn-danger" title="btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                                <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                            </svg>
+                                        </button> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <h4>Mercedes</h4>
+                                            <img src="https://www.mercedes-benz.fr/content/dam/hq/passengercars/cars/s-class/mercedes-maybach-s-class-z223-pi/modeloverview/10-2022/mercedes-maybach-s-class-z223-modeloverview-696x392-10-2022.png"
+                                                class="img-fluid rounded-3" alt="Produit 3">
+                                    </td>
+                                    <td>
+                                        <p>Description du voiture 3</p>
+                                    </td>
+                                    <td>
+                                        <p>owner3</p>
+                                    </td>
+                                    <td>
+                                        <p>Model 2020</p>
+                                    </td>
+                                    <td><p>
+                                        € 44.00
+                                    </p></td>
+                                    <td>
+                                        <button class="btn btn-danger" title="btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                                <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                            </svg>
+                                        </button> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                </div>
+                </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                                <div class="payment-info">
+                                    <div class="p-2 rounded cart">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span><strong>Card details</strong></span>
+                                        </div>
+                                        <span class="type d-block mt-3 mb-1">Card type</span>
+                                        <label class="radio">
+                                            <input type="radio" name="card" title="input" value="payment" checked>
+                                            <span><img width="30" alt="" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="card" value="payment" title="input1">
+                                            <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png" alt="!!" /></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="card" value="payment" title="input2">
+                                            <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png" alt="!!" /></span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="card" value="payment" title="input3">
+                                            <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png" alt="!!" /></span>
+                                        </label>
+                                        <div>
+                                            <label class="credit-card-label">Name on card</label>
+                                            <input type="text" class="form-control credit-inputs" placeholder="Name">
+                                        </div>
+                                        <div>
+                                            <label class="credit-card-label">Card number</label>
+                                            <input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="credit-card-label">Date</label>
+                                                <input type="text" class="form-control credit-inputs" placeholder="12/24">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="credit-card-label">CVV</label>
+                                                <input type="text" class="form-control credit-inputs" placeholder="342">
+                                            </div>
+                                        </div>
+                                        <hr class="line">
+                                        <div class="d-flex justify-content-between information">
+                                            <span>Subtotal</span>
+                                            <span>$3000.00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between information">
+                                            <span>Shipping</span>
+                                            <span>$20.00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between information">
+                                            <span>Total (Incl. taxes)</span>
+                                            <span>$3020.00</span>
+                                        </div>
+                                        <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
+                                            <span>$3020.00</span>
+                                            <span>Checkout <i class="fa fa-long-arrow-right ml-1"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+

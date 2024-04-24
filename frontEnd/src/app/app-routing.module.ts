@@ -14,6 +14,18 @@ import { PostCarComponent } from './PostCar/post-car/post-car.component';
 import { EntCataComponent } from './ent-cata/ent-cata.component';
 
 
+
+
+
+import { AccueilComponent } from './accueil/accueil.component';
+import { VenteComponent } from './vente/vente.component';
+import { ClientComponent } from './client/client.component';
+import { VoitureComponent } from './voiture/voiture.component';
+import { ProfileComponent } from './AdminProfile/profile/profile.component';
+import { SettingsComponent } from './AdminProfile/settings/settings.component';
+
+
+
 const routes: Routes = [
   { path: '' , component : MainPageComponent},
   { path: 'register', component: SignupComponent },
@@ -26,7 +38,19 @@ const routes: Routes = [
   { path: 'searchs' , component : MainSearchComponent },
   { path: 'AddCar' , component : PostCarComponent },
   { path: 'notifications', component: NotificationListComponent },
-  { path: 'entCata' , component: EntCataComponent}
+  { path: 'entCata' , component: EntCataComponent},
+
+
+
+
+
+  { path: 'admin', component: AccueilComponent },
+  { path: 'clients', component: ClientComponent },
+  { path: 'voitures', component: VoitureComponent },
+  { path: 'ventes', component: VenteComponent },
+  {path:'profile', component:ProfileComponent},
+  {path:'settings', component:SettingsComponent},
+
 
 
 ];

@@ -1,0 +1,57 @@
+#setting {
+    margin:20% auto auto 2%;
+    width:auto;
+    height:auto;
+}
+
+.card-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+  
+  button {
+    margin-left: 70%;
+    margin-top: 35%;
+    color: white;
+    background-color: black;
+    font-family: "Oswald", sans-serif;
+    font-size: 15px;
+  }
+
+  button:hover {
+    background-color:#1A9BFC ;
+  }
+
+
+  h1,label,p,option{
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+  }
+
+  
+  
+  .text-center {
+    margin-top: 25%;
+    font-size: 160%;
+  }
+  
+  @media (max-width: 768px) {
+
+    .card-img {
+      width: 80px;
+      height: 80px;
+      margin: 10% auto;
+    }
+    
+    button {
+      margin-left: 50%;
+      margin-top: 20%;
+    }
+    
+    .text-center {
+      margin-top: 15%;
+      font-size: 120%;
+    }
+  }

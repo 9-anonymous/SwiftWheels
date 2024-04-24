@@ -127,4 +127,55 @@ class CarController extends AbstractController
             'sellDate' => $car->getSellDate() ? $car->getSellDate()->format('Y-m-d H:i:s') : null,
         ];
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #[Route('/api/cars', name: "api_cars", methods: ['GET'])]
+    public function getCars(CarRepository $carRepository): JsonResponse
+    {
+        $Cars = $carRepository->findAll();
+        
+        return $this->json($Cars);
+    }
+
+    #[Route('/api/cars/{id}', name: 'api_delete_cars', methods: ['DELETE'])]
+    public function deleteCars(Car $car, EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Vérifier si le car existe
+        if (!$car) {
+            throw $this->createNotFoundException('Car non trouvé.');
+        }
+
+        // Supprimer le car
+        $entityManager->remove($car);
+        $entityManager->flush();    
+
+        return $this->json(['message' => 'Car supprimé avec succès.']);
+    }
+
+    #[Route('/api/cars/count', name: 'api_count_cars', methods: ['GET'])]
+    public function countCars(CarRepository $carRepository): JsonResponse
+    {
+        $count = $carRepository->count([]);
+    
+        return $this->json($count);
+    }
 }

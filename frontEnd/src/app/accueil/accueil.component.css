@@ -1,0 +1,45 @@
+h2 {
+    color: white;
+    align-items: center;
+    display: flex;
+    height: auto;
+    width: auto;
+    font-size: 40px;
+    margin: auto;
+    font-family: "Josefin Sans", sans-serif;
+    margin-top: 1%;
+
+}
+
+h4,h5,li,li a 
+{
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px; 
+}
+
+
+
+.col-4 {
+    max-width: auto;
+    max-height: auto;
+}
+
+
+
+.card {
+    max-width: auto;
+    border-radius: 10%;
+    max-height: auto;
+    background-color: black;
+}
+.card {
+    max-width: auto;
+    max-height: auto;
+}
+
+hr {
+    color:white;
+}
+
+
+

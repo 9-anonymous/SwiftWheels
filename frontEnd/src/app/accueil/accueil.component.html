@@ -1,0 +1,83 @@
+<div style="display: flex;color:#f3f3f9 !important" >
+    <app-menu></app-menu>
+
+    <div style="display: grid;">
+        <app-navigation></app-navigation>
+        <div style="margin:4% 0% auto 15%">
+    
+    <div class="main-content " style="margin-left: 0px;">
+    
+        <div class="page-content" style="padding-top:30px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="text-decoration-underline mb-3 pb-1">Statistiques</h5>
+                    </div>
+    
+                </div>
+                <!-- end row-->
+    
+                <div class="row" style="margin-bottom: 1%;">
+    
+                    <div class="col-4">
+                        <div class="card shadow">
+                            
+                            <h2>Nombres des clients </h2>
+                            <hr>
+                            <h2 style="color:#00CED1;font-size:50px">{{ clientCount }}</h2>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-4">
+                        <div class="card shadow">
+                            <h2>Nombres des voitures</h2>
+                            <hr>
+                            <h2 style="color:#00CED1;font-size:50px;">{{ carsCount }}</h2>
+                        </div>
+                    </div>
+    
+                    <div class="col-4">
+                        <div class="card shadow">
+    
+                            <h2>Nombres des ventes</h2>
+                            <hr>
+                            <h2 style="color:#00CED1;font-size:50px">{{ clientCount }}</h2>
+                        </div>
+    
+                    </div>
+    
+    
+    
+                </div>
+    
+                <div class="row">
+                    <div class="col-lg-5 shadow-lg p-8" style="background-color: white;margin-left:20px">
+                        <canvas id="piechart"></canvas>
+                    </div>
+    
+                    <div class="col-lg-5 shadow-lg p-5" style="margin-left:auto;background-color: white;margin-right:20px">
+                        <canvas id="line"></canvas>
+                    </div>
+    
+                </div>
+                <!-- end row-->
+                <div class="row">
+                    <div class="col-lg-5 shadow-lg p-5" style="background-color: white;margin-top:30px;margin-left:20px">
+                        <canvas id="daughnut"></canvas>
+                    </div>
+                    <div class="col-lg-5 shadow-lg p-5"
+                        style="margin-left:auto;background-color: white;margin-top:30px;margin-right:20px">
+                        <canvas id="daughnut1"></canvas>
+                    </div>
+    
+    
+                </div>
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+    </div>    </div>
+    
+    </div>
+</div>

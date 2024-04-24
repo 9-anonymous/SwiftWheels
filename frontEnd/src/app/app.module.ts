@@ -1,4 +1,3 @@
-// app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +31,24 @@ import { SideNavComponent } from './Navigations/side-nav/side-nav.component';
 import { PostCarComponent } from './PostCar/post-car/post-car.component';
 import { EntCataComponent } from './ent-cata/ent-cata.component';
 
+
+
+
+
+
+
+
+
+import { SettingsComponent } from './AdminProfile/settings/settings.component';
+import { ProfileComponent } from './AdminProfile/profile/profile.component';
+import { NavigationComponent } from './templates/navigation/navigation.component';
+import { ContenuComponent } from './templates/contenu/contenu.component';
+import { MenuComponent } from './templates/menu/menu.component';
+import { AccueilComponent } from './accueil/accueil.component';
+import { VenteComponent } from './vente/vente.component';
+import { ClientComponent } from './client/client.component';
+import { VoitureComponent } from './voiture/voiture.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +71,26 @@ import { EntCataComponent } from './ent-cata/ent-cata.component';
     MainSearchComponent,
     SideNavComponent,
     PostCarComponent,
-    EntCataComponent
+    EntCataComponent,
+
+
+
+
+
+
+
+
+
+    
+    NavigationComponent,
+    ContenuComponent,
+    MenuComponent,
+    AccueilComponent,
+    VenteComponent,
+    ClientComponent,
+    VoitureComponent,
+     ProfileComponent,
+    SettingsComponent,
 
   ],
   imports: [

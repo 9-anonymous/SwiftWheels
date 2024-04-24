@@ -15,6 +15,7 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_accueil', '_controller' => 'App\\Controller\\AppController::index'], null, null, null, false, false, null]],
+        '/api/cars' => [[['_route' => 'api_cars', '_controller' => 'App\\Controller\\CarController::getCars'], null, ['GET' => 0], null, false, false, null]],
         '/home' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::login'], null, ['POST' => 0], null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\LoginController::logout'], null, ['POST' => 0], null, false, false, null]],
@@ -56,20 +57,26 @@ return [
                         .')'
                     .')'
                 .')'
+                .'|/api/(?'
+                    .'|cars/(?'
+                        .'|([^/]++)(*:226)'
+                        .'|count(*:239)'
+                    .')'
+                    .'|users/(?'
+                        .'|([^/]++)(*:265)'
+                        .'|count(*:278)'
+                    .')'
+                .')'
                 .'|/m(?'
                     .'|essages/(?'
-                        .'|id/([^/]++)(*:229)'
-                        .'|user/([^/]++)(*:250)'
+                        .'|id/([^/]++)(*:315)'
+                        .'|user/([^/]++)(*:336)'
                     .')'
-                    .'|odels/([^/]++)(*:273)'
+                    .'|odels/([^/]++)(*:359)'
                 .')'
                 .'|/u(?'
-                    .'|ploads/([^/]++)(*:302)'
-                    .'|sers/role/([^/]++)(*:328)'
-                .')'
-                .'|/api/users/(?'
-                    .'|([^/]++)(*:359)'
-                    .'|count(*:372)'
+                    .'|ploads/([^/]++)(*:388)'
+                    .'|sers/role/([^/]++)(*:414)'
                 .')'
             .')/?$}sDu',
     ],
@@ -82,14 +89,16 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        229 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
-        250 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
-        273 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
-        302 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
-        328 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
-        359 => [[['_route' => 'api_delete_client', '_controller' => 'App\\Controller\\UserController::deleteClient'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        372 => [
-            [['_route' => 'api_count_clients', '_controller' => 'App\\Controller\\UserController::countClients'], [], ['GET' => 0], null, false, false, null],
+        226 => [[['_route' => 'api_delete_cars', '_controller' => 'App\\Controller\\CarController::deleteCars'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        239 => [[['_route' => 'api_count_cars', '_controller' => 'App\\Controller\\CarController::countCars'], [], ['GET' => 0], null, false, false, null]],
+        265 => [[['_route' => 'api_delete_client', '_controller' => 'App\\Controller\\UserController::deleteClient'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        278 => [[['_route' => 'api_count_clients', '_controller' => 'App\\Controller\\UserController::countClients'], [], ['GET' => 0], null, false, false, null]],
+        315 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
+        336 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
+        359 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
+        388 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
+        414 => [
+            [['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],
