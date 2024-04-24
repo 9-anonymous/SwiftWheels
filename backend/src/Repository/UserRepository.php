@@ -20,7 +20,17 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
-
+    public function findByRole($role)
+    {
+        $users = $this->findAll();
+        $filteredUsers = [];
+        foreach ($users as $user) {
+            if (in_array($role, $user->getRoles())) {
+                $filteredUsers[] = $user;
+            }
+        }
+        return $filteredUsers;
+    }
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

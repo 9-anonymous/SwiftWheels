@@ -32,6 +32,7 @@ return [
         '/cars' => [[['_route' => 'get_all_cars', '_controller' => 'App\\Controller\\SearchCarController::getAllCars'], null, ['GET' => 0], null, false, false, null]],
         '/search/cars' => [[['_route' => 'search_cars', '_controller' => 'App\\Controller\\SearchCarController::searchCars'], null, ['POST' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\SignupController::register'], null, ['POST' => 0], null, false, false, null]],
+        '/api/users' => [[['_route' => 'api_clients', '_controller' => 'App\\Controller\\UserController::getClients'], null, ['GET' => 0], null, false, false, null]],
         '/users' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::listUsers'], null, ['GET' => 0], null, false, false, null]],
         '/car/new' => [[['_route' => 'car_new', '_controller' => 'App\\Controller\\CarController::create'], null, ['POST' => 0], null, false, false, null]],
     ],
@@ -62,7 +63,14 @@ return [
                     .')'
                     .'|odels/([^/]++)(*:273)'
                 .')'
-                .'|/uploads/([^/]++)(*:299)'
+                .'|/u(?'
+                    .'|ploads/([^/]++)(*:302)'
+                    .'|sers/role/([^/]++)(*:328)'
+                .')'
+                .'|/api/users/(?'
+                    .'|([^/]++)(*:359)'
+                    .'|count(*:372)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -77,8 +85,11 @@ return [
         229 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
         250 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
         273 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
-        299 => [
-            [['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null],
+        302 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
+        328 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
+        359 => [[['_route' => 'api_delete_client', '_controller' => 'App\\Controller\\UserController::deleteClient'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        372 => [
+            [['_route' => 'api_count_clients', '_controller' => 'App\\Controller\\UserController::countClients'], [], ['GET' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

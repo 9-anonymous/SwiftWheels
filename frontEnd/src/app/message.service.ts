@@ -30,4 +30,9 @@ sendMessage(formData: FormData): Observable<any> {
   }
   return this.http.post<any>(this.apiUrl, formData);
 }
+getUsernamesByRole(role: string): Observable<string[]> {
+  return this.http.get<string[]>(`http://localhost:8000/users/role/${role}`);
+}
+
+ 
 }

@@ -546,7 +546,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.b0kbWG7"/>
+      <argument type="service" id=".service_locator.16kPiTl"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3381,7 +3381,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.b0kbWG7"/>
+      <argument type="service" id=".service_locator.16kPiTl"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7780,7 +7780,26 @@
         <argument key="passwordHasher" type="service_closure" id="security.user_password_hasher"/>
       </argument>
     </service>
-    <service id=".service_locator.b0kbWG7" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.kPUOGb8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.JMt5F1x" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.R0Sb2kd" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.R0Sb2kd.App\Entity\User"/>
+      </argument>
+    </service>
+    <service id=".service_locator.16kPiTl" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::create" type="service_closure" id=".service_locator.Q9_Ua5J"/>
@@ -7799,6 +7818,10 @@
         <argument key="App\Controller\SearchCarController::getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
         <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.dTaHD7m"/>
+        <argument key="App\Controller\UserController::countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
+        <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
+        <argument key="App\Controller\UserController::getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
+        <argument key="App\Controller\UserController::getUsersByRole" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController::listUsers" type="service_closure" id=".service_locator.JDhzbGq"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -7820,6 +7843,10 @@
         <argument key="App\Controller\SearchCarController:getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
         <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.dTaHD7m"/>
+        <argument key="App\Controller\UserController:countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
+        <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
+        <argument key="App\Controller\UserController:getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
+        <argument key="App\Controller\UserController:getUsersByRole" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController:listUsers" type="service_closure" id=".service_locator.JDhzbGq"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -8924,6 +8951,9 @@
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
+    </service>
+    <service id=".errored..service_locator.R0Sb2kd.App\Entity\User" class="App\Entity\User">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.R0Sb2kd&quot;: it needs an instance of &quot;App\Entity\User&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -10117,7 +10147,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.b0kbWG7"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.16kPiTl"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -10172,6 +10202,9 @@
     <service id=".service_locator.KVAvjkK" alias=".service_locator.qvDjv7P"/>
     <service id=".service_locator.MK0VIDU" alias=".service_locator.iWwbKUs"/>
     <service id=".service_locator.DXHN2Dk" alias=".service_locator.dTaHD7m"/>
+    <service id=".service_locator.025Wi8b" alias=".service_locator.kPUOGb8"/>
+    <service id=".service_locator._iAPkT3" alias=".service_locator.JMt5F1x"/>
+    <service id=".service_locator.wvr_glq" alias=".service_locator.R0Sb2kd"/>
     <service id=".service_locator.Cj5mqT." alias=".service_locator.jUv.zyj"/>
   </services>
 </container>

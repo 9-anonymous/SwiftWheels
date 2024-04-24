@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { MessageService } from '../../message.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-contact-input',
@@ -16,19 +17,22 @@ export class ContactInputComponent {
   receiver: string = '';
   usernames: string[] = [];
 
-  constructor(private authService: AuthService, private messageService: MessageService, private router: Router) {}
+  constructor(private authService: AuthService,private sharedService: SharedService, private messageService: MessageService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadUsernames();
-  }
-
-  loadUsernames(): void {
-    this.messageService.getUsernames().subscribe(usernames => {
-      const loggedInUsername = this.authService.getUsername();
-      this.usernames = usernames.filter(username => username !== loggedInUsername);
+    this.sharedService.currentUserType.subscribe(role => {
+       if (role) {
+         this.loadUsernames(role);
+       }
     });
-  }
+   }
 
+  loadUsernames(role: string): void {
+    this.messageService.getUsernamesByRole(role).subscribe(usernames => {
+       const loggedInUsername = this.authService.getUsername();
+       this.usernames = usernames.filter(username => username !== loggedInUsername);
+    });
+   }
   onFileChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && inputElement.files) {

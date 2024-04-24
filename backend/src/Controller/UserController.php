@@ -13,6 +13,17 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class UserController extends AbstractController
 {
+    #[Route('/users/role/{role}', name: 'app_user_by_role', methods: ['GET'])]
+    public function getUsersByRole($role, UserRepository $userRepository): JsonResponse
+    {
+        $users = $userRepository->findByRole($role);
+        $usernames = array_map(function ($user) {
+            return $user->getUsername();
+        }, $users);
+    
+        return new JsonResponse($usernames);
+    }
+    
     #[Route('/api/users', name: "api_clients", methods: ['GET'])]
     public function getClients(UserRepository $UserRepository): JsonResponse
     {

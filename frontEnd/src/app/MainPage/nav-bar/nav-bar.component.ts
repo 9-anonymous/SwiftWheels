@@ -10,14 +10,17 @@ import { SharedService } from '../../shared.service'; // Adjust the path as nece
 })
 export class NavBarComponent {
   userType: string = ''; // Add a property to store the user type
+  receiverRole: string = '';
 
   constructor(public authService: AuthService,private sharedService: SharedService) {}   
  
-
+  setReceiverRole(role: string): void {
+    this.receiverRole = role;
+    this.sharedService.changeUserType(role); // Notify the shared service of the role change
+   }
   isLoggedIn() {
     return this.authService.isAuthenticated();
   }
-
   getUsername(): string {
     // Retrieve username from AuthService or wherever it is stored
     return this.authService.getUsername();

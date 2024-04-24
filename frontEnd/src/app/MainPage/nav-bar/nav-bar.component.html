@@ -17,14 +17,25 @@
         
         <div class="links">
           <a routerLink="/searchs"><i class="bi bi-search"></i> &nbsp;Search</a>  
+          <a routerLink="/contactlist"><i class="bi bi-inbox-fill"></i> &nbsp;List</a>
 
           <div class="dropdown">
-              <button class="dropbtn">Contact</button>
-              <div class="dropdown-content">
-                <a routerLink="/contactinput">Create</a>
-                <a routerLink="/contactlist">List</a>
-              </div>
+            <button class="dropbtn">Contact</button>
+            <div class="dropdown-content">
+              <ng-container *ngIf="authService.hasRole('ROLE_CLIENT')">
+                <a routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
+                <a routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
+              </ng-container>
+              <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
+                <a routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
+                <a routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
+              </ng-container>
+              <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
+                <a routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
+                <a routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
+              </ng-container>
             </div>
+          </div>
                 <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>
                 <a routerLink="/AddCar"><i class="bi bi-shop"></i> &nbsp;Add-Car</a>
 

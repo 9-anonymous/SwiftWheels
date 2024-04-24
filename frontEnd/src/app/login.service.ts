@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 interface LoginResponse {
   userId: string;
   token: string;
+  roles:String[];
 
   // other properties if applicable
 }
@@ -27,17 +28,20 @@ export class LoginService {
           localStorage.setItem('token', token);
         } else {
           console.error('Token not found in response body');
-        }        localStorage.setItem('isAuthenticated', 'true');
+        }
+        localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('username', user.username);
         console.log('username:', user.username);
-        const userId = (response.body as LoginResponse)?.userId;        // Store the user ID in local storage
+        const userId = (response.body as LoginResponse)?.userId;
         localStorage.setItem('userId', userId);
-
+        const roles = (response.body as LoginResponse)?.roles;
+        localStorage.setItem('roles', JSON.stringify(roles));
         // Log the user ID to the console
         console.log('User ID:', userId);
-
+        console.log('User Roles:', roles);
       }),
-      catchError((error) => {        // Set the error message based on the server response
+      catchError((error) => {
+        // Set the error message based on the server response
         this.errorSubject.next(error.error?.message || 'An unknown error occurred');
         return throwError(error);
       })

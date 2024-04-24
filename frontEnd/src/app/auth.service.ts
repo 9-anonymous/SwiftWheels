@@ -1,5 +1,7 @@
 // auth.service.ts
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,7 @@ export class AuthService {
   private usernameValue = '';
   private userIdValue: string = ''; // declare userIdValue property
 
-  constructor() {
+  constructor(private http: HttpClient) {
     const token = localStorage.getItem('token');
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     const username = localStorage.getItem('username');
@@ -48,4 +50,18 @@ export class AuthService {
     this.isAuthenticatedValue = false;
     this.usernameValue = '';
   }
+  hasRole(role: string): boolean {
+    const roles = this.getRoles();
+    return roles.includes(role);
+  }
+  
+  getRoles(): string[] {
+    const rolesString = localStorage.getItem('roles');
+    return rolesString ? JSON.parse(rolesString) : [];
+  }
+  getUsersByRole(role: string): Observable<string[]> {
+    return this.http.get<string[]>(`http://localhost:8000/users/role/${role}`);
+   }
+   
+
 }

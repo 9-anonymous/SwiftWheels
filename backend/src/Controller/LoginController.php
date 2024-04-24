@@ -37,7 +37,9 @@ class LoginController extends AbstractController
 
         return new JsonResponse([
             'token' => $token,
-            'userId' => $user->getId(), // Add the user ID to the response
+            'userId' => $user->getId(), 
+            'roles' => $user->getRoles(),
+
         ]);
     }
 
