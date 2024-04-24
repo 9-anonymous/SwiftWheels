@@ -1,4 +1,4 @@
-<div class="main-content " style="margin-left: 0px;">
+<div class="main-content "  style="margin-left: 0px; ">
 
   <div class="page-content" style="padding-top:30px;">
       <div class="container-fluid">
@@ -19,7 +19,6 @@
     <table class="table table-dark table-hover">
       <thead>
         <tr>
-          <th>CarName</th>
           <th>Mark</th>
           <th>Model</th>
           <th>Price</th>
@@ -36,34 +35,30 @@
           <th>MileAge</th>
           <th>Available</th>
           <th>Quantity</th>
-          <th>Date_achat</th>
-          <th>Date_vente</th>
-          <th>Delete</th>
+           <th>Delete</th>
 
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let car of filteredCars">
-          <td>{{ car.CarName }}</td>
-          <td>{{ car.Mark }}</td>
-          <td>{{ car.Model }}</td>
-          <td>{{ car.Price }}</td>
-          <td>{{ car.Owner }}</td>
-          <td>{{ car.Description }}</td>
-          <td>{{ car.Pictures }}</td>
-          <td>{{ car.ABS }}</td>
-          <td>{{ car.EPC }}</td>
-          <td>{{ car.GrayCard }}</td>
-          <td>{{ car.AutoGearBox }}</td>
-          <td>{{ car.Taxes }}</td>
-          <td>{{ car.Insurrance }}</td>
-          <td>{{ car.Color }}</td>
-          <td>{{ car.MileAge }}</td>
-          <td>{{ car.Available }}</td>
-          <td>{{ car.Quantity }}</td>
-          <td>{{ car.Date_achat }}</td>
-          <td>{{ car.date_vente }}</td>
-          <td>
+          <td>{{ car.mark }}</td>
+          <td>{{ car.model }}</td>
+          <td>{{ car.price }}</td>
+          <td>{{ car.owner }}</td>
+          <td>{{ car.description }}</td>
+          <td><img width="100px" height="50px" [src]="'http://localhost:8000/uploads/' + car.pictures"></td>
+
+          <td>{{ car.abs }}</td>
+          <td>{{ car.epc }}</td>
+          <td>{{ car.gray_card }}</td>
+          <td>{{ car.auto_gear_box }}</td>
+          <td>{{ car.taxes }}</td>
+          <td>{{ car.insurrance }}</td>
+          <td>{{ car.color }}</td>
+          <td>{{ car.mileAge }}</td>
+          <td>{{ car.available }}</td>
+          <td>{{ car.quantity }}</td>
+           <td>
     
             <button type="button" class="btn btn-danger" (click)="deletetCars(car.id)" title="btn">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">

@@ -1,3 +1,13 @@
-<app-nav-bar *ngIf="url !== '/admin'"></app-nav-bar>
+<app-nav-bar *ngIf="url !== '/admin' && url !== '/voitures' && url !== '/clients'"></app-nav-bar>
+<div *ngIf="url === '/admin' || url === '/voitures' || url === '/clients'" style="display: flex;">
+<app-menu *ngIf="url === '/admin' || url === '/voitures' || url === '/clients'"></app-menu>
 
-<router-outlet></router-outlet>
+<div *ngIf="url === '/admin' || url === '/voitures' || url === '/clients'" style="display: grid;">
+    <app-navigation *ngIf="url === '/admin' || url === '/voitures' || url === '/clients'"></app-navigation>
+
+        <div style="margin:4% 0% auto 4%">
+            <app-contenu *ngIf="url === '/admin' || url === '/voitures' || url === '/clients'"></app-contenu>
+        </div>
+</div></div>
+<router-outlet *ngIf="url !== '/admin' && url !== '/voitures' && url !== '/clients'"></router-outlet>
+<app-footer *ngIf="url !== '/admin' && url !== '/voitures' && url !== '/clients'"></app-footer>

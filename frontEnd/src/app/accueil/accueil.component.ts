@@ -24,22 +24,22 @@ constructor(private clientservice:ClientService,private voitureservice:VoitureSe
 
   clientChart(): void {
     this.clientservice.getClients().subscribe((clients: any[]) => {
-      const cityCounts: { [key: string]: number } = {}; // Annotation de type pour cityCounts
+      const rolesCounts: { [key: string]: number } = {}; // Annotation de type pour rolesCounts
   
       clients.forEach(client => {
-        const city = client.Ville;
-        cityCounts[city] = (cityCounts[city] || 0) + 1;
+        const roles = client.roles;
+        rolesCounts[roles] = (rolesCounts[roles] || 0) + 1;
       });
   
-      const labels = Object.keys(cityCounts); // Array des étiquettes (noms de ville)
-      const values = Object.values(cityCounts); // Array des valeurs (nombre de clients par ville)
+      const labels = Object.keys(rolesCounts); // Array des étiquettes (noms de roles)
+      const values = Object.values(rolesCounts); // Array des valeurs (nombre de clients par roles)
       const colors = labels.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
       const myChart = new Chart("piechart", {
         type: 'bar',
         data: {
           labels: labels,
           datasets: [{
-            label: 'number of customers per city',
+            label: 'number of customers per roles',
             data: values,
             backgroundColor: colors, 
             borderWidth: 1
@@ -60,15 +60,15 @@ constructor(private clientservice:ClientService,private voitureservice:VoitureSe
 
   clientChart2() {
     this.clientservice.getClients().subscribe((clients: any[]) => {
-      const lastNameCounts: { [key: string]: number } = {};
+      const usernameCounts: { [key: string]: number } = {};
   
       clients.forEach(client => {
-        const lastName = client.lastname;
-        lastNameCounts[lastName] = (lastNameCounts[lastName] || 0) + 1;
+        const username = client.username;
+        usernameCounts[username] = (usernameCounts[username] || 0) + 1;
       });
   
-      const labels = Object.keys(lastNameCounts);
-      const values = Object.values(lastNameCounts);
+      const labels = Object.keys(usernameCounts);
+      const values = Object.values(usernameCounts);
       const colors = labels.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
   
       const myChart = new Chart("line", {
@@ -76,7 +76,7 @@ constructor(private clientservice:ClientService,private voitureservice:VoitureSe
         data: {
           labels: labels,
           datasets: [{
-            label: 'number of customers by lastname',
+            label: 'number of customers by username',
             data: values,
             backgroundColor: colors,
             borderWidth: 1
@@ -99,7 +99,7 @@ constructor(private clientservice:ClientService,private voitureservice:VoitureSe
       const markCounts: { [key: string]: number } = {};
   
       cars.forEach(car => {
-        const mark = car.Mark;
+        const mark = car.mark;
         markCounts[mark] = (markCounts[mark] || 0) + 1;
       });
   
@@ -131,15 +131,15 @@ constructor(private clientservice:ClientService,private voitureservice:VoitureSe
 
   carChart2() {
     this.voitureservice.getCars().subscribe((cars: any[]) => {
-      const markCounts: { [key: string]: number } = {};
+      const priceCounts: { [key: string]: number } = {};
   
       cars.forEach(car => {
-        const mark = car.Mark;
-        markCounts[mark] = (markCounts[mark] || 0) + 1;
+        const price = car.price;
+        priceCounts[price] = (priceCounts[price] || 0) + 1;
       });
   
-      const labels = Object.keys(markCounts);
-      const values = Object.values(markCounts);
+      const labels = Object.keys(priceCounts);
+      const values = Object.values(priceCounts);
       const colors = labels.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
   
       const myChart = new Chart("daughnut", {
