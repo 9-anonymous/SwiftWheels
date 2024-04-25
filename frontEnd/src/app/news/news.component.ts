@@ -2,6 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../news.service';
+import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
 
 type CompanyData = {
   [key: string]: any[];
@@ -21,9 +22,15 @@ export class NewsComponent implements OnInit {
   totalNewsLimit = 6; // Set the total number of news items you want to display
   totalDisplayedNews: any[] = [];
 
-  constructor(private newsService: NewsService) {}
+  constructor(private newsService: NewsService,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const mark = params['mark']; // Get the mark parameter from the route
+      if (mark) {
+        // If a mark parameter is provided, fetch news for that specific mark
+        this.fetchCompanyNews(mark);
+      } else {
     this.fetchCompanyNews('tesla');
     this.fetchCompanyNews('volkswagen');
     this.fetchCompanyNews('bmw');
@@ -35,15 +42,13 @@ export class NewsComponent implements OnInit {
     this.fetchCompanyNews('Chevrolet');
     this.fetchCompanyNews('Nissan');
 
-    
-
-
-
   }
+});
+}
 
   fetchCompanyNews(companyName: string): void {
     // Define the keywords that indicate the article is about a product or model
-    const productKeywords = ['model','demand', 'launch', 'product'];
+    const productKeywords = ['model', 'demand', 'launch', 'product', 'release', 'announcement', 'unveil', 'preview', 'test drive', 'review', 'specifications', 'features', 'updates', 'sales', 'promotion', 'discount', 'special edition', 'limited edition', 'new features', 'upgrade', 'performance', 'safety', 'technology', 'innovation', 'design', 'award', 'awards', 'win', 'wins', 'competition', 'competitor', 'rival', 'comparison', 'comparisons', 'comparison chart', 'comparison table', 'comparison review', 'comparison test', 'comparison analysis', 'comparison study'];
   
     this.newsService.getCarCompanyNews(companyName).subscribe((data: any) => {
       // Store the original data

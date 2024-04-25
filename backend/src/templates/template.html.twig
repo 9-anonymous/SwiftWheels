@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Admit Link</title>
+</head>
+<body>
+    <h1>Generate Admit Link</h1>
+    <p>Click the button below to admit the expert:</p>
+    <button onclick="submitAdmitLink('{{ admitLink }}')">Admit Expert</button>
+
+    <script>
+        function submitAdmitLink(url) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = url;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+</html>

@@ -11,6 +11,8 @@
  
   <div style="background-color: black;">
     <ul>
+      <button (click)="goToNewsPage(searchResults[0].mark)">View News</button>
+
       <li *ngFor="let car of searchResults">
         <div class="SoloCard card bg-light mb-3" *ngFor="let car of searchResults">
             <div class="card-body" style="display: flex !important; max-width:100% ;">

@@ -32,6 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $speciality = null;
 
+    #[ORM\Column(type: 'text', nullable: true)] 
+    private ?string $jobDescription = null;
+
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => 'ROLE_USER'])]
     private string $roles = 'ROLE_USER';
 
@@ -41,6 +44,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', nullable: true)]
 private ?string $pictureUrl = null;
+
+#[ORM\Column(type: 'string', length: 255, nullable: true)]
+private ?string $confirmationToken = null;
+
+public function getConfirmationToken(): ?string
+{
+    return $this->confirmationToken;
+}
+
+public function setConfirmationToken(?string $confirmationToken): self
+{
+    $this->confirmationToken = $confirmationToken;
+
+    return $this;
+}
 
 
     public function getId(): ?int
@@ -140,6 +158,7 @@ private ?string $pictureUrl = null;
 
         return $this;
     }
+
     public function getPictureUrl(): ?string
 {
     return $this->pictureUrl;
@@ -151,5 +170,15 @@ public function setPictureUrl(?string $pictureUrl): self
 
     return $this;
 }
+public function getJobDescription(): ?string
+    {
+        return $this->jobDescription;
+    }
 
+    public function setJobDescription(?string $jobDescription): self
+    {
+        $this->jobDescription = $jobDescription;
+
+        return $this;
+    }
 }

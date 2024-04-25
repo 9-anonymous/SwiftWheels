@@ -409,9 +409,6 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
-    <service id="App\Entity" class="App\Entity" abstract="true">
-      <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
-    </service>
     <service id="App\Controller\AppController" class="App\Controller\AppController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -478,6 +475,7 @@
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="monolog.logger"/>
+      <argument type="service" id="router.default"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\SignupController"/>
       </call>
@@ -500,6 +498,10 @@
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_hasher"/>
     </service>
+    <service id="App\Entity\Car" class="App\Entity\Car" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\Message" class="App\Entity\Message" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\Notification" class="App\Entity\Notification" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\User" class="App\Entity\User" public="true" autowire="true" autoconfigure="true"/>
     <service id="App\Form\CarType" class="App\Form\CarType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -546,7 +548,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.qI1zv7h"/>
+      <argument type="service" id=".service_locator.SZVbyhq"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3381,7 +3383,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.qI1zv7h"/>
+      <argument type="service" id=".service_locator.SZVbyhq"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7715,7 +7717,7 @@
     <service id=".service_locator.KNAnNql" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="car" type="service_closure" id=".errored..service_locator.KNAnNql.App\Entity\Car"/>
+        <argument key="car" type="service_closure" id="App\Entity\Car"/>
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
@@ -7810,10 +7812,10 @@
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="user" type="service_closure" id=".errored..service_locator.R0Sb2kd.App\Entity\User"/>
+        <argument key="user" type="service_closure" id="App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.qI1zv7h" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.SZVbyhq" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7835,6 +7837,7 @@
         <argument key="App\Controller\SearchCarController::getCarBrands" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
+        <argument key="App\Controller\SignupController::confirmExpert" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\UserController::countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
@@ -7864,6 +7867,7 @@
         <argument key="App\Controller\SearchCarController:getCarBrands" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
+        <argument key="App\Controller\SignupController:confirmExpert" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\UserController:countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
@@ -8973,12 +8977,6 @@
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
-    </service>
-    <service id=".errored..service_locator.KNAnNql.App\Entity\Car" class="App\Entity\Car">
-      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.KNAnNql&quot;: it needs an instance of &quot;App\Entity\Car&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
-    </service>
-    <service id=".errored..service_locator.R0Sb2kd.App\Entity\User" class="App\Entity\User">
-      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.R0Sb2kd&quot;: it needs an instance of &quot;App\Entity\User&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -10172,7 +10170,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.qI1zv7h"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.SZVbyhq"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -10217,7 +10215,7 @@
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
     <service id=".service_locator.BEsFY1H" alias=".service_locator.Q9_Ua5J"/>
     <service id=".service_locator.6_u.6L1" alias=".service_locator.3LuXUDl"/>
-    <service id=".service_locator.nPo87VK" alias=".service_locator.KNAnNql"/>
+    <service id=".service_locator.Oxq6PXw" alias=".service_locator.KNAnNql"/>
     <service id=".service_locator.a5twjK5" alias=".service_locator.RyflRLG"/>
     <service id=".service_locator.Db.zFPv" alias=".service_locator.MMXaNud"/>
     <service id=".service_locator.22VUVOO" alias=".service_locator.sLkGFte"/>
@@ -10231,7 +10229,7 @@
     <service id=".service_locator.ERpstIw" alias=".service_locator.d.DrzwQ"/>
     <service id=".service_locator.025Wi8b" alias=".service_locator.kPUOGb8"/>
     <service id=".service_locator._iAPkT3" alias=".service_locator.JMt5F1x"/>
-    <service id=".service_locator.wvr_glq" alias=".service_locator.R0Sb2kd"/>
+    <service id=".service_locator.Btt4zGs" alias=".service_locator.R0Sb2kd"/>
     <service id=".service_locator.Cj5mqT." alias=".service_locator.jUv.zyj"/>
   </services>
 </container>

@@ -12,6 +12,7 @@ interface User {
   jobTitle?: string;
   speciality?: string;
   roles?: string[]; 
+  jobDescription?: string;
 }
 
 @Component({
@@ -58,6 +59,8 @@ export class SignupComponent implements OnInit {
       formData.append('roles', 'ROLE_EXPERT');
       formData.append('jobTitle', this.user.jobTitle || '');
       formData.append('speciality', this.user.speciality || '');
+      formData.append('jobDescription', this.user.jobDescription || '');
+
     } else {
       formData.append('roles', 'ROLE_USER');
     }

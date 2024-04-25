@@ -41,6 +41,7 @@ const routes: Routes = [
   { path: 'entCata' , component: EntCataComponent},
 
 
+  { path: 'news/:mark', component: NewsComponent },
 
 
 

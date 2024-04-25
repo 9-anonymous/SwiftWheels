@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchService } from 'src/search.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-ent-cata',
@@ -12,12 +13,14 @@ export class EntCataComponent {
   selectedImage: string = '';
 
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchAllCars();
   }  
-
+  goToNewsPage(mark: string): void {
+    this.router.navigate(['/news', mark]); // Navigate to the news page with the mark as a parameter
+ }
   selectCar(car: any) {
     this.selectedCar = car;
     // Set selectedImage to the URL of the first image of the selected car
