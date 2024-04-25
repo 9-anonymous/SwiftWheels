@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../notification.service';
+import { HostListener } from '@angular/core';
 
 @Component({
  selector: 'app-notification-list',
@@ -58,4 +59,19 @@ export class NotificationListComponent implements OnInit {
     const baseUrl = 'http://localhost:8000/uploads/';
     return notification && notification.sender_picture ? baseUrl + notification.sender_picture : '';
  }
+ deleteNotification(notificationId: number): void {
+   console.log('Delete  clicked for notification ID:', notificationId);
+
+   this.notificationService.deleteNotification(notificationId).subscribe(
+      response => {
+        console.log('Notification deleted successfully');
+        this.allNotifications = this.allNotifications.filter(notification => notification.id !== notificationId);
+        this.paginateNotifications();
+      },
+      error => {
+        console.error('Error deleting notification:', error);
+      }
+   );
+  }
+  
 }

@@ -546,7 +546,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.vrx2Pg_"/>
+      <argument type="service" id=".service_locator.qI1zv7h"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3381,7 +3381,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.vrx2Pg_"/>
+      <argument type="service" id=".service_locator.qI1zv7h"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7767,6 +7767,12 @@
         <argument key="notificationRepository" type="service_closure" id="App\Repository\NotificationRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.o6sN0hZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service_closure" id="doctrine"/>
+      </argument>
+    </service>
     <service id=".service_locator.qvDjv7P" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7780,10 +7786,11 @@
         <argument key="serializer" type="service_closure" id="debug.serializer"/>
       </argument>
     </service>
-    <service id=".service_locator.dTaHD7m" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.d.DrzwQ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="doctrine" type="service_closure" id="doctrine"/>
+        <argument key="mailer" type="service_closure" id="mailer.mailer"/>
         <argument key="passwordHasher" type="service_closure" id="security.user_password_hasher"/>
       </argument>
     </service>
@@ -7806,7 +7813,7 @@
         <argument key="user" type="service_closure" id=".errored..service_locator.R0Sb2kd.App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.vrx2Pg_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.qI1zv7h" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7818,6 +7825,7 @@
         <argument key="App\Controller\MessageController::getMessageById" type="service_closure" id=".service_locator.sLkGFte"/>
         <argument key="App\Controller\MessageController::getMessagesForUser" type="service_closure" id=".service_locator.iK3Dxq9"/>
         <argument key="App\Controller\MessageController::sendMessage" type="service_closure" id=".service_locator.JDhzbGq"/>
+        <argument key="App\Controller\NotificationController::deleteNotification" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\NotificationController::getAllNotifications" type="service_closure" id=".service_locator.eD04aH."/>
         <argument key="App\Controller\NotificationController::getUnreadNotifications" type="service_closure" id=".service_locator.eD04aH."/>
         <argument key="App\Controller\NotificationController::getUnreadNotificationsCount" type="service_closure" id=".service_locator.eD04aH."/>
@@ -7827,7 +7835,7 @@
         <argument key="App\Controller\SearchCarController::getCarBrands" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
-        <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.dTaHD7m"/>
+        <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\UserController::countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
         <argument key="App\Controller\UserController::getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
@@ -7846,6 +7854,7 @@
         <argument key="App\Controller\MessageController:getMessageById" type="service_closure" id=".service_locator.sLkGFte"/>
         <argument key="App\Controller\MessageController:getMessagesForUser" type="service_closure" id=".service_locator.iK3Dxq9"/>
         <argument key="App\Controller\MessageController:sendMessage" type="service_closure" id=".service_locator.JDhzbGq"/>
+        <argument key="App\Controller\NotificationController:deleteNotification" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\NotificationController:getAllNotifications" type="service_closure" id=".service_locator.eD04aH."/>
         <argument key="App\Controller\NotificationController:getUnreadNotifications" type="service_closure" id=".service_locator.eD04aH."/>
         <argument key="App\Controller\NotificationController:getUnreadNotificationsCount" type="service_closure" id=".service_locator.eD04aH."/>
@@ -7855,7 +7864,7 @@
         <argument key="App\Controller\SearchCarController:getCarBrands" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
-        <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.dTaHD7m"/>
+        <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\UserController:countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
         <argument key="App\Controller\UserController:getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
@@ -10163,7 +10172,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.vrx2Pg_"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.qI1zv7h"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -10216,9 +10225,10 @@
     <service id=".service_locator.on9wXlN" alias=".service_locator.JDhzbGq"/>
     <service id=".service_locator.Ti5lv3v" alias=".service_locator.eD04aH."/>
     <service id=".service_locator.aYlI6JX" alias=".service_locator.161_wLo"/>
+    <service id=".service_locator.eQ296SW" alias=".service_locator.o6sN0hZ"/>
     <service id=".service_locator.KVAvjkK" alias=".service_locator.qvDjv7P"/>
     <service id=".service_locator.MK0VIDU" alias=".service_locator.iWwbKUs"/>
-    <service id=".service_locator.DXHN2Dk" alias=".service_locator.dTaHD7m"/>
+    <service id=".service_locator.ERpstIw" alias=".service_locator.d.DrzwQ"/>
     <service id=".service_locator.025Wi8b" alias=".service_locator.kPUOGb8"/>
     <service id=".service_locator._iAPkT3" alias=".service_locator.JMt5F1x"/>
     <service id=".service_locator.wvr_glq" alias=".service_locator.R0Sb2kd"/>

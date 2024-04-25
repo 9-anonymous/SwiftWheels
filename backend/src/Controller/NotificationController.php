@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Entity\User;
+use App\Entity\Notification;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -117,4 +118,26 @@ public function getAllNotifications(NotificationRepository $notificationReposito
     return new JsonResponse(['notifications' => $notifications]);
     
 }
+#[Route('/notifications/{id}', name: 'app_notifications_delete', methods: ['DELETE'])]
+public function deleteNotification(int $id, ManagerRegistry $doctrine): JsonResponse
+{
+    $user = $this->getUser();
+    if (!$user) {
+        return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
+    }
+
+    $notificationRepository = $doctrine->getRepository(Notification::class);
+    $notification = $notificationRepository->find($id);
+
+    if (!$notification || $notification->getReceiver() !== $user) {
+        return new JsonResponse(['error' => 'Invalid notification'], Response::HTTP_BAD_REQUEST);
+    }
+
+    $entityManager = $doctrine->getManager();
+    $entityManager->remove($notification);
+    $entityManager->flush();
+
+    return new JsonResponse(['success' => true]);
+}
+
 }

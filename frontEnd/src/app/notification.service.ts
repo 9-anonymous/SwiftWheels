@@ -36,6 +36,9 @@ markAllNotificationsAsRead(): Observable<any> {
   const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
   return this.http.post(`${this.apiUrl}/mark-all-as-read`, {}, { headers });
  }
- 
+ deleteNotification(notificationId: number): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  return this.http.delete(`${this.apiUrl}/${notificationId}`, { headers });
+ }
 }
 

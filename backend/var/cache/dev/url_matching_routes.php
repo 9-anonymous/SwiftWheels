@@ -78,6 +78,7 @@ return [
                     .'|ploads/([^/]++)(*:388)'
                     .'|sers/role/([^/]++)(*:414)'
                 .')'
+                .'|/notifications/([^/]++)(*:446)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -97,8 +98,9 @@ return [
         336 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
         359 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
         388 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
-        414 => [
-            [['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null],
+        414 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
+        446 => [
+            [['_route' => 'app_notifications_delete', '_controller' => 'App\\Controller\\NotificationController::deleteNotification'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

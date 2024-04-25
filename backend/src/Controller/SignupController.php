@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class SignupController extends AbstractController
 {
@@ -22,7 +24,7 @@ class SignupController extends AbstractController
     }
 
     #[Route('/register', name: 'api_register', methods: ['POST'])]
-    public function register(UserPasswordHasherInterface $passwordHasher, Request $request, ManagerRegistry $doctrine): JsonResponse
+    public function register(MailerInterface $mailer,UserPasswordHasherInterface $passwordHasher, Request $request, ManagerRegistry $doctrine): JsonResponse
     {
         $data = $request->request->all();
 
@@ -71,6 +73,23 @@ class SignupController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
         
+        $adminUsers = $entityManager->getRepository(User::class)->findBy(['roles' => 'ROLE_ADMIN']);
+
+        // Prepare and send email to all admins
+foreach ($adminUsers as $admin) {
+    // Convert the array of roles to a string
+    $rolesString = implode(', ', $user->getRoles());
+
+    $email = (new Email())
+        ->from('no-reply@example.com')
+        ->to($admin->getEmail())
+        ->subject('User ' . $user->getUsername() . ' has registered on SwiftWheels website')
+        ->text('The user ' . $user->getUsername() . ' who has the role of a ' . $rolesString . ' has registered on the website. Here\'s his email: ' . $user->getEmail() . ' for potential contact.');
+
+    $mailer->send($email);
+}
+
+
         return new JsonResponse(['message' => 'User registered'], JsonResponse::HTTP_CREATED);
     }
     

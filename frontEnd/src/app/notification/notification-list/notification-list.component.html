@@ -7,6 +7,7 @@
      Page {{ currentPage }} of {{ totalPages }}
   </div>
   <a *ngFor="let notification of notifications" [routerLink]="['/contact-message', notification.messageId]" class="card">
+    
      <div class="card-body">
        <div *ngIf="notification.sender_picture" class="photo-container">
          <img [src]="getPhotoUrl(notification)" alt="Notification Photo">
@@ -19,7 +20,12 @@
          </div>
        </div>
        <p class="card-text" id="date">{{ notification?.createdAt | date:'medium' }}</p>
-     </div>
+     
+       <a href="#" class="btn btn-danger" (click)="deleteNotification(notification.id); $event.preventDefault(); $event.stopPropagation()">Delete</a>
+
+
+         </div>
+     
   </a>
  </div>
  
