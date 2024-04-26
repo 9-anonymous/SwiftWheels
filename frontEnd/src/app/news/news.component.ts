@@ -56,7 +56,7 @@ export class NewsComponent implements OnInit {
   
       // Ensure each article has a urlToImage property, providing a default if missing
       this.companies[companyName].forEach((article: any) => {
-        article.urlToImage = article.urlToImage || 'assets/default-image.jpg';
+        article.urlToImage = article.urlToImage 
       });
   
       // Filter the articles to include only those with product or model-related keywords

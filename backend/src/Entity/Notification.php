@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types; // Add this use statement
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: NotificationRepository::class)]
+#[ORM\Entity(repositoryClass:"App\Repository\NotificationRepository")]
 class Notification
 {
     #[ORM\Id]

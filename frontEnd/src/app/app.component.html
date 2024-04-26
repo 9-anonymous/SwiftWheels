@@ -9,5 +9,5 @@
             <app-contenu *ngIf="url === '/admin' || url === '/voitures' || url === '/clients'"></app-contenu>
         </div>
 </div></div>
-<router-outlet *ngIf="url !== '/admin' && url !== '/voitures' && url !== '/clients'"></router-outlet>
+<router-outlet style="background-color: black;" *ngIf="url !== '/admin' && url !== '/voitures' && url !== '/clients'"></router-outlet>
 <app-footer *ngIf="url !== '/admin' && url !== '/voitures' && url !== '/clients'"></app-footer>

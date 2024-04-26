@@ -1,69 +1,72 @@
-
-
 <div id="Navbar">
   <div class="Centring">
+ 
+       <div class="links">
+               <a href=""><i class="bi bi-house-door"></i>&nbsp; HOME</a>
+               <ng-container *ngIf="authService.isAuthenticated()">
+                 <a routerLink="/email"><i class="bi bi-envelope"></i> &nbsp;Email</a>                
+               </ng-container>
+               <a routerLink="/news"><i class="bi bi-telephone"></i> &nbsp;News</a>    
 
-      <div class="links">
-              <a href=""><i class="bi bi-house-door"></i>&nbsp; HOME</a>
-              <a routerLink="/email"><i class="bi bi-envelope"></i> &nbsp;Email</a>                
-              <a routerLink="/news"><i class="bi bi-telephone"></i> &nbsp;News</a>    
-              <a routerLink="/searchs"><i class="bi bi-search"></i> &nbsp;Search</a>  
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: black !important; border-color: black !important;">
+               <a routerLink="/searchs"><i class="bi bi-search"></i> &nbsp;Search</a>  
+
+               <div class="dropdown">
+                 <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: black !important; border-color: black !important;">
                   Contact
-                </button>
-                <div class="dropdown-menu" aria-labelledby="contactDropdown" style="background-color: black !important;">
+                 </button>
+                 <div class="dropdown-menu" aria-labelledby="contactDropdown" style="background-color: black !important;">
                   <!-- Dropdown content -->
                   <ng-container *ngIf="authService.hasRole('ROLE_CLIENT')">
-                    <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
-                    <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
+                     <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
+                     <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
                   </ng-container>
                   <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
-                    <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
-                    <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
+                     <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
+                     <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
                   </ng-container>
                   <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
-                    <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
-                    <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
+                     <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
+                     <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
                   </ng-container>
-                </div>
-              </div>
                  </div>
-      
-      <div>
-           <a id="imgLink" href="">
-              <img width="auto" height="60px" [src]="'assets/imgs/sw-high-resolution-logo-transparent.png'" alt="E">
-           </a>
-      </div>
-      
-      <div class="links">
-          <a href=""><i class="bi bi-shop"></i> &nbsp;CARS-SHOP</a>
-          <a routerLink="/AddCar"><i class="bi bi-shop"></i> &nbsp;Add-Car</a>
-          <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>    
-          <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
-          <ng-container *ngIf="!authService.isAuthenticated(); else loggedInTemplate">
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: black !important; border-color: black !important;">
-                Sign Up
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: black !important;">
-                <a class="dropdown-item" routerLink="/register" (click)="setUserType('client')">Client Sign Up</a>
-                <a class="dropdown-item" routerLink="/register" (click)="setUserType('expert')">Expert Sign Up</a>
-              </div>
-            </div>
-            <a routerLink="/login"><i class="bi bi-door-open"></i>&nbsp;Login</a>
-          </ng-container>
-          
-      <ng-template #loggedInTemplate>
-        <a href="" (click)="logout()"><i class="bi bi-box-arrow-right"></i>&nbsp;Logout</a>
-        <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
-          <a routerLink="/admin">Admin</a>
-        </ng-container>
-        <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') || authService.hasRole('ROLE_EXPERT') ">
-          <a href="">{{ authService.getUsername() }}</a>
-        </ng-container>
-      </ng-template>
-
-      </div>
+               </div>
+                  </div>
+       
+       <div>
+            <a id="imgLink" href="">
+               <img width="auto" height="60px" [src]="'assets/imgs/sw-high-resolution-logo-transparent.png'" alt="E">
+            </a>
+       </div>
+       
+       <div class="links">
+         <ng-container *ngIf="authService.isAuthenticated()">
+           <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') || authService.hasRole('ROLE_EXPERT') || authService.hasRole('ROLE_ADMIN') ">
+             <a routerLink="/contactlist"><i class="bi bi-envelope"></i> &nbsp;Messages</a>
+             <a routerLink="/AddCar"><i class="bi bi-shop"></i> &nbsp;Add-Car</a>
+             <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>    
+           </ng-container>
+           <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
+           <a href="" (click)="logout()"><i class="bi bi-box-arrow-right"></i>&nbsp;Logout</a>
+           <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
+             <a routerLink="/admin">Admin</a>
+           </ng-container>
+           <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') || authService.hasRole('ROLE_EXPERT') ">
+             <a href="">{{ authService.getUsername() }}</a>
+           </ng-container>
+         </ng-container>
+         <ng-container *ngIf="!authService.isAuthenticated(); ">
+           <div class="dropdown">
+             <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: black !important; border-color: black !important;">
+               Sign Up
+             </button>
+             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: black !important;">
+               <a class="dropdown-item" routerLink="/register" (click)="setUserType('client')">Client Sign Up</a>
+               <a class="dropdown-item" routerLink="/register" (click)="setUserType('expert')">Expert Sign Up</a>
+             </div>
+           </div>
+           <a routerLink="/login"><i class="bi bi-door-open"></i>&nbsp;Login</a>
+         </ng-container>
+       </div>
   </div>
-</div>
+ </div>
+ 

@@ -19,9 +19,11 @@
            <p class="card-text" id="content">{{ notification?.message | ellipsis:210  }}</p>
          </div>
        </div>
+       <div class="card-body-end">
        <p class="card-text" id="date">{{ notification?.createdAt | date:'medium' }}</p>
-     
-       <a href="#" class="btn btn-danger" (click)="deleteNotification(notification.id); $event.preventDefault(); $event.stopPropagation()">Delete</a>
+       <a href="#" class="btn btn-danger" style="width:35px" (click)="deleteNotification(notification.id); $event.preventDefault(); $event.stopPropagation()"><i class="bi bi-trash"></i></a>
+
+     </div>
 
 
          </div>
