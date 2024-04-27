@@ -476,6 +476,9 @@
       <tag name="container.service_subscriber"/>
       <argument type="service" id="monolog.logger"/>
       <argument type="service" id="router.default"/>
+      <argument type="service" id="App\Repository\MessageRepository"/>
+      <argument type="service" id="App\Repository\UserRepository"/>
+      <argument type="service" id="App\Repository\NotificationRepository"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\SignupController"/>
       </call>
