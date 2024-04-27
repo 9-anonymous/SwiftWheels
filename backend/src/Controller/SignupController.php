@@ -37,8 +37,8 @@ class SignupController extends AbstractController
         $plaintextPassword = $data['password'];
         $hashedPassword = $passwordHasher->hashPassword($user, $plaintextPassword);
         $user->setPassword($hashedPassword);
-    
         $pictureUrl = null;
+
         if ($request->files->get('picture')) {
             $uploadedFile = $request->files->get('picture');
             if ($uploadedFile) {
@@ -52,23 +52,32 @@ class SignupController extends AbstractController
                 }
             }
         }
+
         $user->setPictureUrl($pictureUrl);
-    
         $roles = is_array($data['roles']) ? $data['roles'] : [$data['roles']];
+
+        // Handle registration failure case
+        $failureResponse = new JsonResponse(['message' => 'Registration failed. Please try again.'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+
         if (in_array('ROLE_CLIENT', $roles)) {
             $user->setRoles(['ROLE_CLIENT']);
             $user->setBankAccount($data['bankAccount']);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return new JsonResponse(['message' => 'Client registration successful.'], JsonResponse::HTTP_CREATED);
         } elseif (in_array('ROLE_EXPERT', $roles)) {
             // Generate a confirmation token
             $user->setConfirmationToken(bin2hex(random_bytes(32)));
-    
+
             // Persist the user entity before sending the confirmation email
             $entityManager->persist($user);
-            $entityManager->flush(); // This ensures the user is added to the database
-    
+            $entityManager->flush();
+
+            // This ensures the user is added to the database
             // Generate the confirmation URL
             $confirmationUrl = $this->urlGenerator->generate('confirm_expert', ['token' => $user->getConfirmationToken()], UrlGeneratorInterface::ABSOLUTE_URL);
-    
+
             // Prepare and send email to admins
             $adminUsers = $entityManager->getRepository(User::class)->findBy(['roles' => 'ROLE_ADMIN']);
             foreach ($adminUsers as $admin) {
@@ -79,7 +88,7 @@ class SignupController extends AbstractController
                     ->text('The expert ' . $user->getUsername() . ' has registered on the website. Please confirm their registration by clicking the following link: ' . $confirmationUrl);
                 $mailer->send($email);
             }
-    
+
             // Return the response indicating successful registration
             return new JsonResponse(['message' => 'Expert registration successful. Waiting for admin approval.'], JsonResponse::HTTP_CREATED);
         } else {
@@ -87,11 +96,10 @@ class SignupController extends AbstractController
             // For now, we'll just return a message indicating the user needs to confirm their registration
             return new JsonResponse(['message' => 'User registered. Please check your email to confirm your registration.'], JsonResponse::HTTP_CREATED);
         }
-    
-        // This return statement ensures that all code paths return a JsonResponse
-        return new JsonResponse(['message' => 'Registration failed. Please try again.'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+
+        return $failureResponse;
     }
-    
+
     #[Route('/confirm-expert/{token}', name: 'confirm_expert', methods: ['GET'])]
     public function confirmExpert(string $token, ManagerRegistry $doctrine): JsonResponse
     {
