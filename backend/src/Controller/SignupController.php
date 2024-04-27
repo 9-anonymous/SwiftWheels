@@ -28,9 +28,10 @@ class SignupController extends AbstractController
 
     private $notificationRepository;
     private $userRepository;
+    private $mailer;
 
     
-    public function __construct(LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, MessageRepository $messageRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
+    public function __construct(MailerInterface $mailer,LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, MessageRepository $messageRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
     {
         $this->logger = $logger;
         $this->urlGenerator = $urlGenerator;
@@ -38,7 +39,8 @@ class SignupController extends AbstractController
         $this->notificationRepository = $notificationRepository;
 
         $this->userRepository = $userRepository;
-    
+        $this->mailer = $mailer;
+
     }
 
     #[Route('/register', name: 'api_register', methods: ['POST'])]
@@ -116,7 +118,7 @@ class SignupController extends AbstractController
     }
 
     #[Route('/confirm-expert/{token}', name: 'confirm_expert', methods: ['GET'])]
-    public function confirmExpert(string $token, ManagerRegistry $doctrine): JsonResponse
+    public function confirmExpert(string $token, ManagerRegistry $doctrine, MailerInterface $mailer): JsonResponse
     {
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->findOneBy(['confirmationToken' => $token]);
@@ -125,19 +127,15 @@ class SignupController extends AbstractController
             return new JsonResponse(['message' => 'Invalid token'], JsonResponse::HTTP_BAD_REQUEST);
         }
     
-        // Update the user's role to ROLE_EXPERT
         $user->setRoles(['ROLE_EXPERT']);
-        $user->setConfirmationToken(null); // Clear the token
+        $user->setConfirmationToken(null);
     
-        // Persist and flush the user entity after confirmation
         $entityManager->persist($user);
         $entityManager->flush();
     
-        // Find the admin user
         $adminUser = $this->userRepository->findOneBy(['roles' => 'ROLE_ADMIN']);
     
         if ($adminUser) {
-            // Create a new message from the admin to the expert
             $message = new Message();
             $message->setTitle('Your expert role has been approved');
             $message->setContent('Congratulations! Your request to become an expert has been approved by the admin. You can now start offering your services on our platform.');
@@ -147,7 +145,7 @@ class SignupController extends AbstractController
     
             $entityManager->persist($message);
             $entityManager->flush();
-
+    
             $notification = new Notification();
             $notification->setReceiver($user);
             $notification->setSender($adminUser);
@@ -157,9 +155,20 @@ class SignupController extends AbstractController
             $notification->setCreatedAt(new \DateTime());
             $entityManager->persist($notification);
             $entityManager->flush();
+    
+            $email = (new Email())
+                ->from('no-reply@example.com')
+                ->to($user->getEmail())
+                ->subject('Your expert role has been approved')
+                ->text('Congratulations! Your request to become an expert has been approved by the admin. You can now start offering your services on our platform.');
+    
+            try {
+                $this->mailer->send($email);
+            } catch (\Exception $e) {
+                $this->logger->error('Failed to send email:', [$e->getMessage()]);
+            }
         }
     
         return new JsonResponse(['message' => 'Expert confirmed'], JsonResponse::HTTP_OK);
-    
     }
     }

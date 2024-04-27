@@ -158,3 +158,13 @@ bdd0e5,::1,GET,http://localhost:8000/notifications/unread-count,1714251241,,200,
 b53a36,::1,OPTIONS,http://localhost:8000/notifications/mark-as-read,1714251247,,200,request
 e15093,::1,GET,http://localhost:8000/messages/id/28,1714251248,,200,request
 7062de,::1,POST,http://localhost:8000/notifications/mark-as-read,1714251249,,200,request
+a916bb,::1,POST,http://localhost:8000/register,1714251522,,201,request
+eb5bc2,::1,POST,http://localhost:8000/register,1714251586,,201,request
+128124,::1,GET,http://localhost:8000/confirm-expert/c0dbb2174b96947b87a95c80c7321f255d2df06b3ecfe52f238d6a8aeb5b8522,1714251594,,200,request
+8d1586,::1,POST,http://localhost:8000/login,1714251603,,200,request
+727daa,::1,GET,http://localhost:8000/notifications,1714251604,,200,request
+8c180e,::1,GET,http://localhost:8000/notifications/unread-count,1714251605,,200,request
+71d433,::1,OPTIONS,http://localhost:8000/messages/user/expert5,1714251610,,200,request
+eee068,::1,GET,http://localhost:8000/messages/user/expert5,1714251611,,200,request
+3c88f7,::1,OPTIONS,http://localhost:8000/messages/id/29,1714251615,,200,request
+014765,::1,GET,http://localhost:8000/messages/id/29,1714251616,,200,request
