@@ -422,6 +422,7 @@
       <argument type="service" id="monolog.logger"/>
       <argument type="service" id="App\Repository\CarRepository"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument type="service" id="security.authorization_checker"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\CarController"/>
       </call>

@@ -17,6 +17,7 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\InternalProxy
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
         "\0".parent::class."\0".'bankAccount' => [parent::class, 'bankAccount', null],
+        "\0".parent::class."\0".'cars' => [parent::class, 'cars', null],
         "\0".parent::class."\0".'confirmationToken' => [parent::class, 'confirmationToken', null],
         "\0".parent::class."\0".'email' => [parent::class, 'email', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
@@ -28,6 +29,7 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".parent::class."\0".'speciality' => [parent::class, 'speciality', null],
         "\0".parent::class."\0".'username' => [parent::class, 'username', null],
         'bankAccount' => [parent::class, 'bankAccount', null],
+        'cars' => [parent::class, 'cars', null],
         'confirmationToken' => [parent::class, 'confirmationToken', null],
         'email' => [parent::class, 'email', null],
         'id' => [parent::class, 'id', null],

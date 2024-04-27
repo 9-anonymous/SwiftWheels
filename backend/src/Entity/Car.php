@@ -6,6 +6,7 @@ use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
@@ -78,6 +79,12 @@ class Car
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $sellDate = null;
+
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "cars")]
+    #[ORM\JoinColumn(nullable: false)]
+    
+    private $user;
 
     // Getter and setter methods
     public function getId(): ?int
@@ -260,4 +267,16 @@ class Car
         $this->sellDate = $sellDate;
         return $this;
     }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

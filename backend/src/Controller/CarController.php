@@ -12,18 +12,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Car;
 use App\Repository\CarRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CarController extends AbstractController
 {
     private $carRepository;
     private $entityManager;
     private $logger;
+    private $authorizationChecker;
 
-    public function __construct(LoggerInterface $logger, CarRepository $carRepository, EntityManagerInterface $entityManager)
+    public function __construct(LoggerInterface $logger, CarRepository $carRepository, EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->carRepository = $carRepository;
         $this->entityManager = $entityManager;
         $this->logger = $logger;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -45,6 +48,8 @@ class CarController extends AbstractController
      */
     public function create(Request $request, LoggerInterface $logger): Response
     {
+        $currentUser = $this->getUser();
+
         $data = $request->request->all();
         $files = $request->files->get('pictures');
         dump($files);
@@ -58,6 +63,7 @@ class CarController extends AbstractController
         $car->setMark($data['mark']);
         $car->setModel($data['model']);
         $car->setPrice($data['price']);
+        $car->setUser($currentUser);
         $car->setDescription($data['description'] ?? null);
         $car->setColor($data['color'] ?? null);
         $car->setMileage($data['mileage'] ?? null);

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Car;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -47,6 +47,43 @@ private ?string $pictureUrl = null;
 
 #[ORM\Column(type: 'string', length: 255, nullable: true)]
 private ?string $confirmationToken = null;
+
+#[ORM\OneToMany(targetEntity: Car::class, mappedBy: "user")]
+    private $cars;
+
+    public function __construct()
+    {
+        $this->cars = new ArrayCollection();
+    }
+  /**
+     * @return Collection|Car[]
+     */
+    public function getCars(): Collection
+    {
+        return $this->cars;
+    }
+
+    public function addCar(Car $car): self
+    {
+        if (!$this->cars->contains($car)) {
+            $this->cars[] = $car;
+            $car->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCar(Car $car): self
+    {
+        if ($this->cars->removeElement($car)) {
+            // set the owning side to null (unless already changed)
+            if ($car->getUser() === $this) {
+                $car->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 public function getConfirmationToken(): ?string
 {
@@ -181,4 +218,7 @@ public function getJobDescription(): ?string
 
         return $this;
     }
+
+    
+
 }
