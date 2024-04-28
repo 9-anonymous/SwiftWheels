@@ -963,3 +963,14 @@ e697a8,::1,GET,http://localhost:8000/notifications,1714302612,,200,request
 7939b1,::1,POST,http://localhost:8000/login,1714302632,,200,request
 2ad343,::1,GET,http://localhost:8000/notifications,1714302633,,200,request
 17e501,::1,GET,http://localhost:8000/notifications/unread-count,1714302633,,200,request
+06964a,::1,GET,http://localhost:8000/notifications/unread-count,1714302856,,200,request
+b4810c,::1,GET,http://localhost:8000/notifications,1714302857,,200,request
+bd6b05,::1,OPTIONS,http://localhost:8000/notifications,1714303222,,200,request
+53019d,::1,OPTIONS,http://localhost:8000/notifications/unread-count,1714303226,,200,request
+a5fc40,::1,GET,http://localhost:8000/notifications,1714303234,,200,request
+8572d3,::1,GET,http://localhost:8000/notifications/unread-count,1714303235,,200,request
+3f2bb4,::1,GET,http://localhost:8000/notifications,1714303322,,200,request
+2f63ea,::1,GET,http://localhost:8000/notifications/unread-count,1714303323,,200,request
+586dee,::1,POST,http://localhost:8000/login,1714303443,,200,request
+6f90c4,::1,GET,http://localhost:8000/notifications,1714303444,,200,request
+1f4ec7,::1,GET,http://localhost:8000/notifications/unread-count,1714303445,,200,request
