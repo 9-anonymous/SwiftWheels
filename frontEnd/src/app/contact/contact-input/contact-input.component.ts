@@ -1,47 +1,64 @@
-// src/app/contact-input/contact-input.component.ts
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { MessageService } from '../../message.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-contact-input',
-  templateUrl: './contact-input.component.html',
-  styleUrls: ['./contact-input.component.css']
+ selector: 'app-contact-input',
+ templateUrl: './contact-input.component.html',
+ styleUrls: ['./contact-input.component.css']
 })
-export class ContactInputComponent {
-  title: string = '';
-  content: string = ''; 
-  selectedFile: File | null = null;
-  receiver: string = '';
-  usernames: string[] = [];
+export class ContactInputComponent implements OnInit {
+ title: string = '';
+ content: string = ''; 
+ selectedFile: File | null = null;
+ receiver: string = '';
+ usernames: string[] = [];
 
-  constructor(private authService: AuthService, private sharedService: SharedService, private messageService: MessageService, private router: Router, private route: ActivatedRoute) {}
+ constructor(private authService: AuthService, private sharedService: SharedService, private messageService: MessageService, private router: Router, private route: ActivatedRoute) {}
 
  ngOnInit(): void {
- this.route.queryParams.subscribe(params => {
-    if (params['receiver']) {
-      this.receiver = params['receiver'];
-    }
- });
+  // Check if the component was navigated to with a specific receiver
+  this.route.queryParams.subscribe(params => {
+     if (params['receiver']) {
+       // Load all usernames and set the receiver
+       this.loadUsernames().then(() => {
+         this.receiver = params['receiver'];
+       });
+     } else {
+       // Role-based selection from the navbar
+       this.sharedService.currentUserType.subscribe(role => {
+         if (role) {
+           this.loadUsernames(role);
+         }
+       });
+     }
+  });
+ }
+ loadUsernames(role?: string): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+     if (role === undefined) {
+       this.messageService.getUsernames().subscribe(usernames => {
+         this.usernames = usernames;
+         resolve();
+       }, error => {
+         reject(error);
+       });
+     } else {
+       this.messageService.getUsernamesByRole(role).subscribe(usernames => {
+         const loggedInUsername = this.authService.getUsername();
+         this.usernames = usernames.filter(username => username !== loggedInUsername);
+         resolve();
+       }, error => {
+         reject(error);
+       });
+     }
+  });
+ }
+ 
 
- this.sharedService.currentUserType.subscribe(role => {
-    if (role) {
-      this.loadUsernames(role);
-    }
- });
-}
-
-
-  loadUsernames(role: string): void {
-    this.messageService.getUsernamesByRole(role).subscribe(usernames => {
-       const loggedInUsername = this.authService.getUsername();
-       this.usernames = usernames.filter(username => username !== loggedInUsername);
-    });
-   }
-  onFileChange(event: Event): void {
+ onFileChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && inputElement.files) {
       const file = inputElement.files[0];
@@ -49,32 +66,26 @@ export class ContactInputComponent {
         this.selectedFile = file;
       }
     }
-  }
-  
-  // Fixed code using type assertion
-sendMessage(): void {
-  const formData = new FormData();
-  formData.set('title', this.title);
-  formData.set('content', this.content);
-  formData.set('receiver', this.receiver);
-  if (this.selectedFile) {
-    formData.set('photoUrl', this.selectedFile, this.selectedFile.name);
-  }
+ }
 
-  // Log the FormData contents to the console
-
-  this.messageService.sendMessage(formData)
-  .subscribe(
-    response => {
-      console.log(response);
-      this.router.navigate(['/']);
-    },
-    error => {
-      console.error('Error response:', error);
+ sendMessage(): void {
+    const formData = new FormData();
+    formData.set('title', this.title);
+    formData.set('content', this.content);
+    formData.set('receiver', this.receiver);
+    if (this.selectedFile) {
+      formData.set('photoUrl', this.selectedFile, this.selectedFile.name);
     }
-  );
-}
-  
-  
 
-  }
+    this.messageService.sendMessage(formData)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.router.navigate(['/']);
+      },
+      error => {
+        console.error('Error response:', error);
+      }
+    );
+ }
+}

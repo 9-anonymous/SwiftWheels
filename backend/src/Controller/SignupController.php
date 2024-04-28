@@ -115,7 +115,6 @@ class SignupController extends AbstractController
                 ->subject('Expert ' . $user->getUsername() . ' has registered on SwiftWheels website')
                 ->text('The expert ' . $user->getUsername() . ' has registered on the website. Please confirm their registration by clicking the following link: ' . $confirmationUrl);
     
-            // Attach the job description file if it exists
             if ($jobDescriptionFile) {
                 $email->attachFromPath($this->getParameter('upload_directory') . '/' . $jobDescriptionFile);
             }
