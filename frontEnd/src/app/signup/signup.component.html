@@ -21,6 +21,7 @@
  <div *ngIf="userType === 'client'">
    <label for="bankAccount" class="form-label">Bank Account:</label>
    <input type="text" id="bankAccount" [(ngModel)]="user.bankAccount" name="bankAccount" class="form-control">
+   
  </div>
  <div *ngIf="userType === 'expert'">
    <label for="jobTitle" class="form-label">Job Title:</label>

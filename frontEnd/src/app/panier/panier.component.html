@@ -26,14 +26,14 @@
                                     <td class="text-center">{{item.price | currency}}</td>
                                     <td class="text-center">
                                         <!-- Buttons -->
-                                        <button class="btn btn-danger" title="Remove from Cart">
+                                        <button class="btn btn-danger" (click)="deleteCartItem(item.id)" title="Remove from Cart">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                 <path
                                                     d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
                                             </svg>
                                         </button>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" data-bs-whatever="@fat">
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" data-bs-whatever="@fat" (click)="handlePayment(item)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
                                                 <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
                                                 <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
@@ -79,12 +79,15 @@
                     <hr class="line">
                     <div class="d-flex justify-content-between information">
                         <span>Total (Incl. taxes)</span>
-                        <span id="totalAmount">{{payment.totalAmount | currency}}</span>
+                        <span id="totalAmount">{{ payment.totalAmount | currency }}</span>
                     </div>
-                    <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button" id="checkoutButton">
-                        <span id="checkoutAmount">{{payment.totalAmount | currency}}</span>
+                    <button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button" id="checkoutButton" (click)="confirmCheckout()">
+                        <span id="checkoutAmount">{{ payment.totalAmount | currency }}</span>
                         <span>Checkout <i class="fa fa-long-arrow-right ml-1"></i></span>
                     </button>
+                    
+                    
+                    
                 </div>
             </div>
         </div>

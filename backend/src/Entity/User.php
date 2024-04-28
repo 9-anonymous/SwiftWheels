@@ -26,8 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $bankAccount = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?string $bankAmount = null;
+    #[ORM\Column(type:"integer", nullable: true)]
+    private ?int $bankAmount = null;
     
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -175,12 +175,12 @@ public function setConfirmationToken(?string $confirmationToken): self
 
         return $this;
     }
-    public function getBankAmount(): ?string
+    public function getBankAmount(): ?int
     {
         return $this->bankAmount;
     }
 
-    public function setBankAmount(?string $bankAmount): self
+    public function setBankAmount(?int $bankAmount): self
     {
         $this->bankAmount = $bankAmount;
 

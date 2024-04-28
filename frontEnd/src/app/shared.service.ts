@@ -33,4 +33,14 @@ getCartItems(userId: string): Observable<any[]> {
  changeUserType(userType: string) {
     this.userTypeSource.next(userType);
  }
+ handlePayment(itemId: number, paymentAmount: number): Observable<any> {
+  return this.http.post(`${this.apiUrl}/cart/payment`, { itemId, paymentAmount });
+}
+ 
+ deleteCartItem(itemId: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/cart/delete/${itemId}`);
+ }
+ updateUserBankAmount(userId: string, amount: number): Observable<any> {
+  return this.http.post(`${this.apiUrl}/user/update-bank-amount`, { userId, amount });
+ }
 }

@@ -74,4 +74,52 @@ class CartController extends AbstractController
 
         return $this->json($cartItemsArray);
     }
+
+
+    #[Route('/cart/payment', name: "cart_payment", methods: ['POST'])]
+    public function handlePayment(Request $request, EntityManagerInterface $em): Response {
+        $data = json_decode($request->getContent(), true);
+        $itemId = $data['itemId'] ?? null;
+        $paymentAmount = $data['paymentAmount'] ?? null;
+    
+        // Fetch the cart item
+        $cartItem = $em->getRepository(Cart::class)->find($itemId);
+        if (!$cartItem) {
+            return $this->json(['message' => 'Cart item not found'], Response::HTTP_NOT_FOUND);
+        }
+        $user = $this->getUser(); // Get the currently logged-in user
+        if (!$user) {
+            return $this->json(['message' => 'User not logged in'], Response::HTTP_UNAUTHORIZED);
+        }
+        // Deduct the payment amount from the user's bank account
+        $userBankAmount = $user->getBankAmount();
+        if ($userBankAmount < $paymentAmount) {
+            return $this->json(['message' => 'Insufficient funds'], Response::HTTP_BAD_REQUEST);
+        }
+        $user->setBankAmount($userBankAmount - $paymentAmount);
+    
+        // Persist changes to the database
+        $em->flush();
+    
+        return $this->json(['message' => 'Payment successful'], Response::HTTP_OK);
+    }
+    
+    
+    
+    
+
+// Add this route for deleting a cart item
+#[Route('/cart/delete/{itemId}', name: "cart_delete", methods: ['DELETE'])]
+public function deleteCartItem(int $itemId, EntityManagerInterface $em): Response {
+    $cartItem = $em->getRepository(Cart::class)->find($itemId);
+    if (!$cartItem) {
+        return $this->json(['message' => 'Cart item not found'], Response::HTTP_NOT_FOUND);
+    }
+
+    $em->remove($cartItem);
+    $em->flush();
+
+    return $this->json(['message' => 'Cart item deleted'], Response::HTTP_OK);
+}
+
 }

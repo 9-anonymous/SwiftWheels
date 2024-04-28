@@ -17,6 +17,7 @@ return [
         '/' => [[['_route' => 'app_accueil', '_controller' => 'App\\Controller\\AppController::index'], null, null, null, false, false, null]],
         '/api/cars' => [[['_route' => 'api_cars', '_controller' => 'App\\Controller\\CarController::getCars'], null, ['GET' => 0], null, false, false, null]],
         '/cart/add' => [[['_route' => 'cart_add', '_controller' => 'App\\Controller\\CartController::addToCart'], null, ['POST' => 0], null, false, false, null]],
+        '/cart/payment' => [[['_route' => 'cart_payment', '_controller' => 'App\\Controller\\CartController::handlePayment'], null, ['POST' => 0], null, false, false, null]],
         '/home' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::login'], null, ['POST' => 0], null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\LoginController::logout'], null, ['POST' => 0], null, false, false, null]],
@@ -70,23 +71,26 @@ return [
                 .')'
                 .'|/c(?'
                     .'|ar(?'
-                        .'|t/items/([^/]++)(*:314)'
-                        .'|/([^/]++)/owner(*:337)'
+                        .'|t/(?'
+                            .'|items/([^/]++)(*:317)'
+                            .'|delete/([^/]++)(*:340)'
+                        .')'
+                        .'|/([^/]++)/owner(*:364)'
                     .')'
-                    .'|onfirm\\-expert/([^/]++)(*:369)'
+                    .'|onfirm\\-expert/([^/]++)(*:396)'
                 .')'
                 .'|/m(?'
                     .'|essages/(?'
-                        .'|id/([^/]++)(*:405)'
-                        .'|user/([^/]++)(*:426)'
+                        .'|id/([^/]++)(*:432)'
+                        .'|user/([^/]++)(*:453)'
                     .')'
-                    .'|odels/([^/]++)(*:449)'
+                    .'|odels/([^/]++)(*:476)'
                 .')'
                 .'|/u(?'
-                    .'|ploads/([^/]++)(*:478)'
-                    .'|sers/role/([^/]++)(*:504)'
+                    .'|ploads/([^/]++)(*:505)'
+                    .'|sers/role/([^/]++)(*:531)'
                 .')'
-                .'|/notifications/([^/]++)(*:536)'
+                .'|/notifications/([^/]++)(*:563)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -102,15 +106,16 @@ return [
         239 => [[['_route' => 'api_count_cars', '_controller' => 'App\\Controller\\CarController::countCars'], [], ['GET' => 0], null, false, false, null]],
         265 => [[['_route' => 'api_delete_client', '_controller' => 'App\\Controller\\UserController::deleteClient'], ['id'], ['DELETE' => 0], null, false, true, null]],
         278 => [[['_route' => 'api_count_clients', '_controller' => 'App\\Controller\\UserController::countClients'], [], ['GET' => 0], null, false, false, null]],
-        314 => [[['_route' => 'cart_items', '_controller' => 'App\\Controller\\CartController::getCartItems'], ['userId'], ['GET' => 0], null, false, true, null]],
-        337 => [[['_route' => 'get_car_owner', '_controller' => 'App\\Controller\\SearchCarController::getCarOwner'], ['id'], ['GET' => 0], null, false, false, null]],
-        369 => [[['_route' => 'confirm_expert', '_controller' => 'App\\Controller\\SignupController::confirmExpert'], ['token'], ['GET' => 0], null, false, true, null]],
-        405 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
-        426 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
-        449 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
-        478 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
-        504 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
-        536 => [
+        317 => [[['_route' => 'cart_items', '_controller' => 'App\\Controller\\CartController::getCartItems'], ['userId'], ['GET' => 0], null, false, true, null]],
+        340 => [[['_route' => 'cart_delete', '_controller' => 'App\\Controller\\CartController::deleteCartItem'], ['itemId'], ['DELETE' => 0], null, false, true, null]],
+        364 => [[['_route' => 'get_car_owner', '_controller' => 'App\\Controller\\SearchCarController::getCarOwner'], ['id'], ['GET' => 0], null, false, false, null]],
+        396 => [[['_route' => 'confirm_expert', '_controller' => 'App\\Controller\\SignupController::confirmExpert'], ['token'], ['GET' => 0], null, false, true, null]],
+        432 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
+        453 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
+        476 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
+        505 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
+        531 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
+        563 => [
             [['_route' => 'app_notifications_delete', '_controller' => 'App\\Controller\\NotificationController::deleteNotification'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
