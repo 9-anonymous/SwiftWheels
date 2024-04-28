@@ -68,22 +68,25 @@ return [
                         .'|count(*:278)'
                     .')'
                 .')'
+                .'|/c(?'
+                    .'|ar(?'
+                        .'|t/items/([^/]++)(*:314)'
+                        .'|/([^/]++)/owner(*:337)'
+                    .')'
+                    .'|onfirm\\-expert/([^/]++)(*:369)'
+                .')'
                 .'|/m(?'
                     .'|essages/(?'
-                        .'|id/([^/]++)(*:315)'
-                        .'|user/([^/]++)(*:336)'
+                        .'|id/([^/]++)(*:405)'
+                        .'|user/([^/]++)(*:426)'
                     .')'
-                    .'|odels/([^/]++)(*:359)'
+                    .'|odels/([^/]++)(*:449)'
                 .')'
                 .'|/u(?'
-                    .'|ploads/([^/]++)(*:388)'
-                    .'|sers/role/([^/]++)(*:414)'
+                    .'|ploads/([^/]++)(*:478)'
+                    .'|sers/role/([^/]++)(*:504)'
                 .')'
-                .'|/notifications/([^/]++)(*:446)'
-                .'|/c(?'
-                    .'|ar/([^/]++)/owner(*:476)'
-                    .'|onfirm\\-expert/([^/]++)(*:507)'
-                .')'
+                .'|/notifications/([^/]++)(*:536)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -99,15 +102,16 @@ return [
         239 => [[['_route' => 'api_count_cars', '_controller' => 'App\\Controller\\CarController::countCars'], [], ['GET' => 0], null, false, false, null]],
         265 => [[['_route' => 'api_delete_client', '_controller' => 'App\\Controller\\UserController::deleteClient'], ['id'], ['DELETE' => 0], null, false, true, null]],
         278 => [[['_route' => 'api_count_clients', '_controller' => 'App\\Controller\\UserController::countClients'], [], ['GET' => 0], null, false, false, null]],
-        315 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
-        336 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
-        359 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
-        388 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
-        414 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
-        446 => [[['_route' => 'app_notifications_delete', '_controller' => 'App\\Controller\\NotificationController::deleteNotification'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        476 => [[['_route' => 'get_car_owner', '_controller' => 'App\\Controller\\SearchCarController::getCarOwner'], ['id'], ['GET' => 0], null, false, false, null]],
-        507 => [
-            [['_route' => 'confirm_expert', '_controller' => 'App\\Controller\\SignupController::confirmExpert'], ['token'], ['GET' => 0], null, false, true, null],
+        314 => [[['_route' => 'cart_items', '_controller' => 'App\\Controller\\CartController::getCartItems'], ['userId'], ['GET' => 0], null, false, true, null]],
+        337 => [[['_route' => 'get_car_owner', '_controller' => 'App\\Controller\\SearchCarController::getCarOwner'], ['id'], ['GET' => 0], null, false, false, null]],
+        369 => [[['_route' => 'confirm_expert', '_controller' => 'App\\Controller\\SignupController::confirmExpert'], ['token'], ['GET' => 0], null, false, true, null]],
+        405 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
+        426 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
+        449 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
+        478 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
+        504 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
+        536 => [
+            [['_route' => 'app_notifications_delete', '_controller' => 'App\\Controller\\NotificationController::deleteNotification'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

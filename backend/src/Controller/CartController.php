@@ -43,5 +43,35 @@ class CartController extends AbstractController
     
         return $this->json(['message' => 'Car added to cart'], Response::HTTP_CREATED);
     }
-    
+    #[Route('/cart/items/{userId}', name: "cart_items", methods: ['GET'])]
+    public function getCartItems(ManagerRegistry $doctrine, int $userId): Response {
+      
+        $cartRepository = $doctrine->getRepository(Cart::class);
+
+        $queryBuilder = $cartRepository->createQueryBuilder('c')
+            ->select('c', 'car')
+            ->join('c.car', 'car')
+            ->where('c.user = :userId')
+            ->setParameter('userId', $userId);
+
+        $cartItems = $queryBuilder->getQuery()->getResult();
+
+        $cartItemsArray = array_map(function ($item) {
+            $car = $item->getCar();
+            return [
+                'id' => $item->getId(),
+                'car' => [
+                    'id' => $car->getId(),
+                    'description' => $car->getDescription(),
+                    'mark' => $car->getMark(),
+                    'model' => $car->getModel(),
+                    'pictures' => $car->getpictures(),
+
+                ],
+                'price' => $item->getPrice(),
+            ];
+        }, $cartItems);
+
+        return $this->json($cartItemsArray);
+    }
 }
