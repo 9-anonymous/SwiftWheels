@@ -16,7 +16,7 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerBBfoxIG\App_KernelDevDebugContainer([
     'container.build_hash' => 'BBfoxIG',
-    'container.build_id' => '7dc7e789',
-    'container.build_time' => 1714312498,
+    'container.build_id' => 'cce301e5',
+    'container.build_time' => 1714316849,
     'container.runtime_mode' => \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) ? 'web=0' : 'web=1',
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerBBfoxIG');

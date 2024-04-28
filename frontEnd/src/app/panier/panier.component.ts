@@ -30,10 +30,8 @@ export class PanierComponent implements OnInit {
    
   constructor(private sharedService: SharedService) {}
  
-  ngOnInit() {
-     this.sharedService.getCart().subscribe(cart => {
-       this.cartItems = cart;
-     });
+  ngOnInit(): void {
+    
   }
  
   addedCar(car: any) {

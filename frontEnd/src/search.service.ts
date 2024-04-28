@@ -38,6 +38,9 @@ export class SearchService {
    );
   }
   
+  saveCar(car: any): Observable<any> {
+    return this.http.post(`http://localhost:8000/cart/add`, { carId: car.id, price: car.price });
+   }
   
   private handleError(error: any) {
     console.error('An error occurred:', error); // For demo purposes only

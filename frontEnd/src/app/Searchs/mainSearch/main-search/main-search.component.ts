@@ -12,20 +12,21 @@ import { SharedService } from 'src/app/shared.service';
 export class MainSearchComponent implements OnInit {
 
   constructor(private sharedService: SharedService,private cdr: ChangeDetectorRef,private searchService: SearchService, private router: Router) {}
-  
+
   selectedMark: string = '';
   selectedModel: string = '';
   marks: string[] = [];
   models: string[] = [];
   searchResults: any[] = []; // Array to store search results
   selectedCarOwnerUsername: string | null = null;
-
+ 
   selectedCar: any; // Define a property to hold the selected car
-
-
+ 
   addedCar(car: any) {
-    this.sharedService.addToCart(car);
-  }
+    console.log(car); // Log the car object to the console
+    this.sharedService.addToCart(car); // Use the updated method to save the car
+ }
+
 
   selectCar(car: any): void {
     this.selectedCar = car;

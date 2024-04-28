@@ -15,32 +15,33 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class CartController extends AbstractController
 {
-    /**
-     * @Route("/cart/add", name="cart_add", methods={"POST"})
-     */
-    public function addToCart(ManagerRegistry $doctrine,Request $request, EntityManagerInterface $em): Response
-    {
+    
+    #[Route('/cart/add', name: "cart_add", methods: ['POST'])]
+
+    public function addToCart(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $em): Response {
+        $user = $this->getUser(); // Get the currently logged-in user
+        if (!$user) {
+            return $this->json(['message' => 'User not logged in'], Response::HTTP_UNAUTHORIZED);
+        }
+    
+        $userId = $user->getId(); // Get the user's ID
         $data = json_decode($request->getContent(), true);
         $carId = $data['carId'] ?? null;
-        $userId = $data['userId'] ?? null;
         $price = $data['price'] ?? null;
-
-        // Assuming you have a method to get the current user
-        $user = $doctrine->getRepository(User::class)->find($userId);
+    
         $car = $doctrine->getRepository(Car::class)->find($carId);
-
-        if (!$user || !$car) {
-            return $this->json(['message' => 'User or car not found'], Response::HTTP_NOT_FOUND);
+        if (!$car) {
+            return $this->json(['message' => 'Car not found'], Response::HTTP_NOT_FOUND);
         }
-
+    
         $cartItem = new Cart();
         $cartItem->setUser($user);
         $cartItem->setCar($car);
         $cartItem->setPrice($price);
-
         $em->persist($cartItem);
         $em->flush();
-
+    
         return $this->json(['message' => 'Car added to cart'], Response::HTTP_CREATED);
     }
+    
 }

@@ -16,6 +16,7 @@ return [
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_accueil', '_controller' => 'App\\Controller\\AppController::index'], null, null, null, false, false, null]],
         '/api/cars' => [[['_route' => 'api_cars', '_controller' => 'App\\Controller\\CarController::getCars'], null, ['GET' => 0], null, false, false, null]],
+        '/cart/add' => [[['_route' => 'cart_add', '_controller' => 'App\\Controller\\CartController::addToCart'], null, ['POST' => 0], null, false, false, null]],
         '/home' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::login'], null, ['POST' => 0], null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\LoginController::logout'], null, ['POST' => 0], null, false, false, null]],

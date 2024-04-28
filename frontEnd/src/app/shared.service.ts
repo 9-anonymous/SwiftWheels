@@ -2,28 +2,25 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { SearchService } from 'src/search.service';
 @Injectable({
  providedIn: 'root',
 })
 export class SharedService {
 
-private cart = new BehaviorSubject<any[]>([]);
-currentCart = this.cart.asObservable();
-  
  private userTypeSource = new BehaviorSubject<string>('');
  currentUserType = this.userTypeSource.asObservable();
 
- constructor() {}
-
-
+ constructor(private http: HttpClient, private SearchService : SearchService) { }
 
  addToCart(car: any) {
-   this.cart.next([...this.cart.value, car]);
-}
-
-getCart() {
-   return this.cart.asObservable();
+   // Assuming you have a method in your DatabaseService to save the car
+   this.SearchService.saveCar(car).subscribe(response => {
+     console.log('Car saved successfully', response);
+   }, error => {
+     console.error('Error saving car', error);
+   });
 }
 
  changeUserType(userType: string) {
