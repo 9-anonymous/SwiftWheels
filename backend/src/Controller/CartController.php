@@ -69,8 +69,11 @@ class CartController extends AbstractController
                     'model' => $car->getModel(),
                     'pictures' => $car->getpictures(),
 
+
                 ],
                 'price' => $item->getPrice(),
+                'purchased' => $item->isPurchased(),
+
             ];
         }, $cartItems);
 
@@ -79,7 +82,8 @@ class CartController extends AbstractController
 
 
     #[Route('/cart/payment', name: "cart_payment", methods: ['POST'])]
-    public function handlePayment(Request $request, EntityManagerInterface $em): Response {
+    public function handlePayment(Request $request, EntityManagerInterface $em): Response
+    {
         $data = json_decode($request->getContent(), true);
         $itemId = $data['itemId'] ?? null;
         $paymentAmount = $data['paymentAmount'] ?? null;
@@ -89,16 +93,21 @@ class CartController extends AbstractController
         if (!$cartItem) {
             return $this->json(['message' => 'Cart item not found'], Response::HTTP_NOT_FOUND);
         }
+    
         $user = $this->getUser(); // Get the currently logged-in user
         if (!$user) {
             return $this->json(['message' => 'User not logged in'], Response::HTTP_UNAUTHORIZED);
         }
+    
         // Deduct the payment amount from the user's bank account
         $userBankAmount = $user->getBankAmount();
         if ($userBankAmount < $paymentAmount) {
             return $this->json(['message' => 'Insufficient funds'], Response::HTTP_BAD_REQUEST);
         }
         $user->setBankAmount($userBankAmount - $paymentAmount);
+    
+        // Set the purchased property to true
+        $cartItem->setPurchased(true);
     
         // Persist changes to the database
         $em->flush();

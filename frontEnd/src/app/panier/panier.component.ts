@@ -25,13 +25,23 @@ export class PanierComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId) {
       this.sharedService.getCartItems(userId).subscribe(items => {
-        this.cartItems = items;
-        console.log("items data: ", this.cartItems);
+        console.log("Raw items: ", items);
+        
+        // Log the properties of the first item to check if 'purchased' is present
+        if (items.length > 0) {
+          console.log("Properties of the first item:", Object.keys(items[0]));
+        }
+        
+        // Filter out items based on the 'purchased' property
+        this.cartItems = items.filter(item => !item.purchased);
+  
+        console.log("Filtered items: ", this.cartItems);  
       });
     } else {
       console.error('User ID not available');
     }
   }
+  
 
   addedCar(car: any) {
     this.sharedService.addToCart(car);
