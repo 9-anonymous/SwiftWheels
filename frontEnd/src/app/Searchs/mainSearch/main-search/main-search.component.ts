@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/search.service';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-main-search',
@@ -9,21 +10,43 @@ import { Router } from '@angular/router';
 })
 export class MainSearchComponent implements OnInit {
 
-  constructor(private searchService: SearchService, private router: Router) {}
+  constructor(private cdr: ChangeDetectorRef,private searchService: SearchService, private router: Router) {}
   
   selectedMark: string = '';
   selectedModel: string = '';
   marks: string[] = [];
   models: string[] = [];
   searchResults: any[] = []; // Array to store search results
+  selectedCarOwnerUsername: string | null = null;
 
   selectedCar: any; // Define a property to hold the selected car
 
-  selectCar(car: any) {
-   this.selectedCar = car; // Set the selected car
-  }
-  
-  ngOnInit(): void {
+  selectCar(car: any): void {
+    this.selectedCar = car;
+    // Assuming the car object has a property for the car's ID
+    this.searchService.getCarOwner(car.id).subscribe(
+       (response: any) => {
+         if (response.username) {
+           // Store the car owner's username for use in the modal
+           this.selectedCarOwnerUsername = response.username;
+         } else {
+           console.error('Car owner not found');
+         }
+       },
+       (error: any) => {
+         console.error('Error fetching car owner:', error);
+       }
+    );
+   }
+   
+   contactCarOwnerFromModal(): void {
+    if (this.selectedCarOwnerUsername) {
+       this.router.navigate(['/contactinput'], { queryParams: { receiver: this.selectedCarOwnerUsername } });
+    } else {
+       console.error('Car owner username not found');
+    }
+   }
+     ngOnInit(): void {
     this.fetchMarks();
     this.fetchAllCars(); // Fetch all cars on component initialization
  }
@@ -41,7 +64,9 @@ export class MainSearchComponent implements OnInit {
      }
   );
  }
- 
+ contactUs(): void {
+  this.router.navigate(['/contactinput'], { queryParams: { contactType: 'general' } });
+ }
   fetchMarks() {
     this.searchService.getMarks().subscribe(
       (marks: string[]) => {
