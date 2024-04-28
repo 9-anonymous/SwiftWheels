@@ -43,4 +43,10 @@ getCartItems(userId: string): Observable<any[]> {
  updateUserBankAmount(userId: string, amount: number): Observable<any> {
   return this.http.post(`${this.apiUrl}/user/update-bank-amount`, { userId, amount });
  }
+ getPurchasedItems(userId: string): Observable<any> {
+  return this.http.get(`${this.apiUrl}/receipt/items/${userId}`);
+}
+createReceipt(receipt: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/receipt/create`, receipt);
+}
 }

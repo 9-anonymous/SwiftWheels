@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\Car;
 use App\Entity\User;
+use App\Entity\Receipt;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,6 +122,63 @@ public function deleteCartItem(int $itemId, EntityManagerInterface $em): Respons
     $em->flush();
 
     return $this->json(['message' => 'Cart item deleted'], Response::HTTP_OK);
+}
+#[Route('/receipt/items/{userId}', name: "receipt_items", methods: ['GET'])]
+public function getPurchasedItems(ManagerRegistry $doctrine, int $userId): Response {
+    $receiptRepository = $doctrine->getRepository(Receipt::class);
+
+    $queryBuilder = $receiptRepository->createQueryBuilder('r')
+        ->select('r', 'c', 'car')
+        ->join('r.cart', 'c')
+        ->join('c.car', 'car')
+        ->where('c.user = :userId')
+        ->setParameter('userId', $userId);
+
+    $purchasedItems = $queryBuilder->getQuery()->getResult();
+
+    $purchasedItemsArray = array_map(function ($item) {
+        $car = $item->getCart()->getCar();
+        return [
+            'id' => $item->getId(),
+            'car' => [
+                'id' => $car->getId(),
+                'description' => $car->getDescription(),
+                'mark' => $car->getMark(),
+                'model' => $car->getModel(),
+                'pictures' => $car->getPictures(),
+            ],
+            'price' => $item->getCart()->getPrice(),
+            'purchaseDate' => $item->getPurchaseDate()->format('Y-m-d H:i:s'),
+        ];
+    }, $purchasedItems);
+
+    return $this->json($purchasedItemsArray);
+}
+#[Route('/receipt/create', name: "receipt_create", methods: ['POST'])]
+public function createReceipt(Request $request, EntityManagerInterface $em): Response {
+    $data = json_decode($request->getContent(), true);
+    $cartData = $data['cart'] ?? null;
+    $purchaseDate = $data['purchaseDate'] ?? null;
+
+    if (!$cartData || !$purchaseDate) {
+        return $this->json(['message' => 'Invalid data'], Response::HTTP_BAD_REQUEST);
+    }
+
+    $cartId = $cartData['id'];
+    $cart = $em->getRepository(Cart::class)->find($cartId);
+
+    if (!$cart) {
+        return $this->json(['message' => 'Cart item not found'], Response::HTTP_NOT_FOUND);
+    }
+
+    $receipt = new Receipt();
+    $receipt->setCart($cart);
+    $receipt->setPurchaseDate(new \DateTime($purchaseDate));
+
+    $em->persist($receipt);
+    $em->flush();
+
+    return $this->json(['message' => 'Receipt created'], Response::HTTP_CREATED);
 }
 
 }

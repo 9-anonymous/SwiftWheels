@@ -47,13 +47,30 @@ export class PanierComponent implements OnInit {
 
 confirmCheckout() {
   if (this.selectedCartItem) {
-      const { id, price } = this.selectedCartItem;
-      this.sharedService.handlePayment(id, price).subscribe(response => {
-          console.log('Payment successful', response);
-          // Optionally, you can refresh the cart items here if needed
-      }, error => {
-          console.error('Payment error', error);
-      });
+    const { id, price } = this.selectedCartItem;
+    this.sharedService.handlePayment(id, price).subscribe(response => {
+      console.log('Payment successful', response);
+      // Remove the purchased item from the cart
+      this.cartItems = this.cartItems.filter(item => item.id !== id);
+
+      // Create a new receipt
+      const purchaseDate = new Date();
+      const receipt = {
+        cart: this.selectedCartItem,
+        purchaseDate: purchaseDate.toISOString(),
+      };
+      this.sharedService.createReceipt(receipt).subscribe(
+        response => {
+          console.log('Receipt created', response);
+          // Optionally, you can refresh the purchased items here if needed
+        },
+        error => {
+          console.error('Error creating receipt', error);
+        }
+      );
+    }, error => {
+      console.error('Payment error', error);
+    });
   }
 }
 

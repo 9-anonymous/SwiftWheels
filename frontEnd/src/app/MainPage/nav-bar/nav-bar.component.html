@@ -44,6 +44,8 @@
              <a routerLink="/contactlist"><i class="bi bi-envelope"></i> &nbsp;Messages</a>
              <a routerLink="/AddCar"><i class="bi bi-shop"></i> &nbsp;Add-Car</a>
              <a routerLink="/panier"><i class="bi bi-cart"></i> &nbsp;CART</a>    
+                          <a routerLink="/receipt"><i class="bi bi-cart"></i> &nbsp;Receipt</a>    
+
            </ng-container>
            <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
            <a href="" (click)="logout()"><i class="bi bi-box-arrow-right"></i>&nbsp;Logout</a>

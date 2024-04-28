@@ -24,7 +24,7 @@ import { VoitureComponent } from './voiture/voiture.component';
 import { ProfileComponent } from './AdminProfile/profile/profile.component';
 import { SettingsComponent } from './AdminProfile/settings/settings.component';
 import { PanierComponent } from './panier/panier.component';
-
+ import { ReceiptComponent } from './receipt/receipt.component';
 
 
 const routes: Routes = [
@@ -55,7 +55,8 @@ const routes: Routes = [
 
   {path:'userprofile', component:UserProfileComponent},
 
-  {path:'panier', component:PanierComponent}
+  {path:'panier', component:PanierComponent},
+  {path:'receipt', component:ReceiptComponent}
 
 ];
 

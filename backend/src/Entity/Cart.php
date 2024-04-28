@@ -24,6 +24,15 @@ class Cart
     #[ORM\Column(type: "decimal", precision: 10, scale: 2)]
     private $price;
 
+    
+#[ORM\OneToOne(targetEntity: Receipt::class, mappedBy: "cart")]
+private ?Receipt $receipt = null;
+
+    
+    #[ORM\Column(type: "boolean", options: ["default" => false])]
+
+    private $purchased = false;
+
     // Getters and setters
 
     public function getId(): ?int
@@ -66,4 +75,28 @@ class Cart
 
         return $this;
     }
+    public function getReceipt(): ?Receipt
+    {
+        return $this->receipt;
+    }
+    
+    public function setReceipt(?Receipt $receipt): self
+    {
+        $this->receipt = $receipt;
+    
+        return $this;
+    }
+    
+        public function isPurchased(): ?bool
+    {
+        return $this->purchased;
+    }
+
+    public function setPurchased(bool $purchased): self
+    {
+        $this->purchased = $purchased;
+
+        return $this;
+    }
+
 }

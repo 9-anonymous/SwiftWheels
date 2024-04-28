@@ -1,0 +1,35 @@
+<!-- Receipt Modal -->
+<div class="" id="receiptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col" class="text-center">Description</th>
+                                    <th scope="col" class="text-center">Mark</th>
+                                    <th scope="col" class="text-center">Model</th>
+                                    <th scope="col" class="text-center">Price</th>
+                                    <th scope="col" class="text-center">Purchased At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="receiptTableBody">
+                                <tr *ngFor="let item of purchasedItems">
+                                    <td><img [src]="'http://localhost:8000/uploads/' + item.car.pictures" alt="Car Image" width="100"></td>
+                                    <td class="text-center">{{item.car.description}}</td>
+                                    <td class="text-center">{{item.car.mark}}</td>
+                                    <td class="text-center">{{item.car.model}}</td>
+                                    <td class="text-center">{{item.price | currency}}</td>
+                                    <td class="text-center">{{item.purchaseDate | date:'medium'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

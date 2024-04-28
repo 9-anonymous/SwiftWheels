@@ -514,6 +514,7 @@
     <service id="App\Entity\Cart" class="App\Entity\Cart" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Message" class="App\Entity\Message" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Notification" class="App\Entity\Notification" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\Receipt" class="App\Entity\Receipt" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\User" class="App\Entity\User" public="true" autowire="true" autoconfigure="true"/>
     <service id="App\Form\CarType" class="App\Form\CarType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -531,6 +532,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\NotificationRepository" class="App\Repository\NotificationRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ReceiptRepository" class="App\Repository\ReceiptRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -565,7 +570,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.QSe2RXD"/>
+      <argument type="service" id=".service_locator.Aj9GVdq"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3400,7 +3405,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.QSe2RXD"/>
+      <argument type="service" id=".service_locator.Aj9GVdq"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5096,7 +5101,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.BnFM7iG"/>
+      <argument type="service" id=".service_locator.Gz1czuZ"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7313,6 +7318,8 @@
     <service id=".abstract.instanceof.App\Repository\MessageRepository" class="App\Repository\MessageRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\NotificationRepository" class="App\Repository\NotificationRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\NotificationRepository" class="App\Repository\NotificationRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ReceiptRepository" class="App\Repository\ReceiptRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ReceiptRepository" class="App\Repository\ReceiptRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.bJ.4HC5" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7857,7 +7864,7 @@
         <argument key="user" type="service_closure" id="App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.QSe2RXD" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Aj9GVdq" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7865,8 +7872,10 @@
         <argument key="App\Controller\CarController::deleteCars" type="service_closure" id=".service_locator.KNAnNql"/>
         <argument key="App\Controller\CarController::getCars" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\CartController::addToCart" type="service_closure" id=".service_locator.vFAsXgu"/>
+        <argument key="App\Controller\CartController::createReceipt" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\CartController::deleteCartItem" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\CartController::getCartItems" type="service_closure" id=".service_locator.o6sN0hZ"/>
+        <argument key="App\Controller\CartController::getPurchasedItems" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\CartController::handlePayment" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\LoginController::login" type="service_closure" id=".service_locator.RyflRLG"/>
         <argument key="App\Controller\MailController::sendEmail" type="service_closure" id=".service_locator.MMXaNud"/>
@@ -7900,8 +7909,10 @@
         <argument key="App\Controller\CarController:deleteCars" type="service_closure" id=".service_locator.KNAnNql"/>
         <argument key="App\Controller\CarController:getCars" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\CartController:addToCart" type="service_closure" id=".service_locator.vFAsXgu"/>
+        <argument key="App\Controller\CartController:createReceipt" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\CartController:deleteCartItem" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\CartController:getCartItems" type="service_closure" id=".service_locator.o6sN0hZ"/>
+        <argument key="App\Controller\CartController:getPurchasedItems" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\CartController:handlePayment" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\LoginController:login" type="service_closure" id=".service_locator.RyflRLG"/>
         <argument key="App\Controller\MailController:sendEmail" type="service_closure" id=".service_locator.MMXaNud"/>
@@ -8216,13 +8227,14 @@
         <argument key="stof_doctrine_extensions.listener.timestampable" type="service_closure" id="stof_doctrine_extensions.listener.timestampable"/>
       </argument>
     </service>
-    <service id=".service_locator.BnFM7iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Gz1czuZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CarRepository" type="service_closure" id="App\Repository\CarRepository"/>
         <argument key="App\Repository\CartRepository" type="service_closure" id="App\Repository\CartRepository"/>
         <argument key="App\Repository\MessageRepository" type="service_closure" id="App\Repository\MessageRepository"/>
         <argument key="App\Repository\NotificationRepository" type="service_closure" id="App\Repository\NotificationRepository"/>
+        <argument key="App\Repository\ReceiptRepository" type="service_closure" id="App\Repository\ReceiptRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
@@ -10230,7 +10242,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.QSe2RXD"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Aj9GVdq"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
