@@ -90,6 +90,8 @@ class SignupController extends AbstractController
         if (in_array('ROLE_CLIENT', $roles)) {
             $user->setRoles(['ROLE_CLIENT']);
             $user->setBankAccount($data['bankAccount']);
+            $user->setBankAmount(9515135);
+
             $entityManager->persist($user);
             $entityManager->flush();
 

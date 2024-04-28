@@ -59,18 +59,24 @@ export class SignupComponent implements OnInit {
 
     if (this.selectedFile) {
       formData.append('picture', this.selectedFile, this.selectedFile.name);
-    }
+      console.log(formData)
 
+    }
     if (this.userType === 'client') {
       formData.append('roles', 'ROLE_CLIENT');
       formData.append('bankAccount', this.user.bankAccount || '');
+      console.log(formData)
+
     } else if (this.userType === 'expert') {
       formData.append('roles', 'ROLE_EXPERT');
       formData.append('jobTitle', this.user.jobTitle || '');
       formData.append('speciality', this.user.speciality || '');
+      console.log(formData)
+
       if (this.jobDescriptionFile) {
         formData.append('jobDescription', this.jobDescriptionFile, this.jobDescriptionFile.name);
-  
+        console.log(formData)}
+
     } else {
       formData.append('roles', 'ROLE_USER');
     }
@@ -83,5 +89,4 @@ export class SignupComponent implements OnInit {
       err => console.error('Error!', err)
     );
   }
-}
 }
