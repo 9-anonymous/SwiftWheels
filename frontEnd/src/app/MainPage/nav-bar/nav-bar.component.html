@@ -51,7 +51,7 @@
              <a routerLink="/admin">Admin</a>
            </ng-container>
            <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') || authService.hasRole('ROLE_EXPERT') ">
-             <a href="">{{ authService.getUsername() }}</a>
+             <a routerLink="/userprofile" href="">{{ authService.getUsername() }}</a>
            </ng-container>
          </ng-container>
          <ng-container *ngIf="!authService.isAuthenticated(); ">

@@ -48,6 +48,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { VenteComponent } from './vente/vente.component';
 import { ClientComponent } from './client/client.component';
 import { VoitureComponent } from './voiture/voiture.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { VoitureComponent } from './voiture/voiture.component';
     VoitureComponent,
      ProfileComponent,
     SettingsComponent,
+    UserProfileComponent,
 
   ],
   imports: [

@@ -12,7 +12,7 @@ import { NotificationListComponent } from './notification/notification-list/noti
 import { MainSearchComponent } from './Searchs/mainSearch/main-search/main-search.component';
 import { PostCarComponent } from './PostCar/post-car/post-car.component';
 import { EntCataComponent } from './ent-cata/ent-cata.component';
-
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -52,6 +52,7 @@ const routes: Routes = [
   {path:'profile', component:ProfileComponent},
   {path:'settings', component:SettingsComponent},
 
+  {path:'userprofile', component:UserProfileComponent}
 
 
 ];
