@@ -79,7 +79,10 @@ return [
                     .'|sers/role/([^/]++)(*:414)'
                 .')'
                 .'|/notifications/([^/]++)(*:446)'
-                .'|/confirm\\-expert/([^/]++)(*:479)'
+                .'|/c(?'
+                    .'|ar/([^/]++)/owner(*:476)'
+                    .'|onfirm\\-expert/([^/]++)(*:507)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -101,7 +104,8 @@ return [
         388 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
         414 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
         446 => [[['_route' => 'app_notifications_delete', '_controller' => 'App\\Controller\\NotificationController::deleteNotification'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        479 => [
+        476 => [[['_route' => 'get_car_owner', '_controller' => 'App\\Controller\\SearchCarController::getCarOwner'], ['id'], ['GET' => 0], null, false, false, null]],
+        507 => [
             [['_route' => 'confirm_expert', '_controller' => 'App\\Controller\\SignupController::confirmExpert'], ['token'], ['GET' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

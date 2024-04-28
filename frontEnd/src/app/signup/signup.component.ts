@@ -12,7 +12,6 @@ interface User {
   jobTitle?: string;
   speciality?: string;
   roles?: string[]; 
-  jobDescription?: string;
 }
 
 @Component({
@@ -25,6 +24,7 @@ export class SignupComponent implements OnInit {
 
   user: User = { username: '', email: '', password: '' };
   selectedFile: File | null = null;
+  jobDescriptionFile: File | null = null; // Add this line
 
   constructor(private sharedService: SharedService, private signupService: SignupService, private router: Router, private authService: AuthService) {}
 
@@ -38,6 +38,15 @@ export class SignupComponent implements OnInit {
       const file = inputElement.files[0];
       if (file) {
         this.selectedFile = file;
+      }
+    }
+  }
+  onJobDescriptionFileChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement && inputElement.files) {
+      const file = inputElement.files[0];
+      if (file) {
+        this.jobDescriptionFile = file;
       }
     }
   }
@@ -59,8 +68,9 @@ export class SignupComponent implements OnInit {
       formData.append('roles', 'ROLE_EXPERT');
       formData.append('jobTitle', this.user.jobTitle || '');
       formData.append('speciality', this.user.speciality || '');
-      formData.append('jobDescription', this.user.jobDescription || '');
-
+      if (this.jobDescriptionFile) {
+        formData.append('jobDescription', this.jobDescriptionFile, this.jobDescriptionFile.name);
+  
     } else {
       formData.append('roles', 'ROLE_USER');
     }
@@ -73,4 +83,5 @@ export class SignupComponent implements OnInit {
       err => console.error('Error!', err)
     );
   }
+}
 }

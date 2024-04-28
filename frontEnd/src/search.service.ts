@@ -45,4 +45,8 @@ export class SearchService {
   }
 
 
+  getCarOwner(carId: number): Observable<any> {
+    return this.http.get(`http://localhost:8000/car/${carId}/owner`);
+ }
+  
 }

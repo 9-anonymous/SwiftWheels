@@ -32,9 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $speciality = null;
 
-    #[ORM\Column(type: 'text', nullable: true)] 
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $jobDescription = null;
-
+    
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => 'ROLE_USER'])]
     private string $roles = 'ROLE_USER';
 

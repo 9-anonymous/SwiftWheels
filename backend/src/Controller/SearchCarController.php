@@ -77,5 +77,16 @@ class SearchCarController extends AbstractController
         // Removed logger usage
         return new JsonResponse($data, 200, [], true);
     }
-    
+    #[Route('/car/{id}/owner', name: 'get_car_owner', methods: ['GET'])]
+public function getCarOwner(int $id, CarRepository $carRepository): JsonResponse
+{
+    $car = $carRepository->find($id);
+    if (!$car) {
+        return new JsonResponse(['error' => 'Car not found'], Response::HTTP_NOT_FOUND);
+    }
+
+    $ownerUsername = $car->getUser()->getUsername();
+    return new JsonResponse(['username' => $ownerUsername]);
+}
+
 }

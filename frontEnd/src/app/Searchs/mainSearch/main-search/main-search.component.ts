@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/search.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-search',
@@ -8,7 +9,7 @@ import { SearchService } from 'src/search.service';
 })
 export class MainSearchComponent implements OnInit {
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService, private router: Router) {}
   
   selectedMark: string = '';
   selectedModel: string = '';
@@ -26,7 +27,21 @@ export class MainSearchComponent implements OnInit {
     this.fetchMarks();
     this.fetchAllCars(); // Fetch all cars on component initialization
  }
-
+ contactCarOwner(carId: number): void {
+  this.searchService.getCarOwner(carId).subscribe(
+     (response: any) => {
+       if (response.username) {
+         this.router.navigate(['/contactinput'], { queryParams: { receiver: response.username } });
+       } else {
+         console.error('Car owner not found');
+       }
+     },
+     (error: any) => {
+       console.error('Error fetching car owner:', error);
+     }
+  );
+ }
+ 
   fetchMarks() {
     this.searchService.getMarks().subscribe(
       (marks: string[]) => {

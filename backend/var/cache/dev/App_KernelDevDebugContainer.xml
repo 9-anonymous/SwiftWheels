@@ -553,7 +553,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.5H3DGRq"/>
+      <argument type="service" id=".service_locator.vi93POr"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3388,7 +3388,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.5H3DGRq"/>
+      <argument type="service" id=".service_locator.vi93POr"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7827,7 +7827,7 @@
         <argument key="user" type="service_closure" id="App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.5H3DGRq" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.vi93POr" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7847,6 +7847,7 @@
         <argument key="App\Controller\NotificationController::markNotificationsAsRead" type="service_closure" id=".service_locator.161_wLo"/>
         <argument key="App\Controller\SearchCarController::getAllCars" type="service_closure" id=".service_locator.qvDjv7P"/>
         <argument key="App\Controller\SearchCarController::getCarBrands" type="service_closure" id=".service_locator.3LuXUDl"/>
+        <argument key="App\Controller\SearchCarController::getCarOwner" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController::searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
         <argument key="App\Controller\SignupController::confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
@@ -7877,6 +7878,7 @@
         <argument key="App\Controller\NotificationController:markNotificationsAsRead" type="service_closure" id=".service_locator.161_wLo"/>
         <argument key="App\Controller\SearchCarController:getAllCars" type="service_closure" id=".service_locator.qvDjv7P"/>
         <argument key="App\Controller\SearchCarController:getCarBrands" type="service_closure" id=".service_locator.3LuXUDl"/>
+        <argument key="App\Controller\SearchCarController:getCarOwner" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:getModelsForMark" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\SearchCarController:searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
         <argument key="App\Controller\SignupController:confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
@@ -10182,7 +10184,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.5H3DGRq"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.vi93POr"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

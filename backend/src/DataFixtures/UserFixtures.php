@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
 
         $admin = new User();
         $admin->setUsername('Admin');
-        $admin->setEmail('admin@gmail.com');
+        $admin->setEmail('salimsalem4@gmail.com');
         $adminPassword = $this->passwordHasher->hashPassword($admin, '0000');
         $admin->setPassword($adminPassword);
         $admin->setRoles(['ROLE_ADMIN']);

@@ -19,28 +19,23 @@ use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use App\Repository\NotificationRepository;
 
-
 class SignupController extends AbstractController
 {
     private $logger;
     private $urlGenerator;
     private $messageRepository;
-
     private $notificationRepository;
     private $userRepository;
     private $mailer;
 
-    
-    public function __construct(MailerInterface $mailer,LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, MessageRepository $messageRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
+    public function __construct(MailerInterface $mailer, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, MessageRepository $messageRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
     {
         $this->logger = $logger;
         $this->urlGenerator = $urlGenerator;
         $this->messageRepository = $messageRepository;
         $this->notificationRepository = $notificationRepository;
-
         $this->userRepository = $userRepository;
         $this->mailer = $mailer;
-
     }
 
     #[Route('/register', name: 'api_register', methods: ['POST'])]
@@ -55,6 +50,7 @@ class SignupController extends AbstractController
         $hashedPassword = $passwordHasher->hashPassword($user, $plaintextPassword);
         $user->setPassword($hashedPassword);
         $pictureUrl = null;
+        $jobDescriptionFile = null;
 
         if ($request->files->get('picture')) {
             $uploadedFile = $request->files->get('picture');
@@ -70,7 +66,22 @@ class SignupController extends AbstractController
             }
         }
 
+        if ($request->files->get('jobDescription')) {
+            $uploadedFile = $request->files->get('jobDescription');
+            if ($uploadedFile) {
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                try {
+                    $uploadedFile->move($this->getParameter('upload_directory'), $newFilename);
+                    $jobDescriptionFile = $newFilename;
+                } catch (FileException $e) {
+                    $this->logger->error('File upload error:', [$e->getMessage()]);
+                }
+            }
+        }
+
         $user->setPictureUrl($pictureUrl);
+        $user->setJobDescription($jobDescriptionFile);
         $roles = is_array($data['roles']) ? $data['roles'] : [$data['roles']];
 
         // Handle registration failure case
@@ -99,11 +110,17 @@ class SignupController extends AbstractController
             $adminUsers = $entityManager->getRepository(User::class)->findBy(['roles' => 'ROLE_ADMIN']);
             foreach ($adminUsers as $admin) {
                 $email = (new Email())
-                    ->from('no-reply@example.com')
-                    ->to($admin->getEmail())
-                    ->subject('Expert ' . $user->getUsername() . ' has registered on SwiftWheels website')
-                    ->text('The expert ' . $user->getUsername() . ' has registered on the website. Please confirm their registration by clicking the following link: ' . $confirmationUrl);
-                $mailer->send($email);
+                ->from('no-reply@example.com')
+                ->to($admin->getEmail())
+                ->subject('Expert ' . $user->getUsername() . ' has registered on SwiftWheels website')
+                ->text('The expert ' . $user->getUsername() . ' has registered on the website. Please confirm their registration by clicking the following link: ' . $confirmationUrl);
+    
+            // Attach the job description file if it exists
+            if ($jobDescriptionFile) {
+                $email->attachFromPath($this->getParameter('upload_directory') . '/' . $jobDescriptionFile);
+            }
+    
+            $mailer->send($email);
             }
 
             // Return the response indicating successful registration
@@ -122,19 +139,22 @@ class SignupController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->findOneBy(['confirmationToken' => $token]);
-    
+
         if (!$user) {
             return new JsonResponse(['message' => 'Invalid token'], JsonResponse::HTTP_BAD_REQUEST);
         }
-    
+
+        // Get the job description file path
+        $jobDescriptionFile = $user->getJobDescription();
+
         $user->setRoles(['ROLE_EXPERT']);
         $user->setConfirmationToken(null);
-    
+
         $entityManager->persist($user);
         $entityManager->flush();
-    
+
         $adminUser = $this->userRepository->findOneBy(['roles' => 'ROLE_ADMIN']);
-    
+
         if ($adminUser) {
             $message = new Message();
             $message->setTitle('Your expert role has been approved');
@@ -142,10 +162,10 @@ class SignupController extends AbstractController
             $message->setSender($adminUser);
             $message->setReceiver($user);
             $message->setCreatedAt(new \DateTime());
-    
+
             $entityManager->persist($message);
             $entityManager->flush();
-    
+
             $notification = new Notification();
             $notification->setReceiver($user);
             $notification->setSender($adminUser);

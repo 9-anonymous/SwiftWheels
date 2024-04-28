@@ -4,6 +4,7 @@ import { AuthService } from '../../auth.service';
 import { MessageService } from '../../message.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contact-input',
@@ -12,20 +13,27 @@ import { SharedService } from '../../shared.service';
 })
 export class ContactInputComponent {
   title: string = '';
-  content: string = '';
+  content: string = ''; 
   selectedFile: File | null = null;
   receiver: string = '';
   usernames: string[] = [];
 
-  constructor(private authService: AuthService,private sharedService: SharedService, private messageService: MessageService, private router: Router) {}
+  constructor(private authService: AuthService, private sharedService: SharedService, private messageService: MessageService, private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.sharedService.currentUserType.subscribe(role => {
-       if (role) {
-         this.loadUsernames(role);
-       }
-    });
-   }
+ ngOnInit(): void {
+ this.route.queryParams.subscribe(params => {
+    if (params['receiver']) {
+      this.receiver = params['receiver'];
+    }
+ });
+
+ this.sharedService.currentUserType.subscribe(role => {
+    if (role) {
+      this.loadUsernames(role);
+    }
+ });
+}
+
 
   loadUsernames(role: string): void {
     this.messageService.getUsernamesByRole(role).subscribe(usernames => {

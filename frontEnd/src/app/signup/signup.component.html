@@ -27,9 +27,8 @@
    <input type="text" id="jobTitle" [(ngModel)]="user.jobTitle" name="jobTitle" class="form-control">
    <label for="speciality" class="form-label">Speciality:</label>
    <input type="text" id="speciality" [(ngModel)]="user.speciality" name="speciality" class="form-control">
-   <label for="speciality" class="form-label">Job description:</label>
-   <textarea type="text" id="jobDescription" [(ngModel)]="user.jobDescription" name="jobDescription" class="form-control"></textarea>
-
+   <label for="jobDescription" class="form-label">Job Description:</label>
+   <input type="file" id="jobDescription" (change)="onJobDescriptionFileChange($event)" name="jobDescription" class="form-control">
  </div>
  
  <button type="submit" class="btn btn-primary">Register</button>
