@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/search.service';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-main-search',
@@ -10,7 +11,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class MainSearchComponent implements OnInit {
 
-  constructor(private cdr: ChangeDetectorRef,private searchService: SearchService, private router: Router) {}
+  constructor(private sharedService: SharedService,private cdr: ChangeDetectorRef,private searchService: SearchService, private router: Router) {}
   
   selectedMark: string = '';
   selectedModel: string = '';
@@ -20,6 +21,11 @@ export class MainSearchComponent implements OnInit {
   selectedCarOwnerUsername: string | null = null;
 
   selectedCar: any; // Define a property to hold the selected car
+
+
+  addedCar(car: any) {
+    this.sharedService.addToCart(car);
+  }
 
   selectCar(car: any): void {
     this.selectedCar = car;

@@ -427,6 +427,13 @@
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\CarController"/>
       </call>
     </service>
+    <service id="App\Controller\CartController" class="App\Controller\CartController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\CartController"/>
+      </call>
+    </service>
     <service id="App\Controller\HomeController" class="App\Controller\HomeController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -504,6 +511,7 @@
       <argument type="service" id="security.user_password_hasher"/>
     </service>
     <service id="App\Entity\Car" class="App\Entity\Car" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\Cart" class="App\Entity\Cart" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Message" class="App\Entity\Message" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Notification" class="App\Entity\Notification" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\User" class="App\Entity\User" public="true" autowire="true" autoconfigure="true"/>
@@ -511,6 +519,10 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\CarRepository" class="App\Repository\CarRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\CartRepository" class="App\Repository\CartRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -553,7 +565,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.vi93POr"/>
+      <argument type="service" id=".service_locator.wqig0kP"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3388,7 +3400,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.vi93POr"/>
+      <argument type="service" id=".service_locator.wqig0kP"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5084,7 +5096,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.LxRaF.4"/>
+      <argument type="service" id=".service_locator.BnFM7iG"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7258,6 +7270,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CarController" class="App\Controller\CarController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CarController" class="App\Controller\CarController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CarController" class="App\Controller\CarController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CartController" class="App\Controller\CartController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CartController" class="App\Controller\CartController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CartController" class="App\Controller\CartController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7292,6 +7307,8 @@
     <service id=".abstract.instanceof.App\Form\CarType" class="App\Form\CarType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CarRepository" class="App\Repository\CarRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CarRepository" class="App\Repository\CarRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CartRepository" class="App\Repository\CartRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CartRepository" class="App\Repository\CartRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MessageRepository" class="App\Repository\MessageRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MessageRepository" class="App\Repository\MessageRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\NotificationRepository" class="App\Repository\NotificationRepository" autowire="true" abstract="true"/>
@@ -7726,6 +7743,13 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.vFAsXgu" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service_closure" id="doctrine"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.RyflRLG" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7827,13 +7851,14 @@
         <argument key="user" type="service_closure" id="App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.vi93POr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.wqig0kP" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
         <argument key="App\Controller\CarController::create" type="service_closure" id=".service_locator.Q9_Ua5J"/>
         <argument key="App\Controller\CarController::deleteCars" type="service_closure" id=".service_locator.KNAnNql"/>
         <argument key="App\Controller\CarController::getCars" type="service_closure" id=".service_locator.3LuXUDl"/>
+        <argument key="App\Controller\CartController::addToCart" type="service_closure" id=".service_locator.vFAsXgu"/>
         <argument key="App\Controller\LoginController::login" type="service_closure" id=".service_locator.RyflRLG"/>
         <argument key="App\Controller\MailController::sendEmail" type="service_closure" id=".service_locator.MMXaNud"/>
         <argument key="App\Controller\MessageController::getMessageById" type="service_closure" id=".service_locator.sLkGFte"/>
@@ -7865,6 +7890,7 @@
         <argument key="App\Controller\CarController:create" type="service_closure" id=".service_locator.Q9_Ua5J"/>
         <argument key="App\Controller\CarController:deleteCars" type="service_closure" id=".service_locator.KNAnNql"/>
         <argument key="App\Controller\CarController:getCars" type="service_closure" id=".service_locator.3LuXUDl"/>
+        <argument key="App\Controller\CartController:addToCart" type="service_closure" id=".service_locator.vFAsXgu"/>
         <argument key="App\Controller\LoginController:login" type="service_closure" id=".service_locator.RyflRLG"/>
         <argument key="App\Controller\MailController:sendEmail" type="service_closure" id=".service_locator.MMXaNud"/>
         <argument key="App\Controller\MessageController:getMessageById" type="service_closure" id=".service_locator.sLkGFte"/>
@@ -8178,10 +8204,11 @@
         <argument key="stof_doctrine_extensions.listener.timestampable" type="service_closure" id="stof_doctrine_extensions.listener.timestampable"/>
       </argument>
     </service>
-    <service id=".service_locator.LxRaF.4" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.BnFM7iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CarRepository" type="service_closure" id="App\Repository\CarRepository"/>
+        <argument key="App\Repository\CartRepository" type="service_closure" id="App\Repository\CartRepository"/>
         <argument key="App\Repository\MessageRepository" type="service_closure" id="App\Repository\MessageRepository"/>
         <argument key="App\Repository\NotificationRepository" type="service_closure" id="App\Repository\NotificationRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
@@ -8575,6 +8602,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.jUv.zyj" method="withContext"/>
     </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\CartController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CartController"/>
+      <argument>App\Controller\CartController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
     <service id=".service_locator.jUv.zyj.App\Controller\HomeController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\HomeController"/>
       <argument>App\Controller\HomeController</argument>
@@ -8787,6 +8820,7 @@
           <argument>App\Kernel</argument>
           <argument>App\Controller\AppController</argument>
           <argument>App\Controller\CarController</argument>
+          <argument>App\Controller\CartController</argument>
           <argument>App\Controller\HomeController</argument>
           <argument>App\Controller\LoginController</argument>
           <argument>App\Controller\MailController</argument>
@@ -10184,7 +10218,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.vi93POr"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.wqig0kP"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -10230,6 +10264,7 @@
     <service id=".service_locator.BEsFY1H" alias=".service_locator.Q9_Ua5J"/>
     <service id=".service_locator.6_u.6L1" alias=".service_locator.3LuXUDl"/>
     <service id=".service_locator.Oxq6PXw" alias=".service_locator.KNAnNql"/>
+    <service id=".service_locator.3_bWhWI" alias=".service_locator.vFAsXgu"/>
     <service id=".service_locator.a5twjK5" alias=".service_locator.RyflRLG"/>
     <service id=".service_locator.Db.zFPv" alias=".service_locator.MMXaNud"/>
     <service id=".service_locator.22VUVOO" alias=".service_locator.sLkGFte"/>

@@ -49,6 +49,7 @@ import { VenteComponent } from './vente/vente.component';
 import { ClientComponent } from './client/client.component';
 import { VoitureComponent } from './voiture/voiture.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { PanierComponent } from './panier/panier.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
      ProfileComponent,
     SettingsComponent,
     UserProfileComponent,
+    PanierComponent,
 
   ],
   imports: [

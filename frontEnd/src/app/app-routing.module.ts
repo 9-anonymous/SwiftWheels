@@ -23,6 +23,7 @@ import { ClientComponent } from './client/client.component';
 import { VoitureComponent } from './voiture/voiture.component';
 import { ProfileComponent } from './AdminProfile/profile/profile.component';
 import { SettingsComponent } from './AdminProfile/settings/settings.component';
+import { PanierComponent } from './panier/panier.component';
 
 
 
@@ -52,8 +53,9 @@ const routes: Routes = [
   {path:'profile', component:ProfileComponent},
   {path:'settings', component:SettingsComponent},
 
-  {path:'userprofile', component:UserProfileComponent}
+  {path:'userprofile', component:UserProfileComponent},
 
+  {path:'panier', component:PanierComponent}
 
 ];
 

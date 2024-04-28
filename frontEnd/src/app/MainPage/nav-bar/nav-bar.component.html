@@ -43,7 +43,7 @@
            <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') || authService.hasRole('ROLE_EXPERT') || authService.hasRole('ROLE_ADMIN') ">
              <a routerLink="/contactlist"><i class="bi bi-envelope"></i> &nbsp;Messages</a>
              <a routerLink="/AddCar"><i class="bi bi-shop"></i> &nbsp;Add-Car</a>
-             <a href=""><i class="bi bi-cart"></i> &nbsp;CART</a>    
+             <a routerLink="/panier"><i class="bi bi-cart"></i> &nbsp;CART</a>    
            </ng-container>
            <app-notification-bell *ngIf="authService.isAuthenticated()"></app-notification-bell>
            <a href="" (click)="logout()"><i class="bi bi-box-arrow-right"></i>&nbsp;Logout</a>

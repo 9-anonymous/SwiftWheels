@@ -16,5 +16,5 @@ export class UserProfileComponent implements OnInit {
  ngOnInit(): void {
     this.username = this.authService.getUsername();
      this.roles = this.authService.getRoles();
- }
+    }
 }
