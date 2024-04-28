@@ -974,3 +974,7 @@ a5fc40,::1,GET,http://localhost:8000/notifications,1714303234,,200,request
 586dee,::1,POST,http://localhost:8000/login,1714303443,,200,request
 6f90c4,::1,GET,http://localhost:8000/notifications,1714303444,,200,request
 1f4ec7,::1,GET,http://localhost:8000/notifications/unread-count,1714303445,,200,request
+32749a,::1,OPTIONS,http://localhost:8000/login,1714305165,,200,request
+1f96b8,::1,POST,http://localhost:8000/login,1714305166,,200,request
+d61cd2,::1,GET,http://localhost:8000/notifications/unread-count,1714305166,,200,request
+b1014b,::1,GET,http://localhost:8000/notifications,1714305167,,200,request
