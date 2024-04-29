@@ -1,12 +1,12 @@
-<div class="container">
+<div class="container" style="max-width:20vw ; margin-top:100px ;border: 3px double rgb(77, 199, 199); border-radius: 20px; padding: 10px 40px 40px 40px;color:rgb(77, 199, 199)  ;background-color:rgba(0, 0, 0, 0.5)">
     <!-- login.component.html -->
-    <h2>Login</h2>
+    <h2 style="text-align: center;">Login</h2>
     <form (submit)="onSubmit()" class="d-flex flex-column" #loginForm="ngForm">
       <label for="username" class="form-label">Username:</label>
       <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control" required>
       <label for="password" class="form-label">Password:</label>
       <input type="password" id="password" [(ngModel)]="user.password" name="password" class="form-control" required>
-      <button type="submit" class="btn btn-primary">Login</button>
+      <button style="margin-top:20px ; width: 50%; margin-left: 25%; border: double 1px rgb(77, 199, 199)"  type="submit" class="text-info btn btn-outlined-primary">Login</button>
     </form>
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
