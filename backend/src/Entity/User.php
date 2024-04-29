@@ -19,9 +19,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups("user:read")]
+
     private ?string $email;
 
     #[ORM\Column(type: 'string')]
+    #[Groups("user:read")]
+
     private string $password;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -35,16 +39,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $jobTitle = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups("user:read")]
+
     private ?string $speciality = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $jobDescription = null;
     
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => 'ROLE_USER'])]
+    #[Groups("user:read")]
+
     private string $roles = 'ROLE_USER';
 
 
-    #[ORM\Column(length: 255)] private ?string $username = null;
+    #[ORM\Column(length: 255)]     
+    
+    #[Groups("user:read")]
+     private ?string $username = null;
 
 
     #[ORM\Column(type: 'string', nullable: true)]

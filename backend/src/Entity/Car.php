@@ -14,67 +14,67 @@ class Car
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?int $id = null;
 
     #[ORM\Column(length:  255, nullable: true)]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?string $mark = null;    
 
     #[ORM\Column(length:  255, nullable: true)]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?string $model = null;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?int $price = null;
 
     #[ORM\Column(length:  255)]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?string $description = null;
 
     #[ORM\Column(type: 'string', length:  255, nullable: true)]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?string $pictures = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?bool $abs = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?bool $epc = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?bool $grayCard = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?bool $autoGearBox = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?bool $taxes = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?bool $insurance = null;
 
     #[ORM\Column(length:  255)]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?string $color = null;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?int $mileage = null;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?int $quantity = null;
 
     #[ORM\Column(type: 'datetime')]
-    #[Groups("car")]
+    #[Groups("car:read")]
     private ?\DateTimeInterface $addDate = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]

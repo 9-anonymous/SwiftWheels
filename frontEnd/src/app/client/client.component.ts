@@ -47,10 +47,11 @@ export class ClientComponent implements OnInit {
     } else {
       const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
       this.filteredUsers = this.clients.filter(client => {
-        const lowerCaseFirstName = client.Firstname?.toLowerCase() || '';
         const lowerCaseEmail = client.email?.toLowerCase() || '';
-        return lowerCaseFirstName.includes(lowerCaseSearchTerm) || lowerCaseEmail.includes(lowerCaseSearchTerm);
+        const lowerCaseUsername = client.username?.toLowerCase() || '';
+        return lowerCaseEmail.includes(lowerCaseSearchTerm) || lowerCaseUsername.includes(lowerCaseSearchTerm);
       });
     }
   }
+  
 }
