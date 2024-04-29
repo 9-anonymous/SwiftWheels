@@ -34,6 +34,7 @@
         "symfony/translation": "*",
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
+        "symfony/var-exporter": "7.0.4",
         "symfony/yaml": "*"
     },
     "config": {

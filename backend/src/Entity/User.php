@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -53,7 +54,8 @@ private ?string $pictureUrl = null;
 private ?string $confirmationToken = null;
 
 #[ORM\OneToMany(targetEntity: Car::class, mappedBy: "user")]
-    private $cars;
+#[Groups("user:read")]
+private $cars;
 
     public function __construct()
     {
@@ -110,6 +112,7 @@ public function setConfirmationToken(?string $confirmationToken): self
     {
         return $this->username;
     }
+    
     public function setUsername(string $username): static
     {
         $this->username = $username;

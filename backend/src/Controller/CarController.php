@@ -159,9 +159,8 @@ class CarController extends AbstractController
     {
         $Cars = $carRepository->findAll();
         
-        return $this->json($Cars);
+        return $this->json($Cars, 200, [], ['groups' => 'car:read']);
     }
-
     #[Route('/api/cars/{id}', name: 'api_delete_cars', methods: ['DELETE'])]
     public function deleteCars(Car $car, EntityManagerInterface $entityManager): JsonResponse
     {

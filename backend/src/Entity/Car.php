@@ -83,7 +83,8 @@ class Car
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "cars")]
     #[ORM\JoinColumn(nullable: false)]
-    
+    #[Groups("car:read")]
+
     private $user;
 
     // Getter and setter methods

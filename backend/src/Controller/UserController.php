@@ -29,9 +29,8 @@ class UserController extends AbstractController
     {
         $Users = $UserRepository->findAll();
         
-        return $this->json($Users);
+        return $this->json($Users, 200, [], ['groups' => 'user:read']);
     }
-
     #[Route('/api/users/{id}', name: 'api_delete_client', methods: ['DELETE'])]
     public function deleteClient(User $user, EntityManagerInterface $entityManager): JsonResponse
     {
