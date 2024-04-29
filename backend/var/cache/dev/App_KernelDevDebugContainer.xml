@@ -570,7 +570,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.Aj9GVdq"/>
+      <argument type="service" id=".service_locator.hGz7WiX"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3405,7 +3405,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.Aj9GVdq"/>
+      <argument type="service" id=".service_locator.hGz7WiX"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7857,14 +7857,13 @@
         <argument key="UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.R0Sb2kd" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.CsMkqUa" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="user" type="service_closure" id="App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.Aj9GVdq" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.hGz7WiX" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7896,7 +7895,7 @@
         <argument key="App\Controller\SignupController::confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
         <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\UserController::countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
-        <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
+        <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UserController::getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
         <argument key="App\Controller\UserController::getUsersByRole" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController::listUsers" type="service_closure" id=".service_locator.JDhzbGq"/>
@@ -7933,7 +7932,7 @@
         <argument key="App\Controller\SignupController:confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
         <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\UserController:countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
-        <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.R0Sb2kd"/>
+        <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UserController:getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
         <argument key="App\Controller\UserController:getUsersByRole" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController:listUsers" type="service_closure" id=".service_locator.JDhzbGq"/>
@@ -10242,7 +10241,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.Aj9GVdq"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.hGz7WiX"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -10304,7 +10303,7 @@
     <service id=".service_locator.xvMi000" alias=".service_locator.UGQzfSd"/>
     <service id=".service_locator.025Wi8b" alias=".service_locator.kPUOGb8"/>
     <service id=".service_locator._iAPkT3" alias=".service_locator.JMt5F1x"/>
-    <service id=".service_locator.Btt4zGs" alias=".service_locator.R0Sb2kd"/>
+    <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>
     <service id=".service_locator.Cj5mqT." alias=".service_locator.jUv.zyj"/>
   </services>
 </container>

@@ -22,6 +22,8 @@ export class ClientComponent implements OnInit {
       response => {
         this.clients = response;
         this.filteredUsers = response; 
+        console.log(this.clients); // Log the entire clients array to inspect the structure
+
       },
       error => {
         console.log('Error:', error);

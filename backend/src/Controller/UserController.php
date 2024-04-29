@@ -32,20 +32,27 @@ class UserController extends AbstractController
         return $this->json($Users, 200, [], ['groups' => 'user:read']);
     }
     #[Route('/api/users/{id}', name: 'api_delete_client', methods: ['DELETE'])]
-    public function deleteClient(User $user, EntityManagerInterface $entityManager): JsonResponse
+    public function deleteClient($id, EntityManagerInterface $entityManager): JsonResponse
     {
-        // Vérifier si le client existe
-        if (!$user) {
-            throw $this->createNotFoundException('Client non trouvé.');
+        try {
+            // Fetch the User entity
+            $user = $entityManager->getRepository(User::class)->find($id);
+    
+            if (!$user) {
+                throw $this->createNotFoundException('Client non trouvé.');
+            }
+    
+            // Remove the User entity
+            $entityManager->remove($user);
+            $entityManager->flush();
+    
+            return $this->json(['message' => 'Client supprimé avec succès.']);
+        } catch (EntityNotFoundException $e) {
+            // Handle the EntityNotFoundException
+            return $this->json(['error' => 'Erreur lors de la récupération du client.'], 500);
         }
-
-        // Supprimer le client
-        $entityManager->remove($user);
-        $entityManager->flush();
-
-        return $this->json(['message' => 'Client supprimé avec succès.']);
     }
-    #[Route('/api/users/count', name: 'api_count_clients', methods: ['GET'])]
+        #[Route('/api/users/count', name: 'api_count_clients', methods: ['GET'])]
     public function countClients(UserRepository $userRepository): JsonResponse
     {
         $count = $userRepository->count([]);
