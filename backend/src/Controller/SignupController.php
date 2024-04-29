@@ -89,14 +89,21 @@ class SignupController extends AbstractController
 
         if (in_array('ROLE_CLIENT', $roles)) {
             $user->setRoles(['ROLE_CLIENT']);
-            $user->setBankAccount($data['bankAccount']);
-            $user->setBankAmount(9515135);
-
+            if (isset($data['bankAccount'])) {
+                $user->setBankAccount($data['bankAccount']);
+                $user->setBankAmount(9515135);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 
             return new JsonResponse(['message' => 'Client registration successful.'], JsonResponse::HTTP_CREATED);
         } elseif (in_array('ROLE_EXPERT', $roles)) {
+            $user->setJobTitle($data['jobTitle']);
+            $user->setSpeciality($data['speciality']);
+            if (isset($data['bankAccount'])) {
+                $user->setBankAccount($data['bankAccount']);
+                $user->setBankAmount(9515135);
+            }    
             // Generate a confirmation token
             $user->setConfirmationToken(bin2hex(random_bytes(32)));
 

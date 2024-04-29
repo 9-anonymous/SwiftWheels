@@ -48,10 +48,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $jobDescription = null;
     
-    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => 'ROLE_USER'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => 'ROLE_CLIENT'])]
     #[Groups("user:read")]
 
-    private string $roles = 'ROLE_USER';
+    private string $roles = 'ROLE_CLIENT';
 
 
     #[ORM\Column(length: 255)]     

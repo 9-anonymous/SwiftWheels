@@ -71,6 +71,8 @@ export class SignupComponent implements OnInit {
       formData.append('roles', 'ROLE_EXPERT');
       formData.append('jobTitle', this.user.jobTitle || '');
       formData.append('speciality', this.user.speciality || '');
+      formData.append('bankAccount', this.user.bankAccount || '');
+
       console.log(formData)
 
       if (this.jobDescriptionFile) {
@@ -78,7 +80,7 @@ export class SignupComponent implements OnInit {
         console.log(formData)}
 
     } else {
-      formData.append('roles', 'ROLE_USER');
+      formData.append('roles', 'ROLE_CLIENT');
     }
 
     this.signupService.register(formData).subscribe(
