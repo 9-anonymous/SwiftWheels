@@ -10,6 +10,8 @@ use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class UserController extends AbstractController
 {
@@ -70,4 +72,24 @@ class UserController extends AbstractController
             }
             return new JsonResponse($usernames);
         }
+        #[Route('/uploads/{pictureUrl}', name: 'app_user_picture', methods: ['GET'])]
+public function getUserPicture($pictureUrl)
+{
+    $uploadsDir = $this->getParameter('kernel.project_dir') . '/uploads/';
+    $filePath = $uploadsDir . $pictureUrl;
+
+    if (!file_exists($filePath)) {
+        throw $this->createNotFoundException('File not found');
+    }
+
+    $response = new BinaryFileResponse($filePath);
+    $response->trustXSendfileTypeHeader();
+    $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_INLINE,
+        $pictureUrl
+    );
+
+    return $response;
+}
+
     }

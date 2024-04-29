@@ -18,7 +18,7 @@ export class SearchService {
     );
    }
    getAllCars(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8000/cars');
+    return this.http.get<any[]>('http://localhost:8000/api/cars');
    }
    
 

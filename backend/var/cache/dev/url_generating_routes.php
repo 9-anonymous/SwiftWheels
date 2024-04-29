@@ -54,6 +54,7 @@ return [
     'api_delete_client' => [['id'], ['_controller' => 'App\\Controller\\UserController::deleteClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/users']], [], [], []],
     'api_count_clients' => [[], ['_controller' => 'App\\Controller\\UserController::countClients'], [], [['text', '/api/users/count']], [], [], []],
     'app_user' => [[], ['_controller' => 'App\\Controller\\UserController::listUsers'], [], [['text', '/users']], [], [], []],
+    'app_user_picture' => [['pictureUrl'], ['_controller' => 'App\\Controller\\UserController::getUserPicture'], [], [['variable', '/', '[^/]++', 'pictureUrl', true], ['text', '/uploads']], [], [], []],
     'car_new' => [[], ['_controller' => 'App\\Controller\\CarController::create'], [], [['text', '/car/new']], [], [], []],
     'App\Controller\AppController::index' => [[], ['_controller' => 'App\\Controller\\AppController::index'], [], [['text', '/']], [], [], []],
     'App\Controller\CarController::getCars' => [[], ['_controller' => 'App\\Controller\\CarController::getCars'], [], [['text', '/api/cars']], [], [], []],
@@ -92,4 +93,5 @@ return [
     'App\Controller\UserController::deleteClient' => [['id'], ['_controller' => 'App\\Controller\\UserController::deleteClient'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/users']], [], [], []],
     'App\Controller\UserController::countClients' => [[], ['_controller' => 'App\\Controller\\UserController::countClients'], [], [['text', '/api/users/count']], [], [], []],
     'App\Controller\UserController::listUsers' => [[], ['_controller' => 'App\\Controller\\UserController::listUsers'], [], [['text', '/users']], [], [], []],
+    'App\Controller\UserController::getUserPicture' => [['pictureUrl'], ['_controller' => 'App\\Controller\\UserController::getUserPicture'], [], [['variable', '/', '[^/]++', 'pictureUrl', true], ['text', '/uploads']], [], [], []],
 ];

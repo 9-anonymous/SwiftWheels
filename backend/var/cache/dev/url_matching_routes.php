@@ -89,10 +89,13 @@ return [
                     .'|odels/([^/]++)(*:507)'
                 .')'
                 .'|/u(?'
-                    .'|ploads/([^/]++)(*:536)'
-                    .'|sers/role/([^/]++)(*:562)'
+                    .'|ploads/([^/]++)(?'
+                        .'|(*:539)'
+                        .'|(*:547)'
+                    .')'
+                    .'|sers/role/([^/]++)(*:574)'
                 .')'
-                .'|/notifications/([^/]++)(*:594)'
+                .'|/notifications/([^/]++)(*:606)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -116,9 +119,10 @@ return [
         463 => [[['_route' => 'app_message_by_id', '_controller' => 'App\\Controller\\MessageController::getMessageById'], ['id'], ['GET' => 0], null, false, true, null]],
         484 => [[['_route' => 'app_messages_received', '_controller' => 'App\\Controller\\MessageController::getMessagesForUser'], ['receiverUsername'], ['GET' => 0], null, false, true, null]],
         507 => [[['_route' => 'get_models_for_mark', '_controller' => 'App\\Controller\\SearchCarController::getModelsForMark'], ['mark'], ['GET' => 0], null, false, true, null]],
-        536 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
-        562 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
-        594 => [
+        539 => [[['_route' => 'app_upload_file', '_controller' => 'App\\Controller\\MessageController::serveFile'], ['filename'], ['GET' => 0], null, false, true, null]],
+        547 => [[['_route' => 'app_user_picture', '_controller' => 'App\\Controller\\UserController::getUserPicture'], ['pictureUrl'], ['GET' => 0], null, false, true, null]],
+        574 => [[['_route' => 'app_user_by_role', '_controller' => 'App\\Controller\\UserController::getUsersByRole'], ['role'], ['GET' => 0], null, false, true, null]],
+        606 => [
             [['_route' => 'app_notifications_delete', '_controller' => 'App\\Controller\\NotificationController::deleteNotification'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
