@@ -13,35 +13,40 @@
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{ user.username }}</h5>
-                <p>{{ user.roles?.join(', ') }}</p>
+                <p class="small text-muted mb-0">{{ user.email }}</p>
               </div>
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center py-1">
                 <div>
-                  <p class="mb-1 h5">253</p>
-                  <p class="small text-muted mb-0">Photos</p>
-                </div>
+                  <p class="mb-1 h5">{{ user.bankAccount }}</p>
+                  <p class="small text-muted mb-0">Bank Account</p>
+                            </div>
                 <div class="px-3">
-                  <p class="mb-1 h5">1026</p>
-                  <p class="small text-muted mb-0">Followers</p>
-                </div>
+                  <p class="mb-1 h5">{{ user.bankAmount }}</p>
+                  <p class="small text-muted mb-0">Bank Amount</p>
+                            </div>
                 <div>
-                  <p class="mb-1 h5">478</p>
-                  <p class="small text-muted mb-0">Following</p>
+                  <p class="mb-1 h5">{{ user.roles?.join(', ') }}</p>
+                  <p class="small text-muted mb-0">Role</p>
                 </div>
               </div>
             </div>
             <div class="card-body p-4 text-black">
               <div class="mb-5">
-                <p class="lead fw-normal mb-1">About</p>
-                <div class="p-4" style="background-color: #f8f9fa;">
-                  <p class="font-italic mb-1">Web Developer</p>
-                  <p class="font-italic mb-1">Lives in New York</p>
-                  <p class="font-italic mb-0">Photographer</p>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mb-4">
+                 <p class="lead fw-normal mb-1">About</p>
+                 <div class="p-4" style="background-color: #f8f9fa;">
+                   <!-- Conditional rendering based on user role -->
+                   <ng-container *ngIf="user.roles.includes('ROLE_CLIENT'); else expertContent">
+                     <p class="font-italic mb-1">A client in SwiftWheels website</p>
+                   </ng-container>
+                   <ng-template #expertContent>
+                     <p class="font-italic mb-1">An expert in SwiftWheels website</p>
+                     <p class="font-italic mb-1">Job Title: {{ user.jobTitle }}</p>
+                     <p class="font-italic mb-0">Speciality: {{ user.speciality }}</p>
+                   </ng-template>
+                 </div>
+              </div>              <div class="d-flex justify-content-between align-items-center mb-4">
                 <p class="lead fw-normal mb-0">Recent photos</p>
                 <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
               </div>
