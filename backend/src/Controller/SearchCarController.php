@@ -72,7 +72,7 @@ class SearchCarController extends AbstractController
         $searchResult = $this->carRepository->findBySearchCriteria($selectedMark, $selectedModel, $priceRangeMin, $priceRangeMax);
     
         // Serialize the search results with the appropriate groups or context
-        $data = $serializer->serialize($searchResult, 'json', ['groups' => 'car']);
+        $data = $serializer->serialize($searchResult, 'json', ['groups' => 'car:read']);
     
         // Removed logger usage
         return new JsonResponse($data, 200, [], true);

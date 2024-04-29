@@ -143,8 +143,9 @@ export class MainSearchComponent implements OnInit {
     // Call service to perform search
     this.searchService.searchCars(searchCriteria).subscribe(
       (results: any[]) => {
+        console.log('Search Results:', results);
+
          this.searchResults = results;
-         console.log('Search Results:', this.searchResults);
       },
       (error: any) => {
          console.error('Error performing search:', error);
