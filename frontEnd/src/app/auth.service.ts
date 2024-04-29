@@ -63,5 +63,7 @@ export class AuthService {
     return this.http.get<string[]>(`http://localhost:8000/users/role/${role}`);
    }
    
-
+   getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`/users/${id}`);
+  }
 }

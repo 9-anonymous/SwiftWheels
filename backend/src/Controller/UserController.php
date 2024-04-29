@@ -72,24 +72,32 @@ class UserController extends AbstractController
             }
             return new JsonResponse($usernames);
         }
-        #[Route('/uploads/{pictureUrl}', name: 'app_user_picture', methods: ['GET'])]
-public function getUserPicture($pictureUrl)
-{
-    $uploadsDir = $this->getParameter('kernel.project_dir') . '/uploads/';
-    $filePath = $uploadsDir . $pictureUrl;
+  
 
-    if (!file_exists($filePath)) {
-        throw $this->createNotFoundException('File not found');
+#[Route('/users/{id}', name: 'app_user_details', methods: ['GET'])]
+public function getUserDetails($id, UserRepository $userRepository): JsonResponse
+{
+    $user = $userRepository->find($id);
+
+    if (!$user) {
+        return new JsonResponse(['message' => 'User not found'], 404);
     }
 
-    $response = new BinaryFileResponse($filePath);
-    $response->trustXSendfileTypeHeader();
-    $response->setContentDisposition(
-        ResponseHeaderBag::DISPOSITION_INLINE,
-        $pictureUrl
-    );
+    $data = [
+        'id' => $user->getId(),
+        'username' => $user->getUsername(),
+        'email' => $user->getEmail(),
+        'roles' => $user->getRoles(),
+        'pictureUrl' => $user->getPictureUrl(),
+        'bankAccount' => $user->getBankAccount(),
+        'bankAmount' => $user->getBankAmount(),
+        'jobTitle' => $user->getJobTitle(),
+        'speciality' => $user->getSpeciality(),
+        'jobDescription' => $user->getJobDescription(),
+        'confirmationToken' => $user->getConfirmationToken(),
+       
+    ];
 
-    return $response;
+    return new JsonResponse($data);
 }
-
     }
