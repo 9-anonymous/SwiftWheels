@@ -475,6 +475,7 @@
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="App\Repository\CarRepository"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\SearchCarController"/>
       </call>
@@ -512,6 +513,7 @@
     </service>
     <service id="App\Entity\Car" class="App\Entity\Car" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Cart" class="App\Entity\Cart" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\HistorySearch" class="App\Entity\HistorySearch" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Message" class="App\Entity\Message" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Notification" class="App\Entity\Notification" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Receipt" class="App\Entity\Receipt" autowire="true" autoconfigure="true"/>
@@ -524,6 +526,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\CartRepository" class="App\Repository\CartRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\HistorySearchRepository" class="App\Repository\HistorySearchRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -5101,7 +5107,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.Gz1czuZ"/>
+      <argument type="service" id=".service_locator.h5oHmsl"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7314,6 +7320,8 @@
     <service id=".abstract.instanceof.App\Repository\CarRepository" class="App\Repository\CarRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CartRepository" class="App\Repository\CartRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CartRepository" class="App\Repository\CartRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\HistorySearchRepository" class="App\Repository\HistorySearchRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\HistorySearchRepository" class="App\Repository\HistorySearchRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MessageRepository" class="App\Repository\MessageRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MessageRepository" class="App\Repository\MessageRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\NotificationRepository" class="App\Repository\NotificationRepository" autowire="true" abstract="true"/>
@@ -8228,11 +8236,12 @@
         <argument key="stof_doctrine_extensions.listener.timestampable" type="service_closure" id="stof_doctrine_extensions.listener.timestampable"/>
       </argument>
     </service>
-    <service id=".service_locator.Gz1czuZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.h5oHmsl" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CarRepository" type="service_closure" id="App\Repository\CarRepository"/>
         <argument key="App\Repository\CartRepository" type="service_closure" id="App\Repository\CartRepository"/>
+        <argument key="App\Repository\HistorySearchRepository" type="service_closure" id="App\Repository\HistorySearchRepository"/>
         <argument key="App\Repository\MessageRepository" type="service_closure" id="App\Repository\MessageRepository"/>
         <argument key="App\Repository\NotificationRepository" type="service_closure" id="App\Repository\NotificationRepository"/>
         <argument key="App\Repository\ReceiptRepository" type="service_closure" id="App\Repository\ReceiptRepository"/>

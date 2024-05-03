@@ -9,15 +9,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CarRepository;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Entity\HistorySearch;  
+use Doctrine\ORM\EntityManagerInterface;
 
 class SearchCarController extends AbstractController
 {
     private $carRepository;
+    private $entityManager;
 
-    public function __construct(CarRepository $carRepository)
+    public function __construct(CarRepository $carRepository, EntityManagerInterface $entityManager)
     {
         $this->carRepository = $carRepository;
+        $this->entityManager = $entityManager;
     }
+    
 
     #[Route('/search/car', name: 'app_search_car')]
     public function index(): Response
@@ -55,28 +60,39 @@ class SearchCarController extends AbstractController
     public function searchCars(Request $request, SerializerInterface $serializer): JsonResponse
     {
         $requestData = json_decode($request->getContent(), true);
-    
+
         // Check if the required keys are present in the request data
-        if (!isset($requestData['selectedMark']) || !isset($requestData['selectedModel']) || !isset($requestData['priceRangeMin']) || !isset($requestData['priceRangeMax'])) {
-            // Removed logger usage
+        if (!isset($requestData['selectedMark']) || !isset($requestData['selectedModel']) || !isset($requestData['priceRangeMin']) || !isset($requestData['priceRangeMax']) || !isset($requestData['userId'])) {
             return new JsonResponse(['error' => 'Missing required parameters'], Response::HTTP_BAD_REQUEST);
         }
-    
+
         // Extract the search criteria
         $selectedMark = $requestData['selectedMark'];
         $selectedModel = $requestData['selectedModel'];
         $priceRangeMin = $requestData['priceRangeMin'];
         $priceRangeMax = $requestData['priceRangeMax'];
-    
+        $userId = $requestData['userId'];
+
         // Perform the search
         $searchResult = $this->carRepository->findBySearchCriteria($selectedMark, $selectedModel, $priceRangeMin, $priceRangeMax);
-    
+
         // Serialize the search results with the appropriate groups or context
         $data = $serializer->serialize($searchResult, 'json', ['groups' => 'car:read']);
-    
-        // Removed logger usage
+
+        // Save the search history in the database
+        $historySearch = new HistorySearch();
+        $historySearch->setUserId($userId);
+        $historySearch->setMark($selectedMark);
+        $historySearch->setModel($selectedModel);
+        $historySearch->setPriceRangeMin($priceRangeMin);
+        $historySearch->setPriceRangeMax($priceRangeMax);
+        $this->entityManager->persist($historySearch);
+        $this->entityManager->flush();
+
         return new JsonResponse($data, 200, [], true);
     }
+
+
     #[Route('/car/{id}/owner', name: 'get_car_owner', methods: ['GET'])]
 public function getCarOwner(int $id, CarRepository $carRepository): JsonResponse
 {

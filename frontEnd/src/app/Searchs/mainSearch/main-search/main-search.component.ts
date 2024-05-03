@@ -3,6 +3,7 @@ import { SearchService } from 'src/search.service';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-main-search',
@@ -11,7 +12,7 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class MainSearchComponent implements OnInit {
 
-  constructor(private sharedService: SharedService,private cdr: ChangeDetectorRef,private searchService: SearchService, private router: Router) {}
+  constructor(private sharedService: SharedService,private cdr: ChangeDetectorRef,private searchService: SearchService, private router: Router,private authService: AuthService) {}
 
   selectedMark: string = '';
   selectedModel: string = '';
@@ -132,26 +133,26 @@ export class MainSearchComponent implements OnInit {
       return;
     }
   
-    // Prepare search criteria
+    const userId = this.authService.getUserId(); // Get the userId from AuthService
+  
     const searchCriteria = {
       selectedMark: this.selectedMark,
       selectedModel: this.selectedModel,
-      priceRangeMin: this.priceRangeValue2, // Ensure this is the correct value
-      priceRangeMax: this.priceRangeValue
-     };
+      priceRangeMin: this.priceRangeValue2,
+      priceRangeMax: this.priceRangeValue,
+      userId: userId // Include the userId in the searchCriteria
+    };
   
-    // Call service to perform search
+    // Call service to perform search and save the search history
     this.searchService.searchCars(searchCriteria).subscribe(
       (results: any[]) => {
         console.log('Search Results:', results);
-
-         this.searchResults = results;
-      },
+        this.searchResults = results;
+      },  
       (error: any) => {
-         console.error('Error performing search:', error);
+        console.error('Error performing search:', error);
       }
-     );
-     
+    );
   }
   
   
