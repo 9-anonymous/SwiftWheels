@@ -11,14 +11,17 @@
       <div style=" display: flex; justify-content: flex-start;gap: 20px;">
         <div class="MMC form-group">
           <label for="mark">Mark</label>
-          <input type="text" class="form-control" id="mark" name="mark" [(ngModel)]="mark" required #modelControl1="ngModel">
+          <select class="form-control" id="mark" name="mark" [(ngModel)]="mark" required #modelControl1="ngModel">
+            <option value="" disabled selected>Select a mark</option>
+            <option *ngFor="let markOption of markOptions" [value]="markOption">{{ markOption }}</option>
+          </select>
           <!-- Success Alert -->
-          <div *ngIf="modelControl1.valid && modelControl1.touched" style="z-index: 3 !important; position: absolute !important;"  class="alert alert-success" role="alert">
-              Mark is valid.
+          <div *ngIf="modelControl1.valid && modelControl1.touched" style="z-index: 3 !important; position: absolute !important;" class="alert alert-success" role="alert">
+            Mark is valid.
           </div>
           <!-- Error Alert for Required Field -->
           <div *ngIf="submitted && modelControl1.invalid && modelControl1.touched" style="z-index: 3 !important; position: absolute !important;" class="alert alert-danger" role="alert">
-              Mark is required.
+            Mark is required.
           </div>
         </div>
   

@@ -65,5 +65,5 @@ export class AuthService {
    
    getUserById(id: string): Observable<any> {
     return this.http.get<any>(`/users/${id}`);
-  }
+  } 
 }

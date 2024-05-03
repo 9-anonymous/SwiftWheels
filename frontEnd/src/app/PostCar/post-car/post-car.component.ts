@@ -24,6 +24,7 @@ export class PostCarComponent {
   submitted = false;
 
   constructor(private carService: CarService) { }
+  markOptions = ['Toyota', 'Volkswagen', 'Ford', 'Honda', 'Chevrolet', 'Nissan', 'BMW', 'Mercedes-Benz', 'Audi', 'Hyundai'];
 
   onFileSelected(event: any): void {
     if (event.target.files && event.target.files.length > 0) {
