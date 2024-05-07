@@ -51,7 +51,6 @@ import { VoitureComponent } from './voiture/voiture.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PanierComponent } from './panier/panier.component';
 import { ReceiptComponent } from './receipt/receipt.component';
-
 @NgModule({
   declarations: [
     AppComponent,

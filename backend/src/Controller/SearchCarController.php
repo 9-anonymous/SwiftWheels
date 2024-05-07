@@ -11,16 +11,20 @@ use App\Repository\CarRepository;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\HistorySearch;  
 use Doctrine\ORM\EntityManagerInterface;
-
+use App\Repository\HistorySearchRepository;
 class SearchCarController extends AbstractController
 {
     private $carRepository;
     private $entityManager;
+    private $historySearchRepository;
+    private $recommendationService;
 
-    public function __construct(CarRepository $carRepository, EntityManagerInterface $entityManager)
+    public function __construct(HistorySearchRepository $historySearchRepository,CarRepository $carRepository, EntityManagerInterface $entityManager)
     {
         $this->carRepository = $carRepository;
         $this->entityManager = $entityManager;
+        $this->historySearchRepository = $historySearchRepository;
+
     }
     
 
@@ -104,5 +108,6 @@ public function getCarOwner(int $id, CarRepository $carRepository): JsonResponse
     $ownerUsername = $car->getUser()->getUsername();
     return new JsonResponse(['username' => $ownerUsername]);
 }
+
 
 }

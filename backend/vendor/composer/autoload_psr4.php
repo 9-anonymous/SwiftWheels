@@ -6,7 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku', $vendorDir . '/voku/portable-utf8/src/voku'),
+    'Zephir\\Optimizers\\FunctionCall\\' => array($vendorDir . '/rubix/tensor/optimizers'),
+    'Wamania\\Snowball\\' => array($vendorDir . '/wamania/php-stemmer/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
+    'Tensor\\' => array($vendorDir . '/rubix/tensor/src'),
     'Symfony\\Runtime\\Symfony\\Component\\' => array($vendorDir . '/symfony/runtime/Internal'),
     'Symfony\\Polyfill\\Php83\\' => array($vendorDir . '/symfony/polyfill-php83'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
@@ -70,12 +74,14 @@ return array(
     'Symfony\\Bridge\\Monolog\\' => array($vendorDir . '/symfony/monolog-bridge'),
     'Symfony\\Bridge\\Doctrine\\' => array($vendorDir . '/symfony/doctrine-bridge'),
     'Stof\\DoctrineExtensionsBundle\\' => array($vendorDir . '/stof/doctrine-extensions-bundle/src'),
+    'Rubix\\ML\\' => array($vendorDir . '/rubix/ml/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
     'Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Clock\\' => array($vendorDir . '/psr/clock/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'OkBloomer\\' => array($vendorDir . '/andrewdalpino/okbloomer/src'),
     'Nelmio\\CorsBundle\\' => array($vendorDir . '/nelmio/cors-bundle'),
     'Namshi\\JOSE\\' => array($vendorDir . '/namshi/jose/src/Namshi/JOSE'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
@@ -106,4 +112,11 @@ return array(
     'Behat\\Transliterator\\' => array($vendorDir . '/behat/transliterator/src/Behat/Transliterator'),
     'App\\Tests\\' => array($baseDir . '/tests'),
     'App\\' => array($baseDir . '/src'),
+    'Amp\\Sync\\' => array($vendorDir . '/amphp/sync/src'),
+    'Amp\\Serialization\\' => array($vendorDir . '/amphp/serialization/src'),
+    'Amp\\Process\\' => array($vendorDir . '/amphp/process/lib'),
+    'Amp\\Parser\\' => array($vendorDir . '/amphp/parser/src'),
+    'Amp\\Parallel\\' => array($vendorDir . '/amphp/parallel/lib'),
+    'Amp\\ByteStream\\' => array($vendorDir . '/amphp/byte-stream/lib'),
+    'Amp\\' => array($vendorDir . '/amphp/amp/lib'),
 );

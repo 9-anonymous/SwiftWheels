@@ -1,7 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import mysql.connector
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 
@@ -104,17 +106,8 @@ def get_car_data():
 @app.route('/recommend_cars')
 def display_recommended_cars():
     recommended_cars = recommend_cars()
-    
-    # Create HTML to display recommended cars
-    html = '<h1>Recommended Cars</h1>'
-    for user_id, cars in recommended_cars.items():
-        html += f'<h2>User {user_id}</h2>'
-        html += '<ul>'
-        for mark in cars:
-            html += f'<li>{mark}</li>'
-        html += '</ul>'
-    
-    return html
+    return jsonify(recommended_cars)
+
 
 
 
