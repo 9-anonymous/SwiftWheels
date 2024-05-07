@@ -1,4 +1,22 @@
-<h2>Recommended Cars</h2>
-<ul>
-  <li *ngFor="let car of recommendedCars">{{ car }}</li>
-</ul>
+<div class="SoloCard card bg-light mb-3" *ngFor="let car of recommendedCars">
+  <div class="card-body" style="display: flex !important; max-width:660px ;">
+    <div style="margin: auto 0px;">
+      <img class="card-img-top" style="border: ridge; object-fit: cover; width: 400px !important; height: 200px !important;" [src]="getFirstPicture(car.pictures)" alt="Card image cap">
+    </div>
+    <div style="display:flex;flex-direction: column; gap: 10px; padding:0px 10px 0px 10px">
+      <div style="display: flex;height: fit-content;"> 
+        <div class="card-header"><b>Mark:</b> {{ car.mark }}</div>
+        <p class="card-header"><b>Model:</b> {{ car.model }}</p>
+        <p class="card-header"><b>Price:</b> {{ car.price }}</p>
+      </div>
+      <a type="button" routerLink="/entCata" class="btn btn-info">Visit</a>
+
+      <p style="display: flex;max-height: 140px;overflow-y: auto;flex-direction: column;width: 220px;"><b>Description :</b> {{ car.description }}</p>
+    </div>
+  </div>
+  <div class="BTNG">
+    <button type="button" class="btn btnC btn-success" (click)="addedCar(car)">Buy</button>
+    <button type="button" class="btn btnC btn-info" data-toggle="modal" data-target="#myModal" (click)="selectCar(car)">Info</button>
+    <button type="button" class="btn btnC btn-warning" (click)="contactCarOwner(car.id)">Contact</button>
+  </div>
+</div>

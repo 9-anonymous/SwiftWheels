@@ -70,8 +70,8 @@ def recommend_cars():
     # Recommend cars based on cosine similarity
     for i, user_id in enumerate(set(entry['user_id'] for entry in history_data)):
         similar_indices = cosine_sim[i].argsort()[:-6:-1]
-        recommended_cars[user_id] = [car_data[idx]['mark'] for idx in similar_indices]
-    
+        recommended_cars[user_id] = [car_data[idx] for idx in similar_indices]
+
     return recommended_cars
 
 
