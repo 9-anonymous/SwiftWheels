@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify
 import mysql.connector
 from flask_cors import CORS
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 CORS(app)
@@ -47,34 +49,31 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # Function to recommend cars for each user based on their history_search data
 def recommend_cars():
-    # Fetch data from history_search and car tables
     history_data = get_history_data()
     car_data = get_car_data()
-    
-    # Initialize dictionary to store recommended cars for each user
     recommended_cars = {}
-    
-    # Iterate over each unique user_id in history_search
-    unique_user_ids = set(entry['user_id'] for entry in history_data)
-    for user_id in unique_user_ids:
+
+    # Prepare data for cosine similarity
+    user_search_histories = []
+    for user_id in set(entry['user_id'] for entry in history_data):
         user_history = [entry for entry in history_data if entry['user_id'] == user_id]
-        user_preferences = set(car['mark'] for entry in user_history for car in car_data)
-        
-        # Initialize a dictionary to store scores for each car
-        car_scores = {car['mark']: 0 for car in car_data}
-        
-        # Calculate scores for each car based on user preferences
-        for preference in user_preferences:
-            for entry in user_history:
-                for car in car_data:
-                    if car['mark'] in entry['mark'] and car['mark'] == preference:
-                        car_scores[car['mark']] += 1
-        
-        # Sort cars based on scores and recommend the top ones
-        sorted_cars = sorted(car_scores.items(), key=lambda x: x[1], reverse=True)[:5]
-        recommended_cars[user_id] = [car_id for car_id, _ in sorted_cars]
+        # Combine user's search history into a single string
+        user_search_histories.append(' '.join([f"{entry['mark']} {entry['model']} {entry['price_range_min']} {entry['price_range_max']}" for entry in user_history]))
+    
+    car_attributes = [' '.join([car['mark'], car['model'], str(car['price'])]) for car in car_data]
+    
+    # Compute cosine similarity
+    vectorizer = TfidfVectorizer().fit(user_search_histories + car_attributes)
+    vectors = vectorizer.transform(user_search_histories + car_attributes)
+    cosine_sim = cosine_similarity(vectors[:len(user_search_histories)], vectors[len(user_search_histories):])
+    
+    # Recommend cars based on cosine similarity
+    for i, user_id in enumerate(set(entry['user_id'] for entry in history_data)):
+        similar_indices = cosine_sim[i].argsort()[:-6:-1]
+        recommended_cars[user_id] = [car_data[idx]['mark'] for idx in similar_indices]
     
     return recommended_cars
+
 
 
 

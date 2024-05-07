@@ -2667,3 +2667,11 @@ a25a5a,::1,POST,http://localhost:8000/search/cars,1715112810,,200,request
 19ce39,::1,GET,http://localhost:8000/marks,1715112854,,200,request
 68d28f,::1,GET,http://localhost:8000/uploads/https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/0_488_GTB.jpg/800px-0_488_GTB.jpg,1715112854,d2b2a7,404,request
 d2b2a7,::1,GET,http://localhost:8000/uploads/https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/0_488_GTB.jpg/800px-0_488_GTB.jpg,1715112854,,404,request
+8ba579,::1,GET,http://localhost:8000/notifications/unread-count,1715113781,,200,request
+a7ab8b,::1,GET,http://localhost:8000/notifications,1715113782,,200,request
+f1c32b,::1,GET,http://localhost:8000/notifications,1715113886,,200,request
+06278d,::1,GET,http://localhost:8000/notifications/unread-count,1715113887,,200,request
+525c08,::1,GET,http://localhost:8000/notifications,1715113930,,200,request
+56cebb,::1,GET,http://localhost:8000/notifications/unread-count,1715113931,,200,request
+8e0958,::1,GET,http://localhost:8000/notifications/unread-count,1715113950,,200,request
+ba6c25,::1,GET,http://localhost:8000/notifications,1715113951,,200,request
