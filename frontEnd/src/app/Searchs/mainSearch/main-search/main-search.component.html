@@ -55,7 +55,7 @@
                         <p class="card-header"><b>Model:</b> {{ car.model }}</p>
                         <p class="card-header"><b>Price:</b> {{ car.price }}</p>
                       </div>
-                      <a type="button" routerLink="/entCata" class="btn btn-info">Visit</a>
+                      <a type="button" [routerLink]="['/entCata', car.mark]" class="btn btn-info">Visit</a>
 
                       <p style="display: flex;max-height: 140px;overflow-y: auto;flex-direction: column;width: 220px;"><b>Description :</b> {{ car.description }}</p>
                     </div>

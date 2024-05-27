@@ -18,7 +18,9 @@ export class RecommandationComponent implements OnInit {
   models: string[] = [];
   searchResults: any[] = []; // Array to store search results
   selectedCarOwnerUsername: string | null = null;
-  selectedCar: any; // Define a property to hold the selected car
+  selectedCar: any; // Define a property to hold the selected 
+  
+
 
   constructor(
     private recommendationService: RecommendationService,

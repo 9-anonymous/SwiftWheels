@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'searchs' , component : MainSearchComponent },
   { path: 'AddCar' , component : PostCarComponent },
   { path: 'notifications', component: NotificationListComponent },
-  { path: 'entCata' , component: EntCataComponent},
+  { path: 'entCata/:mark', component: EntCataComponent },
 
 
   { path: 'news/:mark', component: NewsComponent },

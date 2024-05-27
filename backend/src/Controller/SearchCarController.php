@@ -17,7 +17,6 @@ class SearchCarController extends AbstractController
     private $carRepository;
     private $entityManager;
     private $historySearchRepository;
-    private $recommendationService;
 
     public function __construct(HistorySearchRepository $historySearchRepository,CarRepository $carRepository, EntityManagerInterface $entityManager)
     {
