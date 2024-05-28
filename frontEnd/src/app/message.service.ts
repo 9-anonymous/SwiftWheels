@@ -30,8 +30,16 @@ sendMessage(formData: FormData): Observable<any> {
   }
   return this.http.post<any>(this.apiUrl, formData);
 }
-getUsernamesByRole(role: string): Observable<string[]> {
-  return this.http.get<string[]>(`http://localhost:8000/users/role/${role}`);
+getUsernamesByRole(role: string, filterSubscribed: boolean = false): Observable<string[]> {
+  let url = `http://localhost:8000/users/role/${role}`;
+  if (filterSubscribed) {
+    url += '?filterSubscribed=true';
+  }
+  return this.http.get<string[]>(url);
+}
+
+getSubscribedExperts(): Observable<string[]> {
+  return this.http.get<string[]>('http://localhost:8000/users/subscribed-experts');
 }
 
  

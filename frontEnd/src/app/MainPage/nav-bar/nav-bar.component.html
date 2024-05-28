@@ -32,24 +32,24 @@
 
            <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: black !important; border-color: black !important;">
-            Contact
+              Contact
             </button>
             <div class="dropdown-menu" aria-labelledby="contactDropdown" style="background-color: black !important;">
-            <!-- Dropdown content -->
-            <ng-container *ngIf="authService.hasRole('ROLE_CLIENT')">
+              <ng-container *ngIf="authService.hasRole('ROLE_CLIENT')">
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
-            </ng-container>
-            <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
+              </ng-container>
+              <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
-            </ng-container>
-            <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
+              </ng-container>
+              <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
-            </ng-container>
+              </ng-container>
             </div>
-          </div> 
+          </div>
+          
            
            
            

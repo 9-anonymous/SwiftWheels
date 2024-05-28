@@ -37,6 +37,7 @@ return [
         '/search/cars' => [[['_route' => 'search_cars', '_controller' => 'App\\Controller\\SearchCarController::searchCars'], null, ['POST' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\SignupController::register'], null, ['POST' => 0], null, false, false, null]],
         '/subscribe' => [[['_route' => 'api_subscribe', '_controller' => 'App\\Controller\\SignupController::subscribe'], null, ['POST' => 0], null, false, false, null]],
+        '/users/subscribed-experts' => [[['_route' => 'app_subscribed_experts', '_controller' => 'App\\Controller\\UserController::getSubscribedExperts'], null, ['GET' => 0], null, false, false, null]],
         '/api/users' => [[['_route' => 'api_clients', '_controller' => 'App\\Controller\\UserController::getClients'], null, ['GET' => 0], null, false, false, null]],
         '/users' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::listUsers'], null, ['GET' => 0], null, false, false, null]],
         '/car/new' => [[['_route' => 'car_new', '_controller' => 'App\\Controller\\CarController::create'], null, ['POST' => 0], null, false, false, null]],

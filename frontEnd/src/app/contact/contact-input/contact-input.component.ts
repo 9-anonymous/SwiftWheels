@@ -38,24 +38,43 @@ export class ContactInputComponent implements OnInit {
  }
  loadUsernames(role?: string): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-     if (role === undefined) {
-       this.messageService.getUsernames().subscribe(usernames => {
-         this.usernames = usernames;
-         resolve();
-       }, error => {
-         reject(error);
-       });
-     } else {
-       this.messageService.getUsernamesByRole(role).subscribe(usernames => {
-         const loggedInUsername = this.authService.getUsername();
-         this.usernames = usernames.filter(username => username !== loggedInUsername);
-         resolve();
-       }, error => {
-         reject(error);
-       });
-     }
+    if (role === undefined) {
+      this.messageService.getUsernames().subscribe(usernames => {
+        this.usernames = usernames;
+        resolve();
+      }, error => {
+        reject(error);
+      });
+    } else if (role === 'ROLE_EXPERT' && this.authService.hasRole('ROLE_CLIENT')) {
+      this.messageService.getSubscribedExperts().subscribe(usernames => {
+        this.usernames = usernames;
+        resolve();
+      }, error => {
+        reject(error);
+      });
+    } else if (role === 'ROLE_CLIENT' && this.authService.hasRole('ROLE_EXPERT')) {
+      if (this.authService.isUserSubscribed()) {
+        this.messageService.getUsernamesByRole(role).subscribe(usernames => {
+          this.usernames = usernames.filter(username => username !== this.authService.getUsername());
+          resolve();
+        }, error => {
+          reject(error);
+        });
+      } else {
+        alert('You must be subscribed to contact clients.');
+        reject('User not subscribed');
+      }
+    } else {
+      this.messageService.getUsernamesByRole(role).subscribe(usernames => {
+        this.usernames = usernames.filter(username => username !== this.authService.getUsername());
+        resolve();
+      }, error => {
+        reject(error);
+      });
+    }
   });
- }
+}
+
  
 
  onFileChange(event: Event): void {

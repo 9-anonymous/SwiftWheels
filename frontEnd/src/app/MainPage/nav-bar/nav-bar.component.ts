@@ -23,6 +23,7 @@ export class NavBarComponent implements OnInit {
     this.receiverRole = role;
     this.sharedService.changeUserType(role);
   }
+  
 
   isLoggedIn() {
     return this.authService.isAuthenticated();

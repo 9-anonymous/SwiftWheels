@@ -15,16 +15,36 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class UserController extends AbstractController
 {
-    #[Route('/users/role/{role}', name: 'app_user_by_role', methods: ['GET'])]
-    public function getUsersByRole($role, UserRepository $userRepository): JsonResponse
-    {
+    #[Route('/users/subscribed-experts', name: 'app_subscribed_experts', methods: ['GET'])]
+public function getSubscribedExperts(UserRepository $userRepository): JsonResponse
+{
+    $experts = $userRepository->findBy(['roles' => 'ROLE_EXPERT', 'isSubscribed' => true]);
+    $usernames = array_map(function ($user) {
+        return $user->getUsername();
+    }, $experts);
+
+    return new JsonResponse($usernames);
+}
+
+#[Route('/users/role/{role}', name: 'app_user_by_role', methods: ['GET'])]
+public function getUsersByRole($role, UserRepository $userRepository, Request $request): JsonResponse
+{
+    // Check if we need to filter by subscription status
+    $filterSubscribed = $request->query->get('filterSubscribed') === 'true';
+
+    if ($role === 'ROLE_EXPERT' && $filterSubscribed) {
+        $users = $userRepository->findBy(['roles' => $role, 'isSubscribed' => true]);
+    } else {
         $users = $userRepository->findByRole($role);
-        $usernames = array_map(function ($user) {
-            return $user->getUsername();
-        }, $users);
-    
-        return new JsonResponse($usernames);
     }
+
+    $usernames = array_map(function ($user) {
+        return $user->getUsername();
+    }, $users);
+
+    return new JsonResponse($usernames);
+}
+
     
     #[Route('/api/users', name: "api_clients", methods: ['GET'])]
     public function getClients(UserRepository $UserRepository): JsonResponse

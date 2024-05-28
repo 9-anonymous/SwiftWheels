@@ -80,4 +80,8 @@ export class AuthService {
       this.subscribed = user.isSubscribed;
     });
   }
+  isExpert(): boolean {
+    return this.getRoles().includes('ROLE_EXPERT');
+  }
+  
 }
