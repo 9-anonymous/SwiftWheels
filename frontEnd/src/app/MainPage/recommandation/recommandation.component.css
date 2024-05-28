@@ -1,0 +1,339 @@
+/*TheShow*/
+#theShow{
+    width: 100%;
+    display: grid;
+    margin: 20px;
+}
+.SoloCard{
+    flex: 0 0 calc(50% - 10px); 
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 1px 4px 20px rgba(152, 193, 217, 1); /* Shadow effect */
+    margin: 0px ;
+    width: 99%; 
+    padding: 0px 0px;
+    min-height: 20rem;
+}
+
+.col-1{ margin: 100px 0px 40px 0px !important;
+        width: auto;}
+.col-10{margin: 50px auto auto auto;
+        border: 0px !important;
+        box-shadow: none !important;
+        }
+.BTNG{
+    display: grid;
+    margin: auto 20px;
+    gap: 10px;
+}
+.btnC{
+    width: auto;
+    height: 50px;
+}
+/**/
+#SearchPage{
+    background-color: black;
+    max-width: 100vw;
+    margin: auto; 
+    max-height: 100vh;
+    height: 100vh;
+    font-size: 14px;
+}
+
+.Parts{
+    color: azure;
+    border-radius: 10px;
+    box-shadow: -1px 1px 20px rgba(152, 193, 217, 0.8); /* Shadow effect */
+    border: 3px solid transparent;
+}
+
+option{
+    color: black;
+}
+select{
+    text-align: center;
+    color: white;
+    width: 7vw;
+    height: 5vh;
+    background-color: transparent;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px rgba(152, 193, 217, 0.8); /* Shadow effect */
+}
+h5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+} 
+
+#ShowList{
+    padding: inherit;
+    overflow-y: auto;
+    max-height: 85vh;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.searchsA{
+    margin: 10px 0px 10px 0px;
+    display: grid;
+}
+
+.left{
+    max-height: 400px;
+    margin: auto 0px auto 0px !important;
+}
+#SearchsContainer{
+    height: auto;
+    background-color: black;       
+    display: grid;
+    padding: 20px 10px 20px 10px;   
+    color: white;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+}
+
+#SearchArea{
+    margin: 90px 0px 0px 0px !important;
+}
+#SearchButton{
+    background-color: transparent;
+    border-radius: 20px;
+    border: solid 1px white;
+    width: 7vw;
+}
+
+#SearchButton:hover{
+    box-shadow: 3px 3px 40px rgba(152, 193, 217, 0.8); /* Shadow effect */
+    color:  rgba(152, 193, 217, 0.8);
+    border: double 1px rgba(152, 193, 217, 0.8);
+}
+
+.btn{
+    margin: 0px 5px 0px 5px ;
+    border-radius: 10px !important;
+}
+
+ /*Modal Container Controll*/
+.modal-body.choice-modal{
+    position: relative;
+    padding: 0px;
+    height: 700px;
+}
+.row.inner-scroll {
+    height: 730px;
+    overflow: auto;
+}
+.mycard-footer {
+    height: 25px;
+    background: #333333;
+    font-size: 15px;
+    text-indent: 10px;
+   /* border-radius: 0 0px 4px 4px;*/
+} 
+/*--checkbox--*/
+
+.block-check {
+    display: block;
+    position: relative; 
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.block-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+ 
+/*The Car show controll*/
+.container {
+    margin: 20px auto;
+    max-width: 1000px;
+    background-color: white;
+    padding: 0;
+} 
+h4,.h4{
+    color: #000;
+}
+.form-control {
+    height: 25px;
+    width: 150px;
+    border: none;
+    border-radius: 0;
+    font-weight: 800;
+    padding: 0 0 5px 0;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    margin: 0;
+    font-size: 14px;
+}
+.fs-14[_ngcontent-ng-c1959320404] {
+    color: black !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+}
+
+.form-control2 {
+    font-size: 14px;
+    height: 20px;
+    width: 55px;
+    border: none;
+    border-radius: 0;
+    font-weight: 800;
+    padding: 0 0 5px 0;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    margin: 0;
+}
+
+.form-control2:focus {
+    box-shadow: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+}
+
+.form-control3 {
+    font-size: 14px;
+    height: 20px;
+    width: 30px;
+    border: none;
+    border-radius: 0;
+    font-weight: 800;
+    padding: 0 0 5px 0;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    margin: 0;
+}
+
+.form-control3:focus {
+    box-shadow: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+}
+
+
+.imgShow {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.text-muted {
+    font-size: 10px;
+}
+
+.textmuted {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+.h5{
+    color: #000;
+}
+.btn.btn-primary {
+    width: 100%;
+    height: 55px;
+    border-radius: 0;
+    padding: 13px 0;
+    background-color: black;
+    border: none;
+    font-weight: 600;
+}
+.btn-success {
+    width: 90%;
+    height: 55px;
+    border-radius: 0;
+    padding: 13px 0;
+    background-color: rgb(74, 155, 42);
+    border: none;
+    font-weight: 600;
+}
+.btn-danger {
+    width: 100%;
+    height: 55px;
+    border-radius: 0;
+    padding: 13px 0;
+    background-color: rgb(184, 10, 10);
+    border: none;
+    font-weight: 600;
+}
+.btn.btn-primary:hover .fas {
+    transform: translateX(10px);
+    transition: transform 0.5s ease
+}
+.fw-900 {
+    font-weight: 900;
+}
+
+::placeholder {
+    font-size: 12px;
+}
+
+.ps-30 {
+    padding-left: 30px;
+}
+.textmuted,
+h5,
+.text-muted {
+    font-family: 'Poppins', sans-serif;
+}
+
+#Sides{ 
+    position: fixed;
+}
+ 
+i{
+    font-size: 20px;
+}
+ul{
+    list-style-type: none;
+    margin: 50px auto 20px auto;
+    padding: 0px;
+}
+.fs-14[_ngcontent-ng-c850813950] {
+    color: #000;
+}
+a{
+    text-decoration: none;
+    padding: 20px auto 20px auto;
+    display: grid;
+    color:white;
+    border-radius: 30px;
+}
+
+
+
+li{ 
+    margin: 20px auto 10px auto;
+}
+
+a:hover{
+    background-color: #98c1d9;
+    color: black;
+    box-shadow: 3px 3px 20px rgba(152, 193, 217, 0.8); /* Shadow effect */
+
+}

@@ -507,6 +507,13 @@
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\SignupController"/>
       </call>
     </service>
+    <service id="App\Controller\SubscriptionController" class="App\Controller\SubscriptionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\SubscriptionController"/>
+      </call>
+    </service>
     <service id="App\Controller\UserController" class="App\Controller\UserController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -595,7 +602,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.gQn2fz0"/>
+      <argument type="service" id=".service_locator.nx5VXPl"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3430,7 +3437,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.gQn2fz0"/>
+      <argument type="service" id=".service_locator.nx5VXPl"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7326,6 +7333,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SignupController" class="App\Controller\SignupController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SignupController" class="App\Controller\SignupController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SignupController" class="App\Controller\SignupController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SubscriptionController" class="App\Controller\SubscriptionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SubscriptionController" class="App\Controller\SubscriptionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\SubscriptionController" class="App\Controller\SubscriptionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7876,6 +7886,13 @@
         <argument key="mailer" type="service_closure" id="mailer.mailer"/>
       </argument>
     </service>
+    <service id=".service_locator.KWvDDNg" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service_closure" id="doctrine"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.KWvDDNg.Symfony\Component\Security\Core\User\UserInterface"/>
+      </argument>
+    </service>
     <service id=".service_locator.kPUOGb8" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7894,7 +7911,7 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.gQn2fz0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.nx5VXPl" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7926,6 +7943,7 @@
         <argument key="App\Controller\SignupController::confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
         <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\SignupController::subscribe" type="service_closure" id=".service_locator.o6sN0hZ"/>
+        <argument key="App\Controller\SubscriptionController::subscribe" type="service_closure" id=".service_locator.KWvDDNg"/>
         <argument key="App\Controller\UserController::countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UserController::getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
@@ -7966,6 +7984,7 @@
         <argument key="App\Controller\SignupController:confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
         <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.d.DrzwQ"/>
         <argument key="App\Controller\SignupController:subscribe" type="service_closure" id=".service_locator.o6sN0hZ"/>
+        <argument key="App\Controller\SubscriptionController:subscribe" type="service_closure" id=".service_locator.KWvDDNg"/>
         <argument key="App\Controller\UserController:countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UserController:getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
@@ -8712,6 +8731,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.jUv.zyj" method="withContext"/>
     </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\SubscriptionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SubscriptionController"/>
+      <argument>App\Controller\SubscriptionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
     <service id=".service_locator.jUv.zyj.App\Controller\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\UserController"/>
       <argument>App\Controller\UserController</argument>
@@ -8890,6 +8915,7 @@
           <argument>App\Controller\NotificationController</argument>
           <argument>App\Controller\SearchCarController</argument>
           <argument>App\Controller\SignupController</argument>
+          <argument>App\Controller\SubscriptionController</argument>
           <argument>App\Controller\UserController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -9087,6 +9113,9 @@
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
+    </service>
+    <service id=".errored..service_locator.KWvDDNg.Symfony\Component\Security\Core\User\UserInterface" class="Symfony\Component\Security\Core\User\UserInterface">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.KWvDDNg&quot;: it references interface &quot;Symfony\Component\Security\Core\User\UserInterface&quot; but no such service exists. You should maybe alias this interface to the existing &quot;App\Entity\User&quot; service."/>
     </service>
     <service id=".App\Command\RemoveExpiredSubscriptionsCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>app:remove-expired-subscriptions</argument>
@@ -10289,7 +10318,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.gQn2fz0"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.nx5VXPl"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -10349,6 +10378,7 @@
     <service id=".service_locator.MK0VIDU" alias=".service_locator.iWwbKUs"/>
     <service id=".service_locator.ERpstIw" alias=".service_locator.d.DrzwQ"/>
     <service id=".service_locator.xvMi000" alias=".service_locator.UGQzfSd"/>
+    <service id=".service_locator.xqCY2bX" alias=".service_locator.KWvDDNg"/>
     <service id=".service_locator.025Wi8b" alias=".service_locator.kPUOGb8"/>
     <service id=".service_locator._iAPkT3" alias=".service_locator.JMt5F1x"/>
     <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>

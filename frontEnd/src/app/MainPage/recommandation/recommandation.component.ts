@@ -92,5 +92,13 @@ export class RecommandationComponent implements OnInit {
        }
     );
    }
+   contactCarOwnerFromModal(): void {
+    if (this.selectedCarOwnerUsername) {
+       this.router.navigate(['/contactinput'], { queryParams: { receiver: this.selectedCarOwnerUsername } });
+    } else {
+       console.error('Car owner username not found');
+    }
+   }
+   
    
 }

@@ -29,8 +29,8 @@
    <label for="speciality" class="form-label">Speciality:</label>
    <input type="text" id="speciality" [(ngModel)]="user.speciality" name="speciality" class="form-control">
    <label for="jobDescription" class="form-label">Job Description:</label>
-   <input type="file" id="jobDescription" (change)="onJobDescriptionFileChange($event)" name="jobDescription" class="form-control">
- </div>
+   <input type="file" id="jobDescription" accept=".pdf" (change)="onJobDescriptionFileChange($event)" name="jobDescription" class="form-control">
+  </div>
  
  <button type="submit" style="margin-top:20px ; width: 50%; margin-left: 25%; border: double 1px rgb(77, 199, 199)" class="btn btn-outlined-info text-info"  >Register</button>
 </form>
