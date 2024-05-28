@@ -71,8 +71,8 @@
            <!-- Add this below the username for experts -->
            <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
             <a routerLink="/userprofile">{{ authService.getUsername() }}</a>
-            <button *ngIf="!isUserSubscribed()" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#subscribeModal">Subscribe</button>
-            <div *ngIf="isUserSubscribed()" class="btn btn-success">Subscribed</div>
+            <button *ngIf="!authService.isUserSubscribed()" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#subscribeModal">Subscribe</button>
+            <div *ngIf="authService.isUserSubscribed()" class="btn btn-success">Subscribed</div>
           </ng-container>
         
   

@@ -1,21 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
-import { SharedService } from '../../shared.service';
+import { SharedService } from '../../shared.service'; 
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
-  userType: string = ''; // Add a property to store the user type
+export class NavBarComponent implements OnInit {
+  userType: string = ''; 
   receiverRole: string = '';
 
   constructor(public authService: AuthService, private sharedService: SharedService) {}
 
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.authService.checkSubscriptionStatus();
+    }
+  }
+
   setReceiverRole(role: string): void {
     this.receiverRole = role;
-    this.sharedService.changeUserType(role); // Notify the shared service of the role change
+    this.sharedService.changeUserType(role);
   }
 
   isLoggedIn() {
@@ -32,9 +38,5 @@ export class NavBarComponent {
 
   setUserType(type: string): void {
     this.sharedService.changeUserType(type);
-  }
-
-  isUserSubscribed(): boolean {
-    return this.authService.isUserSubscribed();
   }
 }

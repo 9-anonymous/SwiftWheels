@@ -74,32 +74,32 @@ class UserController extends AbstractController
         }
   
 
-#[Route('/users/{id}', name: 'app_user_details', methods: ['GET'])]
-public function getUserDetails($id, UserRepository $userRepository): JsonResponse
-{
-    $user = $userRepository->find($id);
-
-    if (!$user) {
-        return new JsonResponse(['message' => 'User not found'], 404);
-    }
-
-    $data = [
-        'id' => $user->getId(),
-        'username' => $user->getUsername(),
-        'email' => $user->getEmail(),
-        'roles' => $user->getRoles(),
-        'pictureUrl' => $user->getPictureUrl(),
-        'bankAccount' => $user->getBankAccount(),
-        'bankAmount' => $user->getBankAmount(),
-        'jobTitle' => $user->getJobTitle(),
-        'speciality' => $user->getSpeciality(),
-        'jobDescription' => $user->getJobDescription(),
-        'confirmationToken' => $user->getConfirmationToken(),
-        'isSubscribed' => $user->getIsSubscribed(),
-       
-    ];
-
-    return new JsonResponse($data);
-}
+        #[Route('/users/{id}', name: 'app_user_details', methods: ['GET'])]
+        public function getUserDetails($id, UserRepository $userRepository): JsonResponse
+        {
+            $user = $userRepository->find($id);
+        
+            if (!$user) {
+                return new JsonResponse(['message' => 'User not found'], 404);
+            }
+        
+            $data = [
+                'id' => $user->getId(),
+                'username' => $user->getUsername(),
+                'email' => $user->getEmail(),
+                'roles' => $user->getRoles(),
+                'pictureUrl' => $user->getPictureUrl(),
+                'bankAccount' => $user->getBankAccount(),
+                'bankAmount' => $user->getBankAmount(),
+                'jobTitle' => $user->getJobTitle(),
+                'speciality' => $user->getSpeciality(),
+                'jobDescription' => $user->getJobDescription(),
+                'confirmationToken' => $user->getConfirmationToken(),
+                'isSubscribed' => $user->getIsSubscribed(),
+            ];
+        
+            return new JsonResponse($data);
+        }
+        
 
     }

@@ -65,7 +65,7 @@ export class AuthService {
    }
    
    getUserById(id: string): Observable<any> {
-    return this.http.get<any>(`/users/${id}`);
+    return this.http.get<any>(`http://localhost:8000/users/${id}`);
   }
   isUserSubscribed(): boolean {
     return this.subscribed;
@@ -74,5 +74,10 @@ export class AuthService {
   // Method to set subscription status
   setSubscribed(status: boolean): void {
     this.subscribed = status;
+  }
+  checkSubscriptionStatus(): void {
+    this.getUserById(this.userIdValue).subscribe(user => {
+      this.subscribed = user.isSubscribed;
+    });
   }
 }
