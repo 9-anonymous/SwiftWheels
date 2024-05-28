@@ -1,0 +1,37 @@
+<div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subscribeModalLabel">Subscribe</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="payment-info">
+            <form>
+              <div class="mb-3">
+                <label for="subscriptionDuration" class="credit-card-label">Duration</label>
+                <select class="form-select credit-inputs" id="subscriptionDuration" [(ngModel)]="subscription.duration" name="duration" (change)="updatePrice()">
+                  <option value="1 month">1 Month - $10</option>
+                  <option value="6 months">6 Months - $50</option>
+                  <option value="1 year">1 Year - $90</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="subscriptionPrice" class="credit-card-label">Price</label>
+                <input type="text" class="form-control credit-inputs" id="subscriptionPrice" [value]="subscription.price | currency" disabled>
+              </div>
+              <hr class="line">
+              <div class="d-flex justify-content-between information">
+                <span>Total (Incl. taxes)</span>
+                <span id="totalAmount">{{ subscription.price | currency }}</span>
+              </div>
+              <button type="button" class="btn btn-primary btn-block d-flex justify-content-between mt-3" (click)="subscribe()">
+                <span id="checkoutAmount">{{ subscription.price | currency }}</span>
+                <span>Subscribe <i class="fa fa-long-arrow-right ml-1"></i></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

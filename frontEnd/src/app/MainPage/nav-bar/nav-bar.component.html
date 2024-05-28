@@ -64,10 +64,19 @@
              <a routerLink="/admin">Admin</a>
 
            </ng-container>
-           <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') || authService.hasRole('ROLE_EXPERT') ">
+           <ng-container *ngIf="authService.hasRole('ROLE_CLIENT') ">
              <a routerLink="/userprofile">{{ authService.getUsername() }}</a>
 
            </ng-container>
+           <!-- Add this below the username for experts -->
+           <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
+            <a routerLink="/userprofile">{{ authService.getUsername() }}</a>
+            <button *ngIf="!isUserSubscribed()" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#subscribeModal">Subscribe</button>
+            <div *ngIf="isUserSubscribed()" class="btn btn-success">Subscribed</div>
+          </ng-container>
+        
+  
+
          </ng-container>
          <ng-container *ngIf="!authService.isAuthenticated(); ">
            <div class="dropdown">
@@ -85,5 +94,7 @@
          </ng-container>
        </div>
   </div>
+
  </div>
+ <app-subscription-modal></app-subscription-modal>
  

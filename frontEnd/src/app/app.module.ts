@@ -51,6 +51,7 @@ import { VoitureComponent } from './voiture/voiture.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PanierComponent } from './panier/panier.component';
 import { ReceiptComponent } from './receipt/receipt.component';
+import { SubscriptionModalComponent } from './subscription-modal/subscription-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +97,7 @@ import { ReceiptComponent } from './receipt/receipt.component';
     UserProfileComponent,
     PanierComponent,
     ReceiptComponent,
+    SubscriptionModalComponent,
 
   ],
   imports: [

@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\Notification;
 use App\Entity\User;
+use App\Entity\Subscription;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,6 +19,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use App\Repository\NotificationRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 
 class SignupController extends AbstractController
 {
@@ -28,7 +31,7 @@ class SignupController extends AbstractController
     private $userRepository;
     private $mailer;
 
-    public function __construct(MailerInterface $mailer, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, MessageRepository $messageRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
+    public function __construct(EntityManagerInterface $entityManager,MailerInterface $mailer, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, MessageRepository $messageRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
     {
         $this->logger = $logger;
         $this->urlGenerator = $urlGenerator;
@@ -36,6 +39,8 @@ class SignupController extends AbstractController
         $this->notificationRepository = $notificationRepository;
         $this->userRepository = $userRepository;
         $this->mailer = $mailer;
+        $this->entityManager = $entityManager;
+
     }
 
     #[Route('/register', name: 'api_register', methods: ['POST'])]
@@ -100,6 +105,8 @@ class SignupController extends AbstractController
         } elseif (in_array('ROLE_EXPERT', $roles)) {
             $user->setJobTitle($data['jobTitle']);
             $user->setSpeciality($data['speciality']);
+            $user->setIsSubscribed(false);
+
             if (isset($data['bankAccount'])) {
                 $user->setBankAccount($data['bankAccount']);
                 $user->setBankAmount(9515135);
@@ -199,4 +206,36 @@ class SignupController extends AbstractController
     
         return new JsonResponse(['message' => 'Expert confirmed'], JsonResponse::HTTP_OK);
     }
+    #[Route('/subscribe', name: 'api_subscribe', methods: ['POST'])]
+    public function subscribe(Request $request, ManagerRegistry $doctrine): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $userId = $data['userId'];
+        $duration = $data['duration'];
+        $price = $data['price'];
+    
+        $entityManager = $doctrine->getManager();
+        $user = $entityManager->getRepository(User::class)->find($userId);
+    
+        if (!$user) {
+            return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+    
+        // Reduce the user's bank amount
+        $user->setBankAmount($user->getBankAmount() - $price);
+        $user->setIsSubscribed(true);
+    
+        // Set the subscription end date
+        $endDate = new \DateTime();
+        $endDate->modify('+' . $duration);
+    
+        $subscription = new Subscription();
+        $subscription->setUser($user);
+        $subscription->setEndDate($endDate);
+    
+        $entityManager->persist($subscription);
+        $entityManager->flush();
+    
+        return new JsonResponse(['message' => 'Subscription successful'], JsonResponse::HTTP_CREATED);
     }
+}    

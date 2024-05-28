@@ -95,9 +95,11 @@ public function getUserDetails($id, UserRepository $userRepository): JsonRespons
         'speciality' => $user->getSpeciality(),
         'jobDescription' => $user->getJobDescription(),
         'confirmationToken' => $user->getConfirmationToken(),
+        'isSubscribed' => $user->getIsSubscribed(),
        
     ];
 
     return new JsonResponse($data);
 }
+
     }

@@ -409,6 +409,18 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Command\RemoveExpiredSubscriptionsCommand" class="App\Command\RemoveExpiredSubscriptionsCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="App\Repository\SubscriptionRepository"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setName">
+        <argument>app:remove-expired-subscriptions</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Removes expired subscriptions from the database.</argument>
+      </call>
+    </service>
     <service id="App\Controller\AppController" class="App\Controller\AppController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -484,6 +496,7 @@
     <service id="App\Controller\SignupController" class="App\Controller\SignupController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <argument type="service" id="mailer.mailer"/>
       <argument type="service" id="monolog.logger"/>
       <argument type="service" id="router.default"/>
@@ -518,6 +531,7 @@
     <service id="App\Entity\Message" class="App\Entity\Message" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Notification" class="App\Entity\Notification" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\Receipt" class="App\Entity\Receipt" autowire="true" autoconfigure="true"/>
+    <service id="App\Entity\Subscription" class="App\Entity\Subscription" autowire="true" autoconfigure="true"/>
     <service id="App\Entity\User" class="App\Entity\User" public="true" autowire="true" autoconfigure="true"/>
     <service id="App\Form\CarType" class="App\Form\CarType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -543,6 +557,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\ReceiptRepository" class="App\Repository\ReceiptRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\SubscriptionRepository" class="App\Repository\SubscriptionRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -577,7 +595,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.QN_IY4Z"/>
+      <argument type="service" id=".service_locator.jInZss0"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3412,7 +3430,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.QN_IY4Z"/>
+      <argument type="service" id=".service_locator.jInZss0"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5108,7 +5126,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.h5oHmsl"/>
+      <argument type="service" id=".service_locator.LuXHcCQ"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7276,6 +7294,8 @@
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
       <tag name="doctrine.fixtures.purger_factory" alias="default"/>
     </service>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\RemoveExpiredSubscriptionsCommand" class="App\Command\RemoveExpiredSubscriptionsCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\RemoveExpiredSubscriptionsCommand" class="App\Command\RemoveExpiredSubscriptionsCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AppController" class="App\Controller\AppController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AppController" class="App\Controller\AppController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AppController" class="App\Controller\AppController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7329,6 +7349,8 @@
     <service id=".abstract.instanceof.App\Repository\NotificationRepository" class="App\Repository\NotificationRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ReceiptRepository" class="App\Repository\ReceiptRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ReceiptRepository" class="App\Repository\ReceiptRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\SubscriptionRepository" class="App\Repository\SubscriptionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\SubscriptionRepository" class="App\Repository\SubscriptionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.bJ.4HC5" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7872,7 +7894,7 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.QN_IY4Z" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.jInZss0" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CarController::countCars" type="service_closure" id=".service_locator.3LuXUDl"/>
@@ -7903,6 +7925,7 @@
         <argument key="App\Controller\SearchCarController::searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
         <argument key="App\Controller\SignupController::confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
         <argument key="App\Controller\SignupController::register" type="service_closure" id=".service_locator.d.DrzwQ"/>
+        <argument key="App\Controller\SignupController::subscribe" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\UserController::countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController::deleteClient" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UserController::getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
@@ -7941,6 +7964,7 @@
         <argument key="App\Controller\SearchCarController:searchCars" type="service_closure" id=".service_locator.iWwbKUs"/>
         <argument key="App\Controller\SignupController:confirmExpert" type="service_closure" id=".service_locator.UGQzfSd"/>
         <argument key="App\Controller\SignupController:register" type="service_closure" id=".service_locator.d.DrzwQ"/>
+        <argument key="App\Controller\SignupController:subscribe" type="service_closure" id=".service_locator.o6sN0hZ"/>
         <argument key="App\Controller\UserController:countClients" type="service_closure" id=".service_locator.kPUOGb8"/>
         <argument key="App\Controller\UserController:deleteClient" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UserController:getClients" type="service_closure" id=".service_locator.JMt5F1x"/>
@@ -8237,7 +8261,7 @@
         <argument key="stof_doctrine_extensions.listener.timestampable" type="service_closure" id="stof_doctrine_extensions.listener.timestampable"/>
       </argument>
     </service>
-    <service id=".service_locator.h5oHmsl" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.LuXHcCQ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CarRepository" type="service_closure" id="App\Repository\CarRepository"/>
@@ -8246,6 +8270,7 @@
         <argument key="App\Repository\MessageRepository" type="service_closure" id="App\Repository\MessageRepository"/>
         <argument key="App\Repository\NotificationRepository" type="service_closure" id="App\Repository\NotificationRepository"/>
         <argument key="App\Repository\ReceiptRepository" type="service_closure" id="App\Repository\ReceiptRepository"/>
+        <argument key="App\Repository\SubscriptionRepository" type="service_closure" id="App\Repository\SubscriptionRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
@@ -9061,6 +9086,13 @@
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
     </service>
+    <service id=".App\Command\RemoveExpiredSubscriptionsCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>app:remove-expired-subscriptions</argument>
+      <argument type="collection"/>
+      <argument>Removes expired subscriptions from the database.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="App\Command\RemoveExpiredSubscriptionsCommand"/>
+    </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
       <argument type="collection"/>
@@ -9768,8 +9800,9 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.rOxCAhn"/>
+      <argument type="service" id=".service_locator.fmc2uxm"/>
       <argument type="collection">
+        <argument key="app:remove-expired-subscriptions">App\Command\RemoveExpiredSubscriptionsCommand</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
         <argument key="cache:clear">console.command.cache_clear</argument>
@@ -9892,9 +9925,10 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.rOxCAhn" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.fmc2uxm" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Command\RemoveExpiredSubscriptionsCommand" type="service_closure" id=".App\Command\RemoveExpiredSubscriptionsCommand.lazy"/>
         <argument key="Doctrine\DBAL\Tools\Console\Command\RunSqlCommand" type="service_closure" id="Doctrine\DBAL\Tools\Console\Command\RunSqlCommand"/>
         <argument key="asset_mapper.command.compile" type="service_closure" id=".asset_mapper.command.compile.lazy"/>
         <argument key="asset_mapper.command.debug" type="service_closure" id=".asset_mapper.command.debug.lazy"/>
@@ -10253,7 +10287,7 @@
     <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.QN_IY4Z"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.jInZss0"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

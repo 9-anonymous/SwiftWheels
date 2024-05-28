@@ -10,6 +10,7 @@ export class AuthService {
   private isAuthenticatedValue = false;
   private usernameValue = '';
   private userIdValue: string = ''; // declare userIdValue property
+  private subscribed: boolean = false; 
 
   constructor(private http: HttpClient) {
     const token = localStorage.getItem('token');
@@ -65,5 +66,13 @@ export class AuthService {
    
    getUserById(id: string): Observable<any> {
     return this.http.get<any>(`/users/${id}`);
-  } 
+  }
+  isUserSubscribed(): boolean {
+    return this.subscribed;
+  }
+
+  // Method to set subscription status
+  setSubscribed(status: boolean): void {
+    this.subscribed = status;
+  }
 }

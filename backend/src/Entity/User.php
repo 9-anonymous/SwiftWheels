@@ -70,6 +70,12 @@ private ?string $confirmationToken = null;
 #[Groups("user:read")]
 private $cars;
 
+#[ORM\Column(type: 'boolean')]
+#[Groups("user:read")]
+private bool $isSubscribed = false;
+
+
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
@@ -252,5 +258,16 @@ public function getJobDescription(): ?string
     }
 
     
+    public function getIsSubscribed(): bool
+    {
+        return $this->isSubscribed;
+    }
+
+    public function setIsSubscribed(bool $isSubscribed): self
+    {
+        $this->isSubscribed = $isSubscribed;
+        return $this;
+    }
+
 
 }

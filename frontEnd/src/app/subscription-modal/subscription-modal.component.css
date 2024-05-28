@@ -1,0 +1,54 @@
+.modal-header {
+  background-color: black;
+  color: #fff;
+}
+
+.modal-body {
+  margin: 0;
+  padding: 0;
+}
+
+.payment-info {
+  background: black;
+  padding: 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  font-family: "Josefin Sans", sans-serif;
+  width: 100%;
+}
+
+.d-flex span {
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.credit-inputs {
+  background: rgb(102, 102, 221);
+  color: #fff !important;
+  border-color: rgb(102, 102, 221);
+}
+
+.credit-inputs::placeholder {
+  color: #fff;
+  font-size: 13px;
+}
+
+.credit-card-label {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.form-control.credit-inputs:focus {
+  background: rgb(102, 102, 221);
+  border: rgb(102, 102, 221);
+}
+
+.line {
+  border-bottom: 1px solid rgb(102, 102, 221);
+}
+
+.information span {
+  font-size: 12px;
+  font-weight: 500;
+}

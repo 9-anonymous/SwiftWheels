@@ -49,4 +49,5 @@ getCartItems(userId: string): Observable<any[]> {
 createReceipt(receipt: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/receipt/create`, receipt);
 }
+
 }
