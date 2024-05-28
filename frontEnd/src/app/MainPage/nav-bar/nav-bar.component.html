@@ -40,8 +40,11 @@
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>
               </ng-container>
               <ng-container *ngIf="authService.hasRole('ROLE_EXPERT')">
+                <a *ngIf="authService.isUserSubscribed(); else notSubscribedButton" class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
+                <ng-template #notSubscribedButton>
+                  <a class="dropdown-item" (click)="showSubscriptionAlert()">Contact Client</a>
+                </ng-template>
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_ADMIN')">Contact Admin</a>
-                <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_CLIENT')">Contact Client</a>
               </ng-container>
               <ng-container *ngIf="authService.hasRole('ROLE_ADMIN')">
                 <a class="dropdown-item" routerLink="/contactinput" (click)="setReceiverRole('ROLE_EXPERT')">Contact Expert</a>

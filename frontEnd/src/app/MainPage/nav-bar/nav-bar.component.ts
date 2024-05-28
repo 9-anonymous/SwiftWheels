@@ -40,4 +40,9 @@ export class NavBarComponent implements OnInit {
   setUserType(type: string): void {
     this.sharedService.changeUserType(type);
   }
+  showSubscriptionAlert(): void {
+    if (!this.authService.isUserSubscribed()) {
+      alert('You must be subscribed to contact clients.');
+    }
+  }
 }
